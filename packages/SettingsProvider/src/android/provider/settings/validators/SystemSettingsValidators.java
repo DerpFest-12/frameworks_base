@@ -258,5 +258,6 @@ public class SystemSettingsValidators {
         VALIDATORS.put(System.FLASHLIGHT_ON_CALL_RATE, new InclusiveIntegerRangeValidator(1, 5));
         VALIDATORS.put(System.VOLUME_DIALOG_TIMEOUT, new InclusiveIntegerRangeValidator(1, 7));
         VALIDATORS.put(System.NOTIFICATION_SOUND_VIB_SCREEN_ON, BOOLEAN_VALIDATOR);
+        VALIDATORS.put(System.MUTE_ANNOYING_NOTIFICATIONS_THRESHOLD, BOOLEAN_VALIDATOR);
     }
 }
