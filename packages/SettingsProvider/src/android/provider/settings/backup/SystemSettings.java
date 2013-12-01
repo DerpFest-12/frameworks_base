@@ -97,5 +97,6 @@ public class SystemSettings {
         Settings.System.FLASHLIGHT_ON_CALL_RATE,
         Settings.System.VOLUME_DIALOG_TIMEOUT,
         Settings.System.NOTIFICATION_SOUND_VIB_SCREEN_ON,
+        Settings.System.MUTE_ANNOYING_NOTIFICATIONS_THRESHOLD,
     };
 }
