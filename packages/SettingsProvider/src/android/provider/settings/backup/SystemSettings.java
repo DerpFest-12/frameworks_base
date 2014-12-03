@@ -111,5 +111,6 @@ public class SystemSettings {
         Settings.System.SHOW_LOCKSCREEN_MEDIA_ART,
         Settings.System.DATA_DISABLED_ICON,
         Settings.System.ROAMING_INDICATOR_ICON,
+        Settings.System.QS_SMART_PULLDOWN,
     };
 }
