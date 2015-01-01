@@ -195,5 +195,6 @@ public class SecureSettings {
         Settings.Secure.LOCKSCREEN_SHOW_WALLET,
         Settings.Secure.LOCKSCREEN_USE_DOUBLE_LINE_CLOCK,
         Settings.Secure.VOLUME_LINK_NOTIFICATION,
+        Settings.Secure.QUICK_SETTINGS_TILES_VIBRATE,
     };
 }
