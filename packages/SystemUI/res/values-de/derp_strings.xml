@@ -47,4 +47,7 @@
     <string name="accessibility_quick_settings_ambient_display_on">Inaktivitätsdisplay an.</string>
     <string name="accessibility_quick_settings_ambient_display_changed_off">Inaktivitätsdisplay ausgeschaltet.</string>
     <string name="accessibility_quick_settings_ambient_display_changed_on">Inaktivitätsdisplay eingeschaltet.</string>
+
+    <!-- USB tethering QS tile -->
+    <string name="quick_settings_usb_tether_label">USB-Tethering</string>
 </resources>
