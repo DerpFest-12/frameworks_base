@@ -347,5 +347,8 @@ public class SecureSettingsValidators {
         VALIDATORS.put(Secure.QUICK_SETTINGS_TILES_ANIM_DURATION, ANY_INTEGER_VALIDATOR);
         VALIDATORS.put(Secure.QUICK_SETTINGS_TILES_ANIM_INTERPOLATOR,
                 new InclusiveIntegerRangeValidator(0, 7));
+        VALIDATORS.put(Secure.LOCK_PATTERN_SIZE, ANY_INTEGER_VALIDATOR);
+        VALIDATORS.put(Secure.LOCK_DOTS_VISIBLE, BOOLEAN_VALIDATOR);
+        VALIDATORS.put(Secure.LOCK_SHOW_ERROR_PATH, BOOLEAN_VALIDATOR);
     }
 }
