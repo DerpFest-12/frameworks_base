@@ -200,5 +200,8 @@ public class SecureSettings {
         Settings.Secure.QUICK_SETTINGS_TILES_ANIM_STYLE,
         Settings.Secure.QUICK_SETTINGS_TILES_ANIM_DURATION,
         Settings.Secure.QUICK_SETTINGS_TILES_ANIM_DURATION,
+        Settings.Secure.LOCK_PATTERN_SIZE,
+        Settings.Secure.LOCK_DOTS_VISIBLE,
+        Settings.Secure.LOCK_SHOW_ERROR_PATH,
     };
 }
