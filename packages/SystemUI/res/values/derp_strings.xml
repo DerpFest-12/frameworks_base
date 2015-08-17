@@ -149,4 +149,7 @@
     <string name="screenrecord_longer_timeout_switch_label">Bigger file size limit</string>
     <string name="screenrecord_longer_timeout_switch_summary">Limit recording size to 15 GB</string>
 
+    <!-- Volume panel QS tile -->
+    <string name="quick_settings_volume_panel_label">Volume panel</string>
+
 </resources>
