@@ -136,4 +136,7 @@
     <string name="screenrecord_longer_timeout_switch_label">Größere Dateigrößenbeschränkung</string>
     <string name="screenrecord_longer_timeout_switch_summary">Begrenzen Sie die Aufzeichnungsgröße auf 15 GB</string>
 
+    <!-- Volume panel QS tile -->
+    <string name="quick_settings_volume_panel_label">Lautstärkeregler</string>
+
 </resources>
