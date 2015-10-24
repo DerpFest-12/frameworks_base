@@ -108,5 +108,6 @@ public class SystemSettings {
         Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN,
         Settings.System.VIBRATE_ON_NOTIFICATIONS,
         Settings.System.LOCKSCREEN_MEDIA_BLUR,
+        Settings.System.SHOW_LOCKSCREEN_MEDIA_ART,
     };
 }
