@@ -48,7 +48,7 @@
 
     <!-- The default tiles to display in QuickSettings -->
     <string name="quick_settings_tiles_extra" translatable="false">
-        caffeine
+        ambient_display,caffeine
     </string>
 
 </resources>
