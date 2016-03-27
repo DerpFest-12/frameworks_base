@@ -139,5 +139,6 @@ public class SystemSettings {
         Settings.System.SCREEN_OFF_ANIMATION,
         Settings.System.DISABLE_RIPPLE_EFFECT,
         Settings.System.HEADS_UP_NOTIFICATION_SNOOZE,
+        Settings.System.HEADS_UP_TIMEOUT,
     };
 }
