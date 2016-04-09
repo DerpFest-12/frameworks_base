@@ -138,5 +138,6 @@ public class SystemSettings {
         Settings.System.ARTWORK_MEDIA_BACKGROUND_ALPHA,
         Settings.System.SCREEN_OFF_ANIMATION,
         Settings.System.DISABLE_RIPPLE_EFFECT,
+        Settings.System.HEADS_UP_NOTIFICATION_SNOOZE,
     };
 }
