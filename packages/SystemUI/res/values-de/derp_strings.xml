@@ -102,4 +102,8 @@
     <string name="active_edge_app_select_title">App auswählen</string>
     <string name="active_edge_activity_select_title">Aktion wählen</string>
 
+    <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_dash_charging_time">Dash-Laden (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> bis zur vollständigen Aufladung)</string>
+    <string name="keyguard_plugged_in_dash_charging">Dash-Laden</string>
+
 </resources>
