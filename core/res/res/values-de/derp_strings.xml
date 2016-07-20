@@ -66,5 +66,5 @@
     <string name="aerr_disable">App deaktivieren</string>
 
     <!-- Vendor mismatch fingerprint warning [CHAR LIMIT=NONE] -->
-    <string name="system_error_vendorprint">It appears your vendor image may be out of date. Please flash the latest vendor image for your device.</string>
+    <string name="system_error_vendorprint">Das verwendete Vendor-Image stimmt nicht mit dem des Stand des Systems überein. Bitte das <xliff:g id="string">%s</xliff:g> Vendor-Image für ihr Gerät flashen.</string>
 </resources>
