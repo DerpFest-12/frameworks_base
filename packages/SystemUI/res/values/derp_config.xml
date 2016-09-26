@@ -48,7 +48,7 @@
 
     <!-- The default tiles to display in QuickSettings -->
     <string name="quick_settings_tiles_extra" translatable="false">
-        ambient_display,caffeine,usb_tether
+        ambient_display,caffeine,sync,usb_tether
     </string>
 
 </resources>
