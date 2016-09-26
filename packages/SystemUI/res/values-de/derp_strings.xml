@@ -50,4 +50,11 @@
 
     <!-- USB tethering QS tile -->
     <string name="quick_settings_usb_tether_label">USB-Tethering</string>
+
+     <!-- Sync QS Tile -->
+    <string name="quick_settings_sync_label">Synchronisation</string>
+    <string name="accessibility_quick_settings_sync_off">Synchronisierung aus.</string>
+    <string name="accessibility_quick_settings_sync_on">Synchronisierung an.</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Synchronisierung ist ausgeschaltet.</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Synchronisierung ist eingeschaltet.</string>
 </resources>
