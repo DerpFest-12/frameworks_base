@@ -77,6 +77,7 @@ class FooterActionsController @Inject constructor(
     private val settingsButtonContainer: View? = view.findViewById(R.id.settings_button_container)
     private val editButton: View = view.findViewById(android.R.id.edit)
     private val powerMenuLite: View = view.findViewById(R.id.pm_lite)
+    private val runningServicesButton: View = view.findViewById(R.id.running_services_button)
 
     private val onUserInfoChangedListener = OnUserInfoChangedListener { _, picture, _ ->
         val isGuestUser: Boolean = userManager.isGuestUser(KeyguardUpdateMonitor.getCurrentUser())
@@ -117,6 +118,11 @@ class FooterActionsController @Inject constructor(
         } else if (v === powerMenuLite) {
             uiEventLogger.log(GlobalActionsDialogLite.GlobalActionsEvent.GA_OPEN_QS)
             globalActionsDialog.showOrHideDialog(false, true, v)
+        } else if (v === runningServicesButton) {
+            metricsLogger.action(
+                    if (expanded) MetricsProto.MetricsEvent.ACTION_QS_EXPANDED_SETTINGS_LAUNCH
+                    else MetricsProto.MetricsEvent.ACTION_QS_COLLAPSED_SETTINGS_LAUNCH)
+            startRunningServicesActivity()
         }
     }
 
@@ -179,6 +185,16 @@ class FooterActionsController @Inject constructor(
                 true /* dismissShade */, animationController)
     }
 
+    private fun startRunningServicesActivity() {
+        val animationController = runningServicesButton?.let {
+            ActivityLaunchAnimator.Controller.fromView(
+                    it,
+                    InteractionJankMonitor.CUJ_SHADE_APP_LAUNCH_FROM_SETTINGS_BUTTON)
+            }
+        activityStarter.startActivity(Intent("android.settings.RUNNING_SERVICES"),
+                true /* dismissShade */, animationController)
+    }
+
     @VisibleForTesting
     public override fun onViewAttached() {
         if (showPMLiteButton) {
@@ -189,6 +205,7 @@ class FooterActionsController @Inject constructor(
         }
         settingsButton.setOnClickListener(onClickListener)
         settingsButton.setOnLongClickListener(onLongClickListener)
+        runningServicesButton.setOnClickListener(onClickListener)
         editButton.setOnClickListener(View.OnClickListener { view: View? ->
             if (falsingManager.isFalseTap(FalsingManager.LOW_PENALTY)) {
                 return@OnClickListener
