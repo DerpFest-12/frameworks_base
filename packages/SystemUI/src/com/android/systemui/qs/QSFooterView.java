@@ -45,6 +45,7 @@ import com.android.systemui.R;
 public class QSFooterView extends FrameLayout {
     private PageIndicator mPageIndicator;
     private TextView mBuildText;
+    private View mRunningServicesButton;
     private View mActionsContainer;
 
     protected TouchAnimator mFooterAnimator;
@@ -75,6 +76,7 @@ public class QSFooterView extends FrameLayout {
         super.onFinishInflate();
         mPageIndicator = findViewById(R.id.footer_page_indicator);
         mActionsContainer = requireViewById(R.id.qs_footer_actions);
+        mRunningServicesButton = findViewById(R.id.running_services_button);
         mBuildText = findViewById(R.id.build);
 
         updateResources();
@@ -130,7 +132,7 @@ public class QSFooterView extends FrameLayout {
     @Nullable
     private TouchAnimator createFooterAnimator() {
         TouchAnimator.Builder builder = new TouchAnimator.Builder()
-                .addFloat(mActionsContainer, "alpha", 0, 1)
+                .addFloat(mActionsContainer, "alpha", 0, 1) // contains mRunningServicesButton
                 .addFloat(mPageIndicator, "alpha", 0, 1)
                 .addFloat(mBuildText, "alpha", 0, 1)
                 .setStartDelay(0.9f);
@@ -211,10 +213,12 @@ public class QSFooterView extends FrameLayout {
     }
 
     private void updateClickabilities() {
-        mBuildText.setLongClickable(mBuildText.getVisibility() == View.VISIBLE);
+        mRunningServicesButton.setClickable(mExpanded
+                && mRunningServicesButton.getVisibility() == View.VISIBLE);
     }
 
     private void updateVisibilities() {
         mBuildText.setVisibility(mExpanded && mShouldShowBuildText ? View.VISIBLE : View.INVISIBLE);
+        mRunningServicesButton.setVisibility(mExpanded ? View.VISIBLE : View.INVISIBLE);
     }
 }
