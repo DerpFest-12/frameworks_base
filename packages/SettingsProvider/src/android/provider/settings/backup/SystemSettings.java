@@ -146,5 +146,6 @@ public class SystemSettings {
         Settings.System.AUTO_BRIGHTNESS_ONE_SHOT,
         Settings.System.SHOW_APP_VOLUME,
         Settings.System.SENSOR_BLOCK,
+        Settings.System.LOCK_HIDE_STATUS_BAR,
     };
 }
