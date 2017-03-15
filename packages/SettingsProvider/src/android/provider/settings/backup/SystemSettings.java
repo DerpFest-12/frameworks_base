@@ -110,5 +110,6 @@ public class SystemSettings {
         Settings.System.LOCKSCREEN_MEDIA_BLUR,
         Settings.System.SHOW_LOCKSCREEN_MEDIA_ART,
         Settings.System.DATA_DISABLED_ICON,
+        Settings.System.ROAMING_INDICATOR_ICON,
     };
 }
