@@ -35501,6 +35501,7 @@ package android.provider {
     field public static final android.net.Uri DEFAULT_RINGTONE_URI;
     field @Deprecated public static final String DEVICE_PROVISIONED = "device_provisioned";
     field @Deprecated public static final String DIM_SCREEN = "dim_screen";
+    field public static final String DOUBLE_TAP_SLEEP_GESTURE = "double_tap_sleep_gesture";
     field public static final String DTMF_TONE_TYPE_WHEN_DIALING = "dtmf_tone_type";
     field public static final String DTMF_TONE_WHEN_DIALING = "dtmf_tone";
     field public static final String END_BUTTON_BEHAVIOR = "end_button_behavior";
