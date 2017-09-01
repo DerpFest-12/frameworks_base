@@ -339,6 +339,7 @@ public class NotificationPanelViewController extends PanelViewController {
 
     private GestureDetector mDoubleTapToSleepGesture;
     private boolean mDoubleTapToSleepEnabled;
+    private boolean mIsLockscreenDoubleTapEnabled;
     private int mStatusBarHeaderHeight;
 
     /**
@@ -1907,7 +1908,6 @@ public class NotificationPanelViewController extends PanelViewController {
     protected float getOpeningHeight() {
         return mNotificationStackScrollLayoutController.getOpeningHeight();
     }
-
 
     private boolean handleQsTouch(MotionEvent event) {
         if (mShouldUseSplitNotificationShade && touchXOutsideOfQs(event.getX())) {
@@ -3800,6 +3800,10 @@ public class NotificationPanelViewController extends PanelViewController {
         updateMaxDisplayedNotifications(true);
     }
 
+    public void setLockscreenDoubleTapToSleep(boolean isDoubleTapEnabled) {
+        mIsLockscreenDoubleTapEnabled = isDoubleTapEnabled;
+    }
+
     public void setDoubleTapToSleep(boolean doubleTapToSleepEnabled) {
         mDoubleTapToSleepEnabled = doubleTapToSleepEnabled;
     }
@@ -3920,11 +3924,12 @@ public class NotificationPanelViewController extends PanelViewController {
                     expand(true /* animate */);
                 }
 
-                if (!mQsExpanded && mDoubleTapToSleepEnabled
-                        && event.getY() < mStatusBarHeaderHeight) {
+                if ((!mQsExpanded && mDoubleTapToSleepEnabled
+                        && event.getY() < mStatusBarHeaderHeight)
+                        || (mIsLockscreenDoubleTapEnabled && !mPulsing && !mDozing
+                            && mBarState == StatusBarState.KEYGUARD)) {
                     mDoubleTapToSleepGesture.onTouchEvent(event);
                 }
-
                 initDownStates(event);
 
                 // If pulse is expanding already, let's give it the touch. There are situations
