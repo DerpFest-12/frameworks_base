@@ -3896,6 +3896,9 @@ public class StatusBar extends SystemUI implements
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.DOUBLE_TAP_SLEEP_GESTURE),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -3906,18 +3909,21 @@ public class StatusBar extends SystemUI implements
                 setUseLessBoringHeadsUp();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.DOUBLE_TAP_SLEEP_GESTURE))) {
-                setDoubleTapToSleep();
+                setLockscreenDoubleTapToSleep();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN))) {
+                setLockscreenDoubleTapToSleep();
             }
         }
 
         public void update() {
             setUseLessBoringHeadsUp();
-            setDoubleTapToSleep();
+            setLockscreenDoubleTapToSleep();
     }
 
     private void setLockscreenDoubleTapToSleep() {
         if (mNotificationShadeWindowViewController != null) {
-            mNotificationShadeWindowViewController.setDoubleTapToSleep();
+            mNotificationShadeWindowViewController.setLockscreenDoubleTapToSleep();
         }
 
     }
