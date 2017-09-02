@@ -160,6 +160,8 @@ public class GlobalSettingsValidators {
                         "14400000",
                         "28800000"
                 }));
+        VALIDATORS.put(Global.WAKELOCK_BLOCKING_ENABLED, BOOLEAN_VALIDATOR);
+        VALIDATORS.put(Global.WAKELOCK_BLOCKING_LIST, ANY_STRING_VALIDATOR);
     }
 }
 
