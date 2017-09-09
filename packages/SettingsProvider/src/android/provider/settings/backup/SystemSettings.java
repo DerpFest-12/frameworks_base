@@ -114,5 +114,6 @@ public class SystemSettings {
         Settings.System.QS_SMART_PULLDOWN,
         Settings.System.BACK_GESTURE_HAPTIC,
         Settings.System.BACK_GESTURE_HEIGHT,
+        Settings.System.LOCKSCREEN_BATTERY_INFO,
     };
 }
