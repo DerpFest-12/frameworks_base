@@ -85,7 +85,9 @@
     <!-- Anti flicker QS tile -->
     <string name="quick_settings_anti_flicker">Anti-Flimmern</string>
 
-    <!-- Statusbar tuner -->
+    <!-- SystemUI Tuner -->
     <string name="statusbar_items_title">Statusleistenelemente</string>
+    <string name="lockscreen_default">Standard</string>
+    <string name="lockscreen_hidden">Keine</string>
 
 </resources>
