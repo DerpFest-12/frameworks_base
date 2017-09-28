@@ -199,4 +199,8 @@
     <string name="quick_settings_derp_label">DerpSpace</string>
     <string name="quick_settings_derp_description">Don\'t press me bro</string>
 
+    <!-- Language toggle tile -->
+    <string name="quick_settings_locale_label">Language</string>
+    <string name="quick_settings_locale_more_locales_toast">Please configure multiple languages to enable toggle functionality</string>
+
 </resources>
