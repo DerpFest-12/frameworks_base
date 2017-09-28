@@ -332,6 +332,9 @@
 
     <uses-permission android:name="android.permission.FORCE_STOP_PACKAGES" />
 
+    <!-- Locale QS -->
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+
     <application
         android:name=".SystemUIApplication"
         android:persistent="true"
