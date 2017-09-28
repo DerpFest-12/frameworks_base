@@ -156,4 +156,9 @@
     <string name="quick_settings_sound_search">Musikerkennung</string>
     <string name="quick_settings_sound_search_no_app">Entschuldigung, aber das funktioniert nicht, wenn Sie keine Musikerkennungsapp haben.</string>
 
+    <!-- Music tile -->
+    <string name="quick_settings_music_label">Musik</string>
+    <string name="quick_settings_music_play">Abspielen</string>
+    <string name="quick_settings_music_pause">Pause</string>
+
 </resources>
