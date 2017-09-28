@@ -283,5 +283,6 @@ public class SystemSettingsValidators {
         VALIDATORS.put(System.CHARGING_ANIMATION, BOOLEAN_VALIDATOR);
         VALIDATORS.put(System.TORCH_POWER_BUTTON_GESTURE, new InclusiveIntegerRangeValidator(0, 2));
         VALIDATORS.put(System.DOZE_ON_CHARGE, BOOLEAN_VALIDATOR);
+        VALIDATORS.put(System.MUSIC_TILE_TITLE, BOOLEAN_VALIDATOR);
     }
 }

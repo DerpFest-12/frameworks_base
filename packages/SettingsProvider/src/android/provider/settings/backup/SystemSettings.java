@@ -119,5 +119,6 @@ public class SystemSettings {
         Settings.System.CHARGING_ANIMATION,
         Settings.System.TORCH_POWER_BUTTON_GESTURE,
         Settings.System.DOZE_ON_CHARGE,
+        Settings.System.MUSIC_TILE_TITLE,
     };
 }
