@@ -17,6 +17,7 @@ package com.android.server.derp.display;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.hardware.display.ColorDisplayManager;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.UserHandle;
@@ -36,7 +37,6 @@ import static com.android.server.derp.display.LiveDisplayService.DISPLAY_CHANGED
 import static com.android.server.derp.display.LiveDisplayService.MODE_CHANGED;
 import static com.android.server.derp.display.LiveDisplayService.TWILIGHT_CHANGED;
 
-import com.android.internal.app.ColorDisplayController;
 
 public abstract class LiveDisplayFeature {
 
@@ -53,7 +53,7 @@ public abstract class LiveDisplayFeature {
     public LiveDisplayFeature(Context context, Handler handler) {
         mContext = context;
         mHandler = handler;
-        mNightDisplayAvailable = ColorDisplayController.isAvailable(mContext);
+        mNightDisplayAvailable = ColorDisplayManager.isNightDisplayAvailable(mContext);
     }
 
     public abstract void onStart();
