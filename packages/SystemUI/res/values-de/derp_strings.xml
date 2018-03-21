@@ -154,5 +154,6 @@
 
     <!-- Sound Search tile -->
     <string name="quick_settings_sound_search">Musikerkennung</string>
+    <string name="quick_settings_sound_search_no_app">Entschuldigung, aber das funktioniert nicht, wenn Sie keine Musikerkennungsapp haben.</string>
 
 </resources>
