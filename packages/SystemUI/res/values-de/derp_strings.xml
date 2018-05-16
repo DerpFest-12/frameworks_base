@@ -75,4 +75,11 @@
     <string name="accessibility_quick_settings_heads_up_changed_off">Pop-up ausgeschaltet.</string>
     <string name="accessibility_quick_settings_heads_up_changed_on">Pop-up eingeschaltet.</string>
 
+    <!-- Reader mode QS tile -->
+    <string name="quick_settings_reading_mode">Lese-Modus</string>
+    <string name="accessibility_quick_settings_reading_mode_on">Lesemodus an.</string>
+    <string name="accessibility_quick_settings_reading_mode_off">Lesemodus aus.</string>
+    <string name="accessibility_quick_settings_reading_mode_changed_on">Lesemodus angeschaltet.</string>
+    <string name="accessibility_quick_settings_reading_mode_changed_off">Lesemodus ausgeschaltet.</string>
+
 </resources>
