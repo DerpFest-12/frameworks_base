@@ -46,4 +46,8 @@
     <!-- If not zero, limits the internal screen recorder's framerate to the set value. -->
     <integer name="config_screenRecorderMaxFramerate">0</integer>
 
+    <!-- The default tiles to display in QuickSettings -->
+    <string name="quick_settings_tiles_extra" translatable="false">
+    </string>
+
 </resources>
