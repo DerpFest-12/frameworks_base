@@ -124,6 +124,7 @@ import com.android.internal.logging.UiEventLoggerImpl;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 import com.android.internal.statusbar.IStatusBarService;
 import com.android.internal.statusbar.RegisterStatusBarResult;
+import com.android.internal.util.derp.derpUtils;
 import com.android.keyguard.KeyguardUpdateMonitor;
 import com.android.keyguard.KeyguardUpdateMonitorCallback;
 import com.android.keyguard.ViewMediatorCallback;
@@ -529,6 +530,10 @@ public class StatusBar extends SystemUI implements
 
     protected GameSpaceManager mGameSpaceManager;
     protected TaskHelper mTaskHelper;
+
+    /*omni add-on*/
+    private SettingsObserver mSettingsObserver;
+    private boolean mShowNavBar;
 
     // expanded notifications
     // the sliding/resizing panel within the notification window
@@ -967,6 +972,8 @@ public class StatusBar extends SystemUI implements
         mDisplayId = mDisplay.getDisplayId();
         updateDisplaySize();
         mStatusBarHideIconsForBouncerManager.setDisplayId(mDisplayId);
+        mSettingsObserver = new SettingsObserver(mMainHandler);
+        mSettingsObserver.observe();
 
         // start old BaseStatusBar.start().
         mWindowManagerService = WindowManagerGlobal.getWindowManagerService();
@@ -1208,7 +1215,7 @@ public class StatusBar extends SystemUI implements
         mHeadsUpManager.addListener(mVisualStabilityManager);
         mNotificationPanelViewController.setHeadsUpManager(mHeadsUpManager);
 
-        createNavigationBar(result);
+        updateNavigationBar(true);
 
         if (ENABLE_LOCKSCREEN_WALLPAPER && mWallpaperSupported) {
             mLockscreenWallpaper = mLockscreenWallpaperLazy.get();
@@ -1992,6 +1999,46 @@ public class StatusBar extends SystemUI implements
         KeyboardShortcutsMessage(int deviceId) {
             mDeviceId = deviceId;
         }
+    }
+
+    private class SettingsObserver extends ContentObserver {
+
+        SettingsObserver(Handler handler) {
+            super(handler);
+        }
+
+        void observe() {
+            ContentResolver resolver = mContext.getContentResolver();
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.OMNI_NAVIGATION_BAR_SHOW),
+                    false, this, UserHandle.USER_ALL);
+        }
+
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.OMNI_NAVIGATION_BAR_SHOW))) {
+                updateNavigationBar(false);
+            }
+        }
+    }
+
+    private void updateNavigationBar(boolean init) {
+        boolean showNavBar = derpUtils.deviceSupportNavigationBar(mContext);
+        if (init) {
+            if (showNavBar) {
+                mNavigationBarController.createNavigationBars(true, null);
+            }
+        } else {
+            if (showNavBar != mShowNavBar) {
+                if (showNavBar) {
+                    mNavigationBarController.createNavigationBars(true, null);
+                } else {
+                    mNavigationBarController.removeNavigationBar(mDisplayId);
+                }
+            }
+        }
+        mShowNavBar = showNavBar;
     }
 
     static class AnimateExpandSettingsPanelMessage {
