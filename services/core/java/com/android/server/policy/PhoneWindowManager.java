@@ -803,6 +803,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.DOZE_TRIGGER_DOUBLETAP), false, this,
                     UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.OMNI_NAVIGATION_BAR_SHOW), false, this,
+                    UserHandle.USER_ALL);
             updateSettings();
         }
 
@@ -2332,6 +2335,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mTorchActionMode = Settings.System.getIntForUser(resolver,
                     Settings.System.TORCH_POWER_BUTTON_GESTURE,
                             0, UserHandle.USER_CURRENT);
+            mDefaultDisplayPolicy.updatehasNavigationBar();
         }
         if (updateRotation) {
             updateRotation(true);
