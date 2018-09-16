@@ -109,5 +109,6 @@ public class SystemSettings {
         Settings.System.VIBRATE_ON_NOTIFICATIONS,
         Settings.System.LOCKSCREEN_MEDIA_BLUR,
         Settings.System.SHOW_LOCKSCREEN_MEDIA_ART,
+        Settings.System.DATA_DISABLED_ICON,
     };
 }
