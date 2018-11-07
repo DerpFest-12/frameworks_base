@@ -180,6 +180,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     private BatteryMeterView mBatteryMeterView;
     private StatusIconContainer mStatusIcons;
     private int mSignalClusterEndPadding = 0;
+    private View mBatteryBars[] = new View[2];
 
     private SignalCallback mSignalCallback = new SignalCallback() {
         @Override
@@ -289,6 +290,8 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         mDerpLogo = (ImageView)mStatusBar.findViewById(R.id.status_bar_logo);
         Dependency.get(DarkIconDispatcher.class).addDarkReceiver(mDerpLogo);
         mCustomCarrierLabel = mStatusBar.findViewById(R.id.statusbar_carrier_text);
+        mBatteryBars[0] = mStatusBar.findViewById(R.id.battery_bar);
+        mBatteryBars[1] = mStatusBar.findViewById(R.id.battery_bar_1);
         showSystemIconArea(false);
         initEmergencyCryptkeeperText();
         animateHide(mClockView, false, false);
@@ -520,6 +523,9 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
             animateHide(mRightClock, animate, true);
         }
         animateHide(mSystemIconArea, animate, true);
+        for (View batteryBar: mBatteryBars) {
+            animateHide(batteryBar, animate, true);
+        }
     }
 
     private void showSystemIconArea(boolean animate) {
@@ -531,6 +537,9 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
                 animateShow(mRightClock, animate);
             }
             animateShow(mSystemIconArea, animate);
+            for (View batteryBar: mBatteryBars) {
+                animateShow(batteryBar, animate);
+            }
         }
     }
 
