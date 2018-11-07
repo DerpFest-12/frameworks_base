@@ -75,4 +75,9 @@
         systemui:showMissingSim="true"
         systemui:showAirplaneMode="true" />
 
+    <com.android.systemui.derp.batterybar.BatteryBarController
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        systemui:viewLocation="1" />
+
 </com.android.systemui.statusbar.phone.KeyguardStatusBarView>
