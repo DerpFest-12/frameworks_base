@@ -266,4 +266,8 @@
     <string name="qr_code_activity_title">QR code scanner</string>
     <string name="delete_text_history">Clear history</string>
 
+    <!-- Kill button in notification guts -->
+    <string name="force_stop_dlg_title">Force stop?</string>
+    <string name="force_stop_dlg_text">If you force stop an app, it may misbehave.</string>
+
 </resources>
