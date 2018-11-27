@@ -225,4 +225,8 @@
     <string name="qr_code_activity_title">QR-Code-Scanner</string>
     <string name="delete_text_history">Verlauf löschen</string>
 
+    <!-- Kill button in notification guts -->
+    <string name="force_stop_dlg_title">Beenden erzwingen?</string>
+    <string name="force_stop_dlg_text">Das Beenden einer App zu erzwingen kann zu unerwünschtem Verhalten führen.</string>
+
 </resources>
