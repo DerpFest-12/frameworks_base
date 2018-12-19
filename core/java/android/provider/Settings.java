@@ -11661,6 +11661,13 @@ public final class Settings {
          */
         public static final String ENABLE_CAMERA_PRIVACY_INDICATOR = "enable_camera_privacy_indicator";
 
+        /*
+         * Boolean value whether to display volume panel on the display left
+         * @hide
+         */
+        @SuppressLint("NoSettingsProvider")
+        public static final String VOLUME_PANEL_ON_LEFT = "volume_panel_on_left";
+
         /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
