@@ -120,6 +120,7 @@ import com.android.systemui.plugins.VolumeDialogController.StreamState;
 import com.android.systemui.statusbar.policy.AccessibilityManagerWrapper;
 import com.android.systemui.statusbar.policy.ConfigurationController;
 import com.android.systemui.statusbar.policy.DeviceProvisionedController;
+import com.android.systemui.tuner.TunerService;
 import com.android.systemui.util.AlphaTintDrawableWrapper;
 import com.android.systemui.util.RoundedCornerProgressDrawable;
 
@@ -142,6 +143,9 @@ public class VolumeDialogImpl implements VolumeDialog,
 
     private static final long USER_ATTEMPT_GRACE_PERIOD = 1000;
     private static final int UPDATE_ANIMATION_DURATION = 80;
+
+    public static final String VOLUME_PANEL_ON_LEFT =
+                          Settings.Secure.VOLUME_PANEL_ON_LEFT;
 
     static final int DIALOG_SAFETYWARNING_TIMEOUT_MILLIS = 5000;
     static final int DIALOG_ODI_CAPTIONS_TOOLTIP_TIMEOUT_MILLIS = 5000;
@@ -257,10 +261,13 @@ public class VolumeDialogImpl implements VolumeDialog,
     private boolean mHasSeenODICaptionsTooltip;
     private ViewStub mODICaptionsTooltipViewStub;
     private View mODICaptionsTooltipView = null;
+    private TunerService mTunerService;
 
     private final boolean mUseBackgroundBlur;
     private Consumer<Boolean> mCrossWindowBlurEnabledListener;
     private BackgroundBlurDrawable mDialogRowsViewBackground;
+    // Volume panel placement left or right
+    private boolean mVolumePanelOnLeft;
 
     // Variable to track the default row with which the panel is initially shown
     private VolumeRow mDefaultRow;
@@ -272,7 +279,8 @@ public class VolumeDialogImpl implements VolumeDialog,
             DeviceProvisionedController deviceProvisionedController,
             ConfigurationController configurationController,
             MediaOutputDialogFactory mediaOutputDialogFactory,
-            ActivityStarter activityStarter) {
+            ActivityStarter activityStarter,
+            TunerService tunerService) {
         mContext =
                 new ContextThemeWrapper(context, R.style.volume_dialog_theme);
         mController = volumeDialogController;
@@ -283,6 +291,7 @@ public class VolumeDialogImpl implements VolumeDialog,
         mConfigurationController = configurationController;
         mMediaOutputDialogFactory = mediaOutputDialogFactory;
         mActivityStarter = activityStarter;
+        mTunerService = tunerService;
         mShowActiveStreamOnly = showActiveStreamOnly();
         mHasSeenODICaptionsTooltip =
                 Prefs.getBoolean(context, Prefs.Key.HAS_SEEN_ODI_CAPTIONS_TOOLTIP, false);
@@ -310,6 +319,7 @@ public class VolumeDialogImpl implements VolumeDialog,
         }
 
         initDimens();
+        mTunerService.addTunable(mTunable, VOLUME_PANEL_ON_LEFT);
     }
 
     @Override
@@ -388,6 +398,9 @@ public class VolumeDialogImpl implements VolumeDialog,
     private void initDialog() {
         mDialog = new CustomDialog(mContext);
 
+        // Gravitate various views left/right depending on panel placement setting.
+        final int panelGravity = mVolumePanelOnLeft ? Gravity.LEFT : Gravity.RIGHT;
+
         initDimens();
 
         mConfigurableTexts = new ConfigurableTexts(mContext);
@@ -410,7 +423,7 @@ public class VolumeDialogImpl implements VolumeDialog,
         lp.format = PixelFormat.TRANSLUCENT;
         lp.setTitle(VolumeDialogImpl.class.getSimpleName());
         lp.windowAnimations = -1;
-        lp.gravity = mContext.getResources().getInteger(R.integer.volume_dialog_gravity);
+        lp.gravity = panelGravity | Gravity.CENTER_VERTICAL;
         mWindow.setAttributes(lp);
         mWindow.setLayout(WRAP_CONTENT, WRAP_CONTENT);
 
@@ -421,7 +434,7 @@ public class VolumeDialogImpl implements VolumeDialog,
         mDialog.setOnShowListener(dialog -> {
             mDialogView.getViewTreeObserver().addOnComputeInternalInsetsListener(this);
             if (!shouldSlideInVolumeTray()) {
-                mDialogView.setTranslationX(mDialogView.getWidth() / 2.0f);
+                mDialogView.setTranslationX(getAnimatorX());
             }
             mDialogView.setAlpha(0);
             mDialogView.animate()
@@ -525,6 +538,9 @@ public class VolumeDialogImpl implements VolumeDialog,
         if (mRinger != null) {
             mRingerIcon = mRinger.findViewById(R.id.ringer_icon);
             mZenIcon = mRinger.findViewById(R.id.dnd_icon);
+            // Apply ringer layout gravity based on panel left/right setting
+            // Layout type is different between landscape/portrait.
+            setLayoutGravity(mRinger.getLayoutParams(), panelGravity);
         }
 
         mSelectedRingerIcon = mDialog.findViewById(R.id.volume_new_ringer_active_icon);
@@ -608,6 +624,46 @@ public class VolumeDialogImpl implements VolumeDialog,
         mRingerCount = mShowVibrate ? 3 : 2;
     }
 
+    // Helper to set layout gravity.
+    // Particular useful when the ViewGroup in question
+    // is different for portait vs landscape.
+    private void setLayoutGravity(Object obj, int gravity) {
+        if (obj instanceof FrameLayout.LayoutParams) {
+            ((FrameLayout.LayoutParams) obj).gravity = gravity;
+        } else if (obj instanceof LinearLayout.LayoutParams) {
+            ((LinearLayout.LayoutParams) obj).gravity = gravity;
+        }
+    }
+
+    private float getAnimatorX() {
+        final float x = mDialogView.getWidth() / 2.0f;
+        return mVolumePanelOnLeft ? -x : x;
+    }
+
+    private final TunerService.Tunable mTunable = new TunerService.Tunable() {
+    @Override
+    public void onTuningChanged(String key, String newValue) {
+        switch (key) {
+            case VOLUME_PANEL_ON_LEFT:
+                final boolean volumePanelOnLeft = TunerService.parseIntegerSwitch(newValue, isAudioPanelOnLeftSide());
+                if (mVolumePanelOnLeft != volumePanelOnLeft) {
+                    mVolumePanelOnLeft = volumePanelOnLeft;
+                    mHandler.post(() -> {
+                        // Trigger panel rebuild on next show
+                        mConfigChanged = true;
+                    });
+                }
+                break;
+            default:
+                break;
+            }
+        }
+    };
+
+    private boolean isAudioPanelOnLeftSide() {
+        return mContext.getResources().getBoolean(com.android.internal.R.bool.config_audioPanelOnLeftSide);
+    }
+
     protected ViewGroup getDialogView() {
         return mDialogView;
     }
@@ -659,7 +715,11 @@ public class VolumeDialogImpl implements VolumeDialog,
         if (D.BUG) Slog.d(TAG, "Adding row for stream " + stream);
         VolumeRow row = new VolumeRow();
         initRow(row, stream, iconRes, iconMuteRes, important, defaultStream);
-        mDialogRowsView.addView(row.view);
+        if (mVolumePanelOnLeft) {
+            mDialogRowsView.addView(row.view, 0);
+        } else {
+            mDialogRowsView.addView(row.view);
+        }
         mRows.add(row);
     }
 
@@ -669,7 +729,11 @@ public class VolumeDialogImpl implements VolumeDialog,
             final VolumeRow row = mRows.get(i);
             initRow(row, row.stream, row.iconRes, row.iconMuteRes, row.important,
                     row.defaultStream);
-            mDialogRowsView.addView(row.view);
+            if (mVolumePanelOnLeft) {
+                mDialogRowsView.addView(row.view, 0);
+            } else {
+                mDialogRowsView.addView(row.view);
+            }
             updateVolumeRowH(row);
         }
     }
@@ -1075,9 +1139,8 @@ public class VolumeDialogImpl implements VolumeDialog,
                 Events.writeEvent(Events.EVENT_SETTINGS_CLICK);
                 Intent intent = new Intent(Settings.Panel.ACTION_APP_VOLUME);
                 dismissH(DISMISS_REASON_SETTINGS_CLICKED);
-                Dependency.get(MediaOutputDialogFactory.class).dismiss();
-                Dependency.get(ActivityStarter.class).startActivity(intent,
-                        true /* dismissShade */);
+                mMediaOutputDialogFactory.dismiss();
+                mActivityStarter.startActivity(intent, true /* dismissShade */);
             });
         }
     }
@@ -1386,7 +1449,7 @@ public class VolumeDialogImpl implements VolumeDialog,
 
                     hideRingerDrawer();
                 }, 50));
-        if (!shouldSlideInVolumeTray()) animator.translationX(mDialogView.getWidth() / 2.0f);
+        if (!shouldSlideInVolumeTray()) animator.translationX(getAnimatorX());
         animator.start();
         checkODICaptionsTooltip(true);
         mController.notifyVisible(false);
