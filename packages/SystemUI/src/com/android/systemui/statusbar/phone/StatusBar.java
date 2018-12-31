@@ -261,6 +261,7 @@ import com.android.wm.shell.startingsurface.StartingSurface;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -4041,6 +4042,9 @@ public class StatusBar extends SystemUI implements
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.PULSE_ON_NEW_TRACKS),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.HEADS_UP_BLACKLIST_VALUES),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -4073,6 +4077,9 @@ public class StatusBar extends SystemUI implements
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.PULSE_ON_NEW_TRACKS))) {
                 setPulseOnNewTracks();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.HEADS_UP_BLACKLIST_VALUES))) {
+                updateHeadsUpBlackList();
             }
         }
 
@@ -4085,6 +4092,7 @@ public class StatusBar extends SystemUI implements
             setQsPanelOptions();
             updateBurnInSets();
             setPulseOnNewTracks();
+            updateHeadsUpBlackList();
         }
     }
 
@@ -4740,4 +4748,25 @@ public class StatusBar extends SystemUI implements
                     return mStartingSurfaceOptional.get().getBackgroundColor(task);
                 }
             };
+
+    private void updateHeadsUpBlackList() {
+        final String blackString = Settings.System.getString(mContext.getContentResolver(),
+              Settings.System.HEADS_UP_BLACKLIST_VALUES);
+        if (DEBUG) Log.v(TAG, "blackString: " + blackString);
+        final ArrayList<String> blackList = new ArrayList<String>();
+        splitAndAddToArrayList(blackList, blackString, "\\|");
+        mNotificationInterruptStateProvider.setHeadsUpBlacklist(blackList);
+    }
+
+    private void splitAndAddToArrayList(ArrayList<String> arrayList,
+            String baseString, String separator) {
+        // clear first
+        arrayList.clear();
+        if (baseString != null) {
+            final String[] array = TextUtils.split(baseString, separator);
+            for (String item : array) {
+                arrayList.add(item.trim());
+            }
+        }
+    }
 }
