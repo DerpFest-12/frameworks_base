@@ -157,4 +157,10 @@
   <!-- Whether to force enable multi resolution configuration for camera -->
   <java-symbol type="bool" name="config_forceMultiResolution" />
 
+  <!-- Whether device has a physical display cutout -->
+  <java-symbol type="bool" name="config_physicalDisplayCutout" />
+
+  <!-- Whether device has a big physical display cutout -->
+  <java-symbol type="bool" name="config_bigPhysicalDisplayCutout" />
+
 </resources>
