@@ -113,5 +113,6 @@ public class SystemSettings {
         Settings.System.ROAMING_INDICATOR_ICON,
         Settings.System.QS_SMART_PULLDOWN,
         Settings.System.BACK_GESTURE_HAPTIC,
+        Settings.System.BACK_GESTURE_HEIGHT,
     };
 }
