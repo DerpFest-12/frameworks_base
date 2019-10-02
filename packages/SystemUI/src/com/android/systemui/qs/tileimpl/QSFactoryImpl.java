@@ -37,6 +37,7 @@ import com.android.systemui.qs.tiles.CellularTile;
 import com.android.systemui.qs.tiles.ColorInversionTile;
 import com.android.systemui.qs.tiles.CompassTile;
 import com.android.systemui.qs.tiles.DataSaverTile;
+import com.android.systemui.qs.tiles.DerpSpaceTile;
 import com.android.systemui.qs.tiles.DeviceControlsTile;
 import com.android.systemui.qs.tiles.DndTile;
 import com.android.systemui.qs.tiles.FlashlightTile;
@@ -126,6 +127,7 @@ public class QSFactoryImpl implements QSFactory {
     private final Provider<SoundSearchTile> mSoundSearchTileProvider;
     private final Provider<MusicTile> mMusicTileProvider;
     private final Provider<CompassTile> mCompassTileProvider;
+    private final Provider<DerpSpaceTile> mDerpSpaceTileProvider;
 
     private final Lazy<QSHost> mQsHostLazy;
     private final Provider<CustomTile.Builder> mCustomTileBuilderProvider;
@@ -178,7 +180,8 @@ public class QSFactoryImpl implements QSFactory {
             Provider<RebootTile> rebootTileProvider,
             Provider<SoundSearchTile> soundSearchTileProvider,
             Provider<MusicTile> musicTileProvider,
-            Provider<CompassTile> compassTileProvider) {
+            Provider<CompassTile> compassTileProvider,
+            Provider<DerpSpaceTile> derpSpaceTileProvider) {
         mQsHostLazy = qsHostLazy;
         mCustomTileBuilderProvider = customTileBuilderProvider;
 
@@ -227,6 +230,7 @@ public class QSFactoryImpl implements QSFactory {
         mSoundSearchTileProvider = soundSearchTileProvider;
         mMusicTileProvider = musicTileProvider;
         mCompassTileProvider = compassTileProvider;
+        mDerpSpaceTileProvider = derpSpaceTileProvider;
     }
 
     public QSTile createTile(String tileSpec) {
@@ -329,6 +333,8 @@ public class QSFactoryImpl implements QSFactory {
                 return mMusicTileProvider.get();
             case "compass":
                 return mCompassTileProvider.get();
+            case "derpspace":
+                return mDerpSpaceTileProvider.get();
         }
 
         // Custom tiles

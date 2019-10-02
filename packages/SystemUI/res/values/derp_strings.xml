@@ -195,4 +195,7 @@
     <string name="quick_settings_compass_W">W</string>
     <string name="quick_settings_compass_NW">NW</string>
 
+    <!-- DerpSpace Tile -->
+    <string name="quick_settings_derp_label">DerpSpace</string>
+
 </resources>
