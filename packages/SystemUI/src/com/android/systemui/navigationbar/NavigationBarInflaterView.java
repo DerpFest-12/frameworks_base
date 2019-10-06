@@ -50,12 +50,14 @@ import com.android.systemui.navigationbar.buttons.ReverseLinearLayout;
 import com.android.systemui.navigationbar.buttons.ReverseLinearLayout.ReverseRelativeLayout;
 import com.android.systemui.recents.OverviewProxyService;
 import com.android.systemui.shared.system.QuickStepContract;
+import com.android.systemui.tuner.TunerService;
+import com.android.systemui.tuner.TunerService.Tunable;
 
 import java.io.PrintWriter;
 import java.util.Objects;
 
 public class NavigationBarInflaterView extends FrameLayout
-        implements NavigationModeController.ModeChangedListener {
+        implements NavigationModeController.ModeChangedListener, Tunable {
 
     private static final String TAG = "NavBarInflater";
 
@@ -108,6 +110,8 @@ public class NavigationBarInflaterView extends FrameLayout
 
     private OverviewProxyService mOverviewProxyService;
     private int mNavBarMode = NAV_BAR_MODE_3BUTTON;
+
+    private boolean mUsingCustomLayout;
 
     private int mHomeHandleWidthMode = 0;
 
@@ -179,6 +183,7 @@ public class NavigationBarInflaterView extends FrameLayout
     protected void onAttachedToWindow() {
         mCustomSettingsObserver.observe();
         super.onAttachedToWindow();
+        Dependency.get(TunerService.class).addTunable(this, NAV_BAR_VIEWS);
     }
 
     @Override
@@ -188,7 +193,26 @@ public class NavigationBarInflaterView extends FrameLayout
         super.onDetachedFromWindow();
     }
 
+    @Override
+    public void onTuningChanged(String key, String newValue) {
+        if (NAV_BAR_VIEWS.equals(key)) {
+            setNavigationBarLayout(newValue);
+        }
+    }
+
+
+    public void setNavigationBarLayout(String layoutValue) {
+        if (!Objects.equals(mCurrentLayout, layoutValue)) {
+            mUsingCustomLayout = layoutValue != null;
+            clearViews();
+            inflateLayout(layoutValue);
+        }
+    }
+
+
     public void onLikelyDefaultLayoutChange() {
+        // Don't override custom layouts
+        if (mUsingCustomLayout) return;
         // Reevaluate new layout
         final String newValue = getDefaultLayout();
         if (!Objects.equals(mCurrentLayout, newValue)) {
