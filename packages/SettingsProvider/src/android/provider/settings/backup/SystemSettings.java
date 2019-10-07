@@ -118,5 +118,6 @@ public class SystemSettings {
         Settings.System.LOCKSCREEN_BATTERY_INFO_TEMP_UNIT,
         Settings.System.CHARGING_ANIMATION,
         Settings.System.TORCH_POWER_BUTTON_GESTURE,
+        Settings.System.DOZE_ON_CHARGE,
     };
 }
