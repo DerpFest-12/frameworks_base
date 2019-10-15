@@ -292,6 +292,7 @@ public class KeyguardStatusBarViewController extends ViewController<KeyguardStat
         mView.setOnApplyWindowInsetsListener(
                 (view, windowInsets) -> mView.updateWindowInsets(windowInsets, mInsetsProvider));
 
+        mView.registerCustomCarrierLabelContentObserver();
         onThemeChanged();
     }
 
