@@ -11290,6 +11290,12 @@ public final class Settings {
         public static final String HIDE_LOCK_SHORTCUTS = "hide_lock_shortcuts";
 
         /**
+         * Whether to show or hide the arrow for back gesture
+         * @hide
+         */
+        public static final String SHOW_BACK_ARROW_GESTURE = "show_back_arrow_gesture";
+
+        /**
          * Controls magnification mode when magnification is enabled via a system-wide triple tap
          * gesture or the accessibility shortcut.
          *
