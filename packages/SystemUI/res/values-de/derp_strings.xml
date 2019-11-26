@@ -122,4 +122,11 @@
     <string name="keyguard_indication_oem_power_time"><xliff:g id="percentage">%2$s</xliff:g> • Schnellladen (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%1$s</xliff:g> bis zur vollständigen Aufladung)</string>
     <string name="keyguard_plugged_in_oem_charging"><xliff:g id="percentage">%s</xliff:g> • Schnellladen</string>
 
+    <!-- DataSwitch Tile -->
+    <string name="qs_data_switch_label">Datenkarte wechseln</string>
+    <string name="qs_data_switch_toast_0">Derzeit ist keine SIM-Karte eingelegt</string>
+    <string name="qs_data_switch_toast_1">Derzeit ist nur eine SIM-Karte eingelegt</string>
+    <string name="qs_data_switch_changed_1">Datenkarte auf SIM 1 umschalten.</string>
+    <string name="qs_data_switch_changed_2">Datenkarte auf SIM 2 umschalten.</string>
+
 </resources>
