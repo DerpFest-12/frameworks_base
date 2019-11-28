@@ -121,5 +121,6 @@ public class SystemSettings {
         Settings.System.DOZE_ON_CHARGE,
         Settings.System.MUSIC_TILE_TITLE,
         Settings.System.QS_FOOTER_TEXT_SHOW,
+        Settings.System.QS_FOOTER_TEXT_STRING,
     };
 }
