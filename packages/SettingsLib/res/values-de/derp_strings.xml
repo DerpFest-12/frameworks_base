@@ -39,4 +39,22 @@
     will set the BC profile as preferred. -->
     <string name="bluetooth_bc_profile_summary_use_for">Verwendung für BA</string>
 
+    <!-- Label for estimated remaining duration of dash battery charging -->
+    <string name="power_remaining_dash_charging_duration_only">Dash-Ladevorgang (<xliff:g id="time">%1$s</xliff:g> bis zur vollständigen Aufladung)</string>
+
+    <!-- Battery use screen.  Battery status shown in chart label when charging from a dash source.  -->
+    <string name="battery_info_status_dash_charging">Dash-Ladevorgang</string>
+
+    <!-- Label for estimated remaining duration of warp battery charging -->
+    <string name="power_remaining_warp_charging_duration_only">Warp-Ladevorgang (<xliff:g id="time">%1$s</xliff:g> bis zur vollständigen Aufladung)</string>
+
+    <!-- Battery use screen. Battery status shown in chart label when charging from a warp source.  -->
+    <string name="battery_info_status_warp_charging">Warp-Ladevorgang</string>
+
+    <!-- Label for estimated remaining duration of vooc battery charging -->
+    <string name="power_remaining_vooc_charging_duration_only">VOOC-Ladevorgang (<xliff:g id="time">%1$s</xliff:g> bis zur vollständigen Aufladung)</string>
+
+    <!-- Battery use screen. Battery status shown in chart label when charging from a VOOC source.  -->
+    <string name="battery_info_status_vooc_charging">VOOC-Ladevorgang</string>
+
 </resources>
