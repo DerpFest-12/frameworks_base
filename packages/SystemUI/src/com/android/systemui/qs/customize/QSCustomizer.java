@@ -74,7 +74,7 @@ public class QSCustomizer extends LinearLayout {
                 getResources().getDrawable(value.resourceId, mContext.getTheme()));
 
         toolbar.getMenu().add(Menu.NONE, MENU_RESET, 0,
-                mContext.getString(com.android.internal.R.string.reset));
+                mContext.getString(R.string.reset_customizer));
         toolbar.setTitle(R.string.qs_edit);
         mRecyclerView = findViewById(android.R.id.list);
         mTransparentView = findViewById(R.id.customizer_transparent_view);
