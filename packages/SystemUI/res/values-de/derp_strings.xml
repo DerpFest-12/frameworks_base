@@ -196,4 +196,7 @@
     <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s</xliff:g> - Peeking-Benachrichtigungen schlummern für 1 Minute.</string>
     <string name="heads_up_snooze_message"><xliff:g id="string">%1$s</xliff:g> - Peeking-Benachrichtigungen schlummern für <xliff:g id="number">%2$d</xliff:g> Minuten.</string>
 
+    <!-- QS customizer -->
+    <string name="reset_customizer">Reihenfolge zurücksetzen</string>
+
 </resources>
