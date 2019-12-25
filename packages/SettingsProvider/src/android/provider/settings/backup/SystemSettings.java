@@ -106,5 +106,6 @@ public class SystemSettings {
         Settings.System.LOCKSCREEN_QUICK_UNLOCK_CONTROL,
         Settings.System.SHOW_FOURG_ICON,
         Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN,
+        Settings.System.VIBRATE_ON_NOTIFICATIONS,
     };
 }
