@@ -372,6 +372,7 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
                     mBatteryPercentView.setTextAppearance(mPercentageStyleId);
                 }
                 if (mTextColor != 0) mBatteryPercentView.setTextColor(mTextColor);
+                updatePercentText();
                 addView(mBatteryPercentView,
                         new ViewGroup.LayoutParams(
                                 LayoutParams.WRAP_CONTENT,
@@ -390,7 +391,6 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
             mCircleDrawable.setShowPercent(drawPercentInside);
             mFullCircleDrawable.setShowPercent(drawPercentInside);
         }
-        updatePercentText();
     }
 
     public void setIsQsHeader(boolean isQs) {
