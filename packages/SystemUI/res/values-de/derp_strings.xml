@@ -229,4 +229,9 @@
     <string name="force_stop_dlg_title">Beenden erzwingen?</string>
     <string name="force_stop_dlg_text">Das Beenden einer App zu erzwingen kann zu unerwünschtem Verhalten führen.</string>
 
+    <!-- Mono QS Tile -->
+    <string name="quick_settings_monotoggle_tile">Audio-Modus</string>
+    <string name="quick_settings_monotoggle_tile_mono">Mono-Audio</string>
+    <string name="quick_settings_monotoggle_tile_stereo">Stereo-Audio</string>
+
 </resources>
