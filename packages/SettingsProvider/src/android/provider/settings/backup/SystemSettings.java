@@ -88,5 +88,6 @@ public class SystemSettings {
         Settings.System.INCREASING_RING_START_VOLUME,
         Settings.System.INCREASING_RING_RAMP_UP_TIME,
         Settings.System.THREE_FINGER_GESTURE,
+        Settings.System.RINGTONE_VIBRATION_PATTERN,
     };
 }
