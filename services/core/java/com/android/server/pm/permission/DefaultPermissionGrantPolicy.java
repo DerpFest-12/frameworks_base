@@ -1006,6 +1006,9 @@ final class DefaultPermissionGrantPolicy {
 
         // DownloadProviders
         grantSystemFixedPermissionsToSystemPackage(pm,"com.android.providers.downloads.DownloadProvider", userId, STORAGE_PERMISSIONS);
+
+        // DerpFest Updater
+        grantSystemFixedPermissionsToSystemPackage(pm,"org.lineageos.updater", userId, STORAGE_PERMISSIONS);
     }
 
     private String getDefaultSystemHandlerActivityPackageForCategory(PackageManagerWrapper pm,
