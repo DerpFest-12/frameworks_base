@@ -7438,5 +7438,8 @@ message MetricsEvent {
 
     // DerpFest Metrics
     DERP = 420;
+
+    // Panel for Mobile Data
+    PANEL_MOBILE_DATA = 2002;
   }
 }
