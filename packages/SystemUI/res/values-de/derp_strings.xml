@@ -95,6 +95,9 @@
     <string name="custom_hint">Wischen Sie vom Symbol zum Starten</string>
 
     <string name="status_bar_call_strength">Signalstärke</string>
+    <string name="status_bar_camera">Kamera</string>
+    <string name="status_bar_location">Standort</string>
+    <string name="status_bar_microphone">Mikrofon</string>
 
     <string name="task_helper_app_killed">%1$s hart beendet</string>
     <string name="empty_app_killed">App</string>
