@@ -149,5 +149,6 @@ public class SystemSettings {
         Settings.System.HEADS_UP_NOTIFICATIONS_THRESHOLD,
         Settings.System.SCREEN_OFF_FOD,
         Settings.System.BATTERY_LEVEL_COLORS,
+        Settings.System.VOLTE_VOWIFI_OVERRIDE,
     };
 }
