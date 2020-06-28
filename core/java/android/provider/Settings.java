@@ -5519,13 +5519,7 @@ public final class Settings {
         public static final String DOUBLE_TAP_SLEEP_LOCKSCREEN = "double_tap_sleep_lockscreen";
 
         /**
-         * Whether to show VoLTE icon or not
-         * @hide
-         */
-        public static final String SHOW_VOLTE_ICON = "show_volte_icon";
-
-        /**
-         * VoLTE icon style
+         * Whether to display VoLTE icon when VoLTE present
          * @hide
          */
         public static final String VOLTE_ICON_STYLE = "volte_icon_style";
@@ -5753,10 +5747,10 @@ public final class Settings {
         public static final String QS_SMART_PULLDOWN = "qs_smart_pulldown";
 
         /**
-         * Whether to show VoWiFi icon or not
+         * Whether VoWiFi icon should override VoLTE icon
          * @hide
          */
-        public static final String VOWIFI_ICON = "vowifi_icon";
+        public static final String VOLTE_VOWIFI_OVERRIDE = "volte_vowifi_override";
 
         /**
          * VoWiFi icon style
@@ -6740,6 +6734,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(SENSOR_BLOCK);
             PRIVATE_SETTINGS.add(LOCK_HIDE_STATUS_BAR);
             PRIVATE_SETTINGS.add(BATTERY_LEVEL_COLORS);
+            PRIVATE_SETTINGS.add(VOLTE_VOWIFI_OVERRIDE);
         }
 
         /**
