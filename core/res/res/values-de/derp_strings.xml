@@ -40,4 +40,7 @@
     <string name="accessibility_quick_settings_live_display_changed_night">LiveDisplay auf Nacht-Modus geändert.</string>
     <string name="accessibility_quick_settings_live_display_changed_outdoor">LiveDisplay auf Außen-Modus geändert.</string>
 
+    <!-- Cycle through ringer modes -->
+    <string name="volume_dialog_ringer_guidance_normal">Klingelton bei Anrufen und Benachrichtigungen</string>
+
 </resources>
