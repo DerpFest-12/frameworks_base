@@ -17920,6 +17920,12 @@ public final class Settings {
          * @hide
          */
         public static final String DEVICE_REBOOT_TIMEOUT = "device_reboot_timeout";
+
+        /**
+         * The amount of time in milliseconds before bluetooth is turned off
+         * @hide
+         */
+        public static final String BLUETOOTH_OFF_TIMEOUT = "bluetooth_off_timeout";
     }
 
     /**
