@@ -204,5 +204,6 @@ public class SecureSettings {
         Settings.Secure.LOCK_DOTS_VISIBLE,
         Settings.Secure.LOCK_SHOW_ERROR_PATH,
         Settings.Secure.ENABLE_LOCATION_PRIVACY_INDICATOR,
+        Settings.Secure.GESTURE_NAVBAR_LENGTH_MODE,
     };
 }
