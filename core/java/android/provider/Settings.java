@@ -5728,6 +5728,9 @@ public final class Settings {
          */
         public static final String VOWIFI_ICON_STYLE = "vowifi_icon_style";
 
+        /** @hide */
+        public static final String BACK_GESTURE_HAPTIC = "back_gesture_haptic";
+
         /**
          * IMPORTANT: If you add a new public settings you also have to add it to
          * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
@@ -5907,6 +5910,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(ROAMING_INDICATOR_ICON);
             PRIVATE_SETTINGS.add(QS_SMART_PULLDOWN);
             PRIVATE_SETTINGS.add(VOLTE_ICON_STYLE);
+            PRIVATE_SETTINGS.add(BACK_GESTURE_HAPTIC);
         }
 
         /**
