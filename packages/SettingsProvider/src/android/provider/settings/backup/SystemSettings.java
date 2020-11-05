@@ -84,5 +84,8 @@ public class SystemSettings {
         Settings.System.DISPLAY_COLOR_MODE,
         Settings.System.ALARM_ALERT,
         Settings.System.NOTIFICATION_LIGHT_PULSE,
+        Settings.System.INCREASING_RING,
+        Settings.System.INCREASING_RING_START_VOLUME,
+        Settings.System.INCREASING_RING_RAMP_UP_TIME,
     };
 }
