@@ -63,4 +63,6 @@
     <!-- App lock -->
     <string name="unlock_application">Entsperre <xliff:g id="label" example="Telegram">%1$s</xliff:g></string>
 
+    <string name="aerr_disable">App deaktivieren</string>
+
 </resources>
