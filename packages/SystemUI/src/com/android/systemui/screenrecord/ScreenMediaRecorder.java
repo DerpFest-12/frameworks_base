@@ -67,6 +67,8 @@ public class ScreenMediaRecorder {
     private static final int TOTAL_NUM_TRACKS = 1;
     private static final int VIDEO_FRAME_RATE = 30;
     private static final int VIDEO_FRAME_RATE_TO_RESOLUTION_RATIO = 6;
+    private static final int LOW_VIDEO_FRAME_RATE = 25;
+    private static final int LOW_VIDEO_BIT_RATE = 1750000;
     private static final int AUDIO_BIT_RATE = 196000;
     private static final int AUDIO_SAMPLE_RATE = 44100;
     private static final int MAX_DURATION_MS = 60 * 60 * 1000;
@@ -86,6 +88,8 @@ public class ScreenMediaRecorder {
     private ScreenRecordingAudioSource mAudioSource;
     private int mMaxRefreshRate;
 
+    private boolean mLowQuality;
+
     private Context mContext;
     MediaRecorder.OnInfoListener mListener;
 
@@ -98,6 +102,10 @@ public class ScreenMediaRecorder {
         mAudioSource = audioSource;
         mMaxRefreshRate = mContext.getResources().getInteger(
                 R.integer.config_screenRecorderMaxFramerate);
+    }
+
+    public void setLowQuality(boolean low) {
+        mLowQuality = low;
     }
 
     private void prepare() throws IOException, RemoteException, RuntimeException {
@@ -145,8 +153,8 @@ public class ScreenMediaRecorder {
                 MediaCodecInfo.CodecProfileLevel.AVCProfileMain,
                 MediaCodecInfo.CodecProfileLevel.AVCLevel3);
         mMediaRecorder.setVideoSize(width, height);
-        mMediaRecorder.setVideoFrameRate(refreshRate);
-        mMediaRecorder.setVideoEncodingBitRate(vidBitRate);
+        mMediaRecorder.setVideoFrameRate(mLowQuality? LOW_VIDEO_FRAME_RATE : refreshRate);
+        mMediaRecorder.setVideoEncodingBitRate(mLowQuality ? LOW_VIDEO_BIT_RATE : vidBitRate);
         mMediaRecorder.setMaxDuration(MAX_DURATION_MS);
         mMediaRecorder.setMaxFileSize(MAX_FILESIZE_BYTES);
 
