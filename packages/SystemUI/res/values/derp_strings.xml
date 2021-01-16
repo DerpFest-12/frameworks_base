@@ -215,4 +215,7 @@
     <string name="navigation_bar_inverse_title">Swap buttons</string>
     <string name="navigation_bar_inverse_summary">Swap the order of recents and back buttons</string>
 
+    <!-- Now playing lockscreen / ambient music ticker -->
+    <string name="ambientmusic_songinfo" formatted="false" translatable="false">%s • %s</string>
+
 </resources>
