@@ -1493,7 +1493,7 @@
         android:protectionLevel="normal" />
 
     <permission-group android:name="android.permission-group.OTHER_SENSORS"
-        android:icon="@drawable/perm_group_location"
+        android:icon="@drawable/perm_group_device_sensors"
         android:label="@string/permgrouplab_otherSensors"
         android:description="@string/permgroupdesc_otherSensors"
         android:priority="1000" />
