@@ -3042,13 +3042,20 @@ public class NotificationPanelViewController extends PanelViewController {
 
     public void updateNotificationTranslucency() {
         float alpha = 1f;
+        boolean showIconsLockScreen = Settings.System.getIntForUser(mView.getContext().getContentResolver(),
+                Settings.System.AMBIENT_ICONS_LOCKSCREEN,
+                0, UserHandle.USER_CURRENT) != 0;
+
+
         if (mClosingWithAlphaFadeOut && !mExpandingFromHeadsUp
-                && !mHeadsUpManager.hasPinnedHeadsUp()) {
+                && !mHeadsUpManager.hasPinnedHeadsUp() && !showIconsLockScreen) {
             alpha = getFadeoutAlpha();
         }
         if (mBarState == KEYGUARD && !mHintAnimationRunning
-                && !mKeyguardBypassController.getBypassEnabled()) {
+                && !mKeyguardBypassController.getBypassEnabled() && !showIconsLockScreen) {
             alpha *= mClockPositionResult.clockAlpha;
+        } else if (mBarState == KEYGUARD && showIconsLockScreen) {
+            alpha = 0;
         }
         mNotificationStackScrollLayoutController.setAlpha(alpha);
         mStatusBar.getPulseController().setQSShowing(mBarState != StatusBarState.KEYGUARD && !isFullyCollapsed());
