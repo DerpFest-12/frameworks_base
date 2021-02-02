@@ -6421,6 +6421,25 @@ public final class Settings {
         public static final String RETICKER_COLORED = "reticker_colored";
 
         /**
+        * Show ambient icons on lockscreen
+        * @hide
+        */
+        @Readable
+        public static final String AMBIENT_ICONS_LOCKSCREEN = "ambient_icons_lockscreen";
+
+        /**
+        * Change size of ambient icons on lockscreen
+        * @hide
+        */
+        public static final String AMBIENT_ICONS_SIZE = "ambient_icons_size";
+
+        /**
+        * Change color of ambient icons on lockscreen
+        * @hide
+        */
+        public static final String AMBIENT_ICONS_COLOR = "ambient_icons_color";
+
+        /**
          * IMPORTANT: If you add a new public settings you also have to add it to
          * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
          * it to PRIVATE_SETTINGS below. Also add a validator that can validate
