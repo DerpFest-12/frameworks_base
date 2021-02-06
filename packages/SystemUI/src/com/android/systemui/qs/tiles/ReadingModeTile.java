@@ -43,9 +43,7 @@ import javax.inject.Inject;
 
 public class ReadingModeTile extends QSTileImpl<BooleanState> {
     private static final Icon sIcon = ResourceIcon.get(R.drawable.ic_qs_reader);
-    private static final Intent sLiveDisplaySettingsIntent = new Intent().setComponent(
-        new ComponentName("com.android.settings",
-            "com.android.settings.Settings$LiveDisplaySettingsActivity"));
+    private static final Intent DISPLAY_SETTINGS = new Intent("android.settings.DISPLAY_SETTINGS");
 
     private final LineageHardwareManager mHardware;
     private final String mTileLabel;
@@ -91,7 +89,7 @@ public class ReadingModeTile extends QSTileImpl<BooleanState> {
 
     @Override
     public Intent getLongClickIntent() {
-        return sLiveDisplaySettingsIntent;
+        return DISPLAY_SETTINGS;
     }
 
     @Override
