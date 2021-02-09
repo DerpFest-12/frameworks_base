@@ -6078,6 +6078,13 @@ public final class Settings {
         public static final String QS_FOOTER_TEXT_STRING = "qs_footer_text_string";
 
         /**
+         * Whether to show qs footer Running Services icon
+         * @hide
+         */
+        @Readable
+        public static final String QS_RUNNING_SERVICES_TOGGLE = "qs_running_services_toggle";
+
+        /**
          * IMPORTANT: If you add a new public settings you also have to add it to
          * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
          * it to PRIVATE_SETTINGS below. Also add a validator that can validate
