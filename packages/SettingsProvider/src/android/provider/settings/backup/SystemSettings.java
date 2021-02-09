@@ -122,5 +122,6 @@ public class SystemSettings {
         Settings.System.MUSIC_TILE_TITLE,
         Settings.System.QS_FOOTER_TEXT_SHOW,
         Settings.System.QS_FOOTER_TEXT_STRING,
+        Settings.System.QS_RUNNING_SERVICES_TOGGLE,
     };
 }
