@@ -17,6 +17,10 @@
 package com.android.systemui.qs
 
 import android.content.Intent
+import android.database.ContentObserver
+import android.os.Handler
+import android.os.Looper
+import android.os.UserHandle
 import android.os.UserManager
 import android.provider.Settings
 import android.view.View
@@ -145,6 +149,22 @@ class FooterActionsController @Inject constructor(
         return@OnLongClickListener false
     }
 
+    private val settingsObserver = object : ContentObserver(Handler(Looper.getMainLooper())) {
+        public fun observe() {
+            context.getContentResolver().registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.QS_RUNNING_SERVICES_TOGGLE),
+                    false, this, UserHandle.USER_ALL)
+        }
+
+        public fun stop() {
+            context.getContentResolver().unregisterContentObserver(this)
+        }
+
+        override fun onChange(selfChange: Boolean) {
+            updateView()
+        }
+    }
+
     private fun buttonsVisible(): Boolean {
         return when (buttonsVisibleState) {
             EXPANDED -> expanded
@@ -213,6 +233,8 @@ class FooterActionsController @Inject constructor(
             activityStarter.postQSRunnableDismissingKeyguard { qsPanelController.showEdit(view) }
         })
 
+        settingsObserver.observe()
+
         updateView()
     }
 
@@ -234,6 +256,7 @@ class FooterActionsController @Inject constructor(
             updateView()
         } else {
             userInfoController.removeCallback(onUserInfoChangedListener)
+            settingsObserver.stop()
         }
     }
 
