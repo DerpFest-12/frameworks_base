@@ -6232,6 +6232,12 @@ public final class Settings {
         public static final String OMNI_NAVIGATION_BAR_SHOW = "navbar_visibility";
 
         /**
+         * Enable and disable QS Panel visualizer
+         * @hide
+         */
+        public static final String VISUALIZER_CENTER_MIRRORED = "visualizer_center_mirrored";
+
+        /**
          * IMPORTANT: If you add a new public settings you also have to add it to
          * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
          * it to PRIVATE_SETTINGS below. Also add a validator that can validate
@@ -11453,6 +11459,12 @@ public final class Settings {
          * @hide
          */
         public static final String PULSE_SOLID_UNITS_ROUNDED = "pulse_solid_units_rounded";
+
+        /**
+         * Pulse gravity
+         * @hide
+         */
+        public static final String PULSE_CUSTOM_GRAVITY = "pulse_custom_gravity";
 
         /**
          * Keys we no longer back up under the current schema, but want to continue to
