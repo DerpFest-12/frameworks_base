@@ -105,6 +105,6 @@
     <dimen name="quick_qs_brightness_margin_top">24dp</dimen>
 
     <!-- AoD battery bar -->
-    <dimen name="battery_bar_view_height">6dp</dimen>
+    <dimen name="battery_bar_view_height">4dp</dimen>
 
 </resources>
