@@ -91,16 +91,4 @@
   <!-- Whether device supports an alt. ambient display -->
   <java-symbol type="bool" name="config_alt_ambient_display"/>
 
-  <!-- Whether device has dash charging support -->
-  <java-symbol type="bool" name="config_hasDashCharger" />
-
-  <!-- Whether device has warp charging support -->
-  <java-symbol type="bool" name="config_hasWarpCharger" />
-
-  <!-- Whether device has VOOC charging support -->
-  <java-symbol type="bool" name="config_hasVoocCharger" />
-
-  <!-- Whether device has turbo power charging support -->
-  <java-symbol type="bool" name="config_hasTurboPowerCharger" />
-
 </resources>
