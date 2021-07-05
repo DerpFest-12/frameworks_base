@@ -6514,6 +6514,14 @@ public final class Settings {
         public static final String NAVIGATION_BAR_IME_SPACE = "navigation_bar_ime_space";
 
         /**
+         * Whether the HighTouchPollingRate is activated or not.
+         * 0 = off, 1 = on
+         * @hide
+         */
+        public static final String HIGH_TOUCH_POLLING_RATE_ENABLE =
+                "high_touch_polling_rate_enable";
+
+        /**
          * Whether the HighTouchSensitivity is activated or not.
          * 0 = off, 1 = on
          * @hide
@@ -6719,6 +6727,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(SENSOR_BLOCK);
             PRIVATE_SETTINGS.add(LOCK_HIDE_STATUS_BAR);
             PRIVATE_SETTINGS.add(HEADSET_CONNECT_PLAYER);
+            PRIVATE_SETTINGS.add(HIGH_TOUCH_POLLING_RATE_ENABLE);
             PRIVATE_SETTINGS.add(HIGH_TOUCH_SENSITIVITY_ENABLE);
         }
 
