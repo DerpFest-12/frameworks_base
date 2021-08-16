@@ -328,6 +328,10 @@
     <string name="permgroupdesc_sensors" msgid="2610631290633747752">"mengakses data sensor tentang tanda-tanda vital"</string>
     <string name="capability_title_canRetrieveWindowContent" msgid="7554282892101587296">"Membaca konten di jendela"</string>
     <string name="capability_desc_canRetrieveWindowContent" msgid="6195610527625237661">"Memeriksa konten di jendela yang sedang Anda buka."</string>
+    <string name="permgrouplab_otherSensors">"Sensor"</string>
+    <string name="permgroupdesc_otherSensors">"mengakses data sensor mengenai orientasi, gerakan, dll."</string>
+    <string name="permgrouplab_network">"Jaringan"</string>
+    <string name="permgroupdesc_network">"mengakses jaringan"</string>
     <string name="capability_title_canRequestTouchExploration" msgid="327598364696316213">"Mengaktifkan Jelajahi dengan Sentuhan"</string>
     <string name="capability_desc_canRequestTouchExploration" msgid="4394677060796752976">"Item yang diketuk akan diucapkan dengan jelas dan layar dapat dijelajahi menggunakan gestur."</string>
     <string name="capability_title_canRequestFilterKeyEvents" msgid="2772371671541753254">"Mengamati teks yang Anda ketik"</string>
@@ -426,6 +430,8 @@
     <string name="permdesc_writeCallLog" product="default" msgid="5903033505665134802">"Memungkinkan apl memodifikasi log panggilan ponsel Anda, termasuk data tentang panggilan masuk dan keluar. Apl berbahaya dapat menggunakan ini untuk menghapus atau memodifikasi log panggilan Anda."</string>
     <string name="permlab_bodySensors" msgid="3411035315357380862">"akses sensor tubuh (misalnya, monitor detak jantung)"</string>
     <string name="permdesc_bodySensors" product="default" msgid="2365357960407973997">"Mengizinkan aplikasi untuk mengakses data dari sensor yang memantau kondisi fisik Anda, seperti denyut jantung."</string>
+    <string name="permlab_otherSensors">"akses sensor (seperti kompas)"</string>
+    <string name="permdesc_otherSensors" product="default">"Mengizinkan aplikasi untuk mengakses data dari sensor yang memantau orientasi, gerakan, getaran (termasuk suara berfrekuensi rendah) dan data lingkungan."</string>
     <string name="permlab_readCalendar" msgid="6408654259475396200">"Baca acara kalender dan detailnya"</string>
     <string name="permdesc_readCalendar" product="tablet" msgid="515452384059803326">"Aplikasi ini dapat membaca semua acara kalender yang tersimpan di tablet dan membagikan atau menyimpan data kalender."</string>
     <string name="permdesc_readCalendar" product="tv" msgid="5811726712981647628">"Aplikasi ini dapat membaca semua acara kalender yang tersimpan di perangkat Android TV dan membagikan atau menyimpan data kalender."</string>
