@@ -5587,6 +5587,39 @@ public final class Settings {
         public static final String STATUS_BAR_LOGO = "status_bar_logo";
 
         /**
+         * Whether to enable StatusBar network traffic indicator.
+         * 0 means disabled, 1 means enabled.
+         * @hide
+         */
+        public static final String NETWORK_TRAFFIC_ENABLED = "network_traffic_enabled";
+
+        /**
+         * Threshold value in KiB/s below which upload speed will be hidden.
+         * @hide
+         */
+        public static final String NETWORK_TRAFFIC_AUTO_HIDE_THRESHOLD_TX = "network_traffic_auto_hide_threshold_tx";
+
+        /**
+         * Threshold value in KiB/s below which download speed will be hidden.
+         * @hide
+         */
+        public static final String NETWORK_TRAFFIC_AUTO_HIDE_THRESHOLD_RX = "network_traffic_auto_hide_threshold_rx";
+
+        /**
+         * Text size for the unit text (like KiB/s).
+         * Values should be in Typedvalue.COMPLEX_UNIT_SP
+         * @hide
+         */
+        public static final String NETWORK_TRAFFIC_UNIT_TEXT_SIZE = "network_traffic_unit_text_size";
+
+        /**
+         * Text scale factor for the rate used to scale the
+         * rate text size based on the unit text size.
+         * @hide
+         */
+        public static final String NETWORK_TRAFFIC_RATE_TEXT_SCALE_FACTOR = "network_traffic_rate_text_scale_factor";
+
+        /**
          * IMPORTANT: If you add a new public settings you also have to add it to
          * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
          * it to PRIVATE_SETTINGS below. Also add a validator that can validate
@@ -5756,6 +5789,9 @@ public final class Settings {
             PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_FORMAT);
             PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_POSITION);
             PRIVATE_SETTINGS.add(VIBRATE_ON_NOTIFICATIONS);
+            PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_ENABLED);
+            PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_AUTO_HIDE_THRESHOLD_TX);
+            PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_AUTO_HIDE_THRESHOLD_RX);
         }
 
         /**
