@@ -33,6 +33,9 @@ import android.util.TypedValue
 import com.android.settingslib.R
 import com.android.settingslib.Utils
 
+import android.provider.Settings.System;
+import android.os.UserHandle;
+
 /**
  * A battery meter drawable that respects paths configured in
  * frameworks/base/core/res/res/values/config.xml to allow for an easily overrideable battery icon
@@ -178,18 +181,37 @@ open class LandscapeBatteryDrawable(private val context: Context, frameColor: In
         intrinsicHeight = (Companion.HEIGHT * density).toInt()
         intrinsicWidth = (Companion.WIDTH * density).toInt()
 
+        val setCustomBatteryLevelTint = System.getIntForUser(
+            context.getContentResolver(),
+            System.BATTERY_LEVEL_COLORS, 0, UserHandle.USER_CURRENT
+        ) === 1
+
         val res = context.resources
-        val levels = res.obtainTypedArray(R.array.batterymeter_color_levels)
-        val colors = res.obtainTypedArray(R.array.batterymeter_color_values)
+        val L:Int
+        L = if(setCustomBatteryLevelTint)
+            7
+            else
+            2
+        
+        val levels = if(setCustomBatteryLevelTint)
+            res.obtainTypedArray(R.array.corvus_batterymeter_color_levels)
+        else
+            res.obtainTypedArray(R.array.batterymeter_color_levels)
+        
+        val colors = if(setCustomBatteryLevelTint) 
+            res.obtainTypedArray(R.array.corvus_batterymeter_color_values)
+        else
+            res.obtainTypedArray(R.array.batterymeter_color_values)
+            
         val N = levels.length()
-        colorLevels = IntArray(2 * N)
+        colorLevels = IntArray(L * N)
         for (i in 0 until N) {
-            colorLevels[2 * i] = levels.getInt(i, 0)
+            colorLevels[L * i] = levels.getInt(i, 0)
             if (colors.getType(i) == TypedValue.TYPE_ATTRIBUTE) {
-                colorLevels[2 * i + 1] = Utils.getColorAttrDefaultColor(context,
+                colorLevels[L * i + 1] = Utils.getColorAttrDefaultColor(context,
                         colors.getThemeAttributeId(i, 0))
             } else {
-                colorLevels[2 * i + 1] = colors.getColor(i, 0)
+                colorLevels[L * i + 1] = colors.getColor(i, 0)
             }
         }
         levels.recycle()
