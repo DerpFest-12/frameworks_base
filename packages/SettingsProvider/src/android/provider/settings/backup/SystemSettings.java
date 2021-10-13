@@ -103,5 +103,6 @@ public class SystemSettings {
         Settings.System.DOUBLE_TAP_SLEEP_GESTURE,
         Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN,
         Settings.System.LOCKSCREEN_PIN_SCRAMBLE_LAYOUT,
+        Settings.System.LOCKSCREEN_QUICK_UNLOCK_CONTROL,
     };
 }
