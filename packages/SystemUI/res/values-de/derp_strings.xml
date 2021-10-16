@@ -57,4 +57,10 @@
     <string name="accessibility_quick_settings_sync_on">Synchronisierung an.</string>
     <string name="accessibility_quick_settings_sync_changed_off">Synchronisierung ist ausgeschaltet.</string>
     <string name="accessibility_quick_settings_sync_changed_on">Synchronisierung ist eingeschaltet.</string>
+
+    <!-- Sound QS Tile -->
+    <string name="quick_settings_sound_label">Töne</string>
+    <string name="quick_settings_sound_ring">Klingeln</string>
+    <string name="quick_settings_sound_vibrate">Vibrieren</string>
+    <string name="quick_settings_sound_dnd">Nicht stören</string>
 </resources>
