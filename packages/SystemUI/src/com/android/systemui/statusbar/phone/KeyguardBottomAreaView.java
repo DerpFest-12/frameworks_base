@@ -76,7 +76,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.internal.annotations.VisibleForTesting;
-import com.android.internal.util.derp.fod.FodUtils;
+import com.android.internal.util.derp.udfps.UdfpsUtils;
 import com.android.internal.widget.LockPatternUtils;
 import com.android.keyguard.KeyguardUpdateMonitor;
 import com.android.keyguard.KeyguardUpdateMonitorCallback;
@@ -201,7 +201,7 @@ public class KeyguardBottomAreaView extends FrameLayout implements View.OnClickL
     private boolean mDozing;
     private int mIndicationBottomMargin;
     private int mIndicationPadding;
-    private int mIndicationBottomMarginFod;
+    private int mIndicationBottomMarginUdfps;
     private float mDarkAmount;
     private int mBurnInXOffset;
     private int mBurnInYOffset;
@@ -321,7 +321,7 @@ public class KeyguardBottomAreaView extends FrameLayout implements View.OnClickL
         mIndicationTextBottom = findViewById(R.id.keyguard_indication_text_bottom);
         mIndicationBottomMargin = getResources().getDimensionPixelSize(
                 R.dimen.keyguard_indication_margin_bottom);
-        mIndicationBottomMarginFod = getResources().getDimensionPixelSize(
+        mIndicationBottomMarginUdfps = getResources().getDimensionPixelSize(
                 R.dimen.keyguard_indication_margin_bottom_fingerprint_in_display);
         mBurnInYOffset = getResources().getDimensionPixelSize(
                 R.dimen.default_burn_in_prevention_offset);
@@ -513,13 +513,13 @@ public class KeyguardBottomAreaView extends FrameLayout implements View.OnClickL
     private void updateIndicationAreaPadding() {
         mIndicationBottomMargin = getResources().getDimensionPixelSize(
                 R.dimen.keyguard_indication_margin_bottom);
-        mIndicationBottomMarginFod = getResources().getDimensionPixelSize(
+        mIndicationBottomMarginUdfps = getResources().getDimensionPixelSize(
                 R.dimen.keyguard_indication_margin_bottom_fingerprint_in_display);
         mBurnInYOffset = getResources().getDimensionPixelSize(
                 R.dimen.default_burn_in_prevention_offset);
         MarginLayoutParams mlp = (MarginLayoutParams) mIndicationArea.getLayoutParams();
 
-        int bottomMargin = hasInDisplayFingerprint() ? mIndicationBottomMarginFod : mIndicationBottomMargin;
+        int bottomMargin = hasInDisplayFingerprint() ? mIndicationBottomMarginUdfps : mIndicationBottomMargin;
         boolean newLp = mlp.bottomMargin != bottomMargin;
         if (newLp) {
             mlp.bottomMargin = bottomMargin;
@@ -593,7 +593,7 @@ public class KeyguardBottomAreaView extends FrameLayout implements View.OnClickL
     }
 
     private boolean hasInDisplayFingerprint() {
-        return FodUtils.hasFodSupport(mContext);
+        return UdfpsUtils.hasUdfpsSupport(mContext);
     }
 
     public boolean isLeftVoiceAssist() {
