@@ -13,14 +13,15 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.android.internal.util.derp.fod;
+
+package com.android.internal.util.derp.udfps;
 
 import android.content.Context;
 
 import com.android.internal.util.ArrayUtils;
 
-public class FodUtils {
-    public static boolean hasFodSupport(Context context) {
+public class UdfpsUtils {
+    public static boolean hasUdfpsSupport(Context context) {
         int[] udfpsProps = context.getResources().getIntArray(
                 com.android.internal.R.array.config_udfps_sensor_props);
 
