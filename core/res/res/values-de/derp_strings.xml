@@ -56,4 +56,8 @@
     <string name="url_copy_success">URL erfolgreich kopiert</string>
     <string name="url_copy_failed">Beim Hochladen des Protokolls zu Memochō ist ein Fehler aufgetreten</string>
 
+    <!-- SystemUI Restart -->
+    <string name="systemui_restart_title">SystemUI-Neustart erforderlich</string>
+    <string name="systemui_restart_message">Damit alle Änderungen wirksam werden, ist ein Neustart der SystemUI erforderlich. SystemUI jetzt neu starten?</string>
+
 </resources>
