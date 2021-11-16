@@ -41,4 +41,6 @@
         of waking the screen while the screen is off or in lpm. -->
     <bool name="config_pulseOnFingerDown">false</bool>
 
+    <bool name="always_show_screenshot_dismiss_botton">true</bool>
+
 </resources>
