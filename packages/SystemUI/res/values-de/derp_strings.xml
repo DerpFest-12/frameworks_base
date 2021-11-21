@@ -129,7 +129,9 @@
     <string name="qs_data_switch_changed_1">Datenkarte auf SIM 1 umschalten.</string>
     <string name="qs_data_switch_changed_2">Datenkarte auf SIM 2 umschalten.</string>
 
-    <string name="screenrecord_stopdot_label">Stopppunkt anzeigen\nLang drücken, um es zu bewegen</string>
-    <string name="screenrecord_lowquality_label">Geringere Qualität für kleinere Dateien</string>
+    <string name="screenrecord_stopdot_label">Stopppunkt anzeigen</string>
+    <string name="screenrecord_stopdot_summary">Lang drücken, um es zu bewegen</string>
+    <string name="screenrecord_lowquality_label">Geringere Qualität</string>
+    <string name="screenrecord_lowquality_summary">Für kleinere Dateien</string>
 
 </resources>
