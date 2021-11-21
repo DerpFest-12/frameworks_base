@@ -153,9 +153,11 @@ public class ScreenMediaRecorder {
         refreshRate = dimens[2];
         int vidBitRate = width * height * refreshRate / VIDEO_FRAME_RATE
                 * VIDEO_FRAME_RATE_TO_RESOLUTION_RATIO;
+        boolean isFhdPlus = Math.max(width, height) > 1920;
         mMediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
         mMediaRecorder.setVideoEncodingProfileLevel(
                 MediaCodecInfo.CodecProfileLevel.AVCProfileMain,
+                isFhdPlus ? MediaCodecInfo.CodecProfileLevel.AVCLevel42 :
                 MediaCodecInfo.CodecProfileLevel.AVCLevel3);
         mMediaRecorder.setVideoSize(width, height);
         mMediaRecorder.setVideoFrameRate(mLowQuality ? VIDEO_FRAME_RATE : refreshRate);
