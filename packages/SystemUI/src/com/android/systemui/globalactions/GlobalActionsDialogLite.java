@@ -993,8 +993,6 @@ public class GlobalActionsDialogLite implements DialogInterface.OnDismissListene
             if (mRebootMenu) {
                 mMessageResId = com.android.systemui.R.string.global_action_reboot_sub;
                 mIconResId = com.android.systemui.R.drawable.ic_restart_system;
-            } else if (showRebootSubmenu() && advancedRebootEnabled(mContext)) {
-                mMessageResId = com.android.systemui.R.string.global_action_reboot_more;
             }
         }
 
