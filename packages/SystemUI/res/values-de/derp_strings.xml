@@ -133,6 +133,7 @@
     <string name="screenrecord_stopdot_summary">Lang drücken, um es zu bewegen</string>
     <string name="screenrecord_lowquality_label">Geringere Qualität</string>
     <string name="screenrecord_lowquality_summary">Für kleinere Dateien</string>
-    <string name="screenrecord_longer_timeout_switch_label">Größere Dateigrößenbeschränkung\nBegrenzen Sie die Aufzeichnungsgröße auf 15 GB</string>
+    <string name="screenrecord_longer_timeout_switch_label">Größere Dateigrößenbeschränkung</string>
+    <string name="screenrecord_longer_timeout_switch_summary">Begrenzen Sie die Aufzeichnungsgröße auf 15 GB</string>
 
 </resources>
