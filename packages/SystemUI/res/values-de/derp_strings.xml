@@ -20,6 +20,7 @@
 
     <!-- Power Menu -->
     <string name="global_action_reboot">Neustart</string>
+    <string name="global_action_reboot_more">Erweitert</string>
     <string name="global_action_reboot_sub">System</string>
     <string name="global_action_reboot_recovery">Recovery</string>
     <string name="global_action_reboot_bootloader">Bootloader</string>
