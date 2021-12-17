@@ -133,6 +133,7 @@ android_library {
         "assistmanager-google",
         "backgesture-google",
         "columbus-sysui-google",
+        "elmyra-sysui-google",
         "smartspace-google",
         "tensorflowlite_java",
         "vendor.lineage.powershare-V1.0-java",
