@@ -60,7 +60,9 @@
 
 # DerpFest rules
 -keep class org.derpfest.** { *; }
+-keep class com.octavi.** { *; }
 
 # Google rules
+-keep class android.hardware.** { *; }
 -keep class com.google.** { *; }
 -keep class vendor.** { *; }
