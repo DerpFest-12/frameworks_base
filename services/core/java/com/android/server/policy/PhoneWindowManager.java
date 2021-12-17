@@ -2191,7 +2191,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     }
 
     private void initSingleKeyGestureRules() {
-        mSingleKeyGestureDetector = new SingleKeyGestureDetector();
+        mSingleKeyGestureDetector = new SingleKeyGestureDetector(mContext);
 
         int powerKeyGestures = 0;
         if (hasVeryLongPressOnPowerBehavior()) {
