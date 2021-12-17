@@ -7,6 +7,7 @@ import com.android.systemui.dagger.SystemUIBinder;
 import com.android.systemui.dagger.SysUIComponent;
 import com.android.systemui.dagger.SystemUIModule;
 
+import org.derpfest.systemui.columbus.ColumbusModule;
 import org.derpfest.systemui.keyguard.KeyguardSliceProviderDerpFest;
 import org.derpfest.systemui.smartspace.KeyguardSmartspaceController;
 
@@ -14,10 +15,11 @@ import dagger.Subcomponent;
 
 @SysUISingleton
 @Subcomponent(modules = {
+        ColumbusModule.class,
         DefaultComponentBinder.class,
         DependencyProvider.class,
-        SystemUIBinder.class,
         SystemUIModule.class,
+        SystemUIDerpFestBinder.class,
         SystemUIDerpFestModule.class})
 public interface SysUIComponentDerpFest extends SysUIComponent {
     @SysUISingleton
