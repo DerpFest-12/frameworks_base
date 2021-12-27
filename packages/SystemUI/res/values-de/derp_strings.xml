@@ -93,4 +93,6 @@
     <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
     <string name="custom_hint">Wischen Sie vom Symbol zum Starten</string>
 
+    <string name="status_bar_call_strength">Signalstärke</string>
+
 </resources>
