@@ -57,3 +57,7 @@
 
 # DerpFest rules
 -keep class org.derpfest.** { *; }
+
+# Google rules
+-keep class com.google.** { *; }
+-keep class vendor.** { *; }
