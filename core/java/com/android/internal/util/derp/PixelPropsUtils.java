@@ -123,8 +123,9 @@ public class PixelPropsUtils {
             setPropValue(key, value);
         }
         if (isPixelDevice) {
+            // Set MODEL to "Pixel 5a"
             if (sIsGms) {
-                setPropValue("MODEL", Build.MODEL + " ");
+                setPropValue("MODEL", "Pixel 5a");
             }
         }
         // Set proper indexing fingerprint
