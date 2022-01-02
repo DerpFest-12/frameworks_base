@@ -11623,6 +11623,12 @@ public final class Settings {
         public static final String QS_SHOW_AUTO_BRIGHTNESS_BUTTON = "qs_show_auto_brightness_button";
 
         /**
+         * Whether tethering is allowed to use VPN upstreams
+         */
+        @SuppressLint("NoSettingsProvider")
+        public static final String TETHERING_ALLOW_VPN_UPSTREAMS = "tethering_allow_vpn_upstreams";
+
+        /**
          * These entries are considered common between the personal and the managed profile,
          * since the managed profile doesn't get to change them.
          */
