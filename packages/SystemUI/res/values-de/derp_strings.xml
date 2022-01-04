@@ -199,4 +199,7 @@
     <!-- QS customizer -->
     <string name="reset_customizer">Reihenfolge zurücksetzen</string>
 
+    <!-- Glove Mode Tile -->
+    <string name="quick_settings_glove_mode_label">Glove-Modus</string>
+
 </resources>
