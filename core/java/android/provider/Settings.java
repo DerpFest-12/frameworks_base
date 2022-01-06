@@ -6440,6 +6440,12 @@ public final class Settings {
         public static final String AMBIENT_ICONS_COLOR = "ambient_icons_color";
 
         /**
+         * Whether to Enable wp zoom
+         * @hide
+         */
+        public static final String USE_WP_ZOOM = "use_wp_zoom";
+
+        /**
          * IMPORTANT: If you add a new public settings you also have to add it to
          * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
          * it to PRIVATE_SETTINGS below. Also add a validator that can validate
