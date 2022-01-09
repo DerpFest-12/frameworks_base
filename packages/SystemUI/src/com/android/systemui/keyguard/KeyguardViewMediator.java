@@ -1180,7 +1180,7 @@ public class KeyguardViewMediator extends SystemUI implements Dumpable,
         final ContentResolver cr = mContext.getContentResolver();
 
         // From Global Settings
-        final long timeout = Settings.Global.getInt(cr,
+        final long timeout = Settings.Global.getLong(cr,
                 Settings.Global.DEVICE_REBOOT_TIMEOUT,
                 KEYGUARD_REBOOT_AFTER_DELAY_DEFAULT);
 
