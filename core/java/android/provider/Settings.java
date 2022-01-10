@@ -6303,6 +6303,13 @@ public final class Settings {
         public static final String LOCK_POWER_MENU_DISABLED = "lockscreen_power_menu_disabled";
 
         /**
+         * Whether to disable the ripple animation on fingerprint unlock
+         *
+         * @hide
+         */
+        public static final String DISABLE_RIPPLE_EFFECT = "disable_ripple_effect";
+
+        /**
          * IMPORTANT: If you add a new public settings you also have to add it to
          * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
          * it to PRIVATE_SETTINGS below. Also add a validator that can validate
