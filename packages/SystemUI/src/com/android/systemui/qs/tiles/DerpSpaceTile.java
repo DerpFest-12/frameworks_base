@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
+import android.service.quicksettings.Tile;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -108,6 +109,7 @@ public class DerpSpaceTile extends QSTileImpl<BooleanState> {
     protected void handleUpdateState(BooleanState state, Object arg) {
         state.icon = ResourceIcon.get(R.drawable.ic_qs_derp);
         state.label = mContext.getString(R.string.quick_settings_derp_label);
+        state.state = Tile.STATE_ACTIVE;
     }
 
     @Override
