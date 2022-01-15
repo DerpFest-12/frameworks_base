@@ -197,5 +197,6 @@
 
     <!-- DerpSpace Tile -->
     <string name="quick_settings_derp_label">DerpSpace</string>
+    <string name="quick_settings_derp_description">Don\'t press me bro</string>
 
 </resources>
