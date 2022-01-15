@@ -109,6 +109,8 @@ public class DerpSpaceTile extends QSTileImpl<BooleanState> {
     protected void handleUpdateState(BooleanState state, Object arg) {
         state.icon = ResourceIcon.get(R.drawable.ic_qs_derp);
         state.label = mContext.getString(R.string.quick_settings_derp_label);
+        state.secondaryLabel = mContext.getString(R.string.quick_settings_derp_description);
+        state.contentDescription = mContext.getString(R.string.quick_settings_derp_description);
         state.state = Tile.STATE_ACTIVE;
     }
 
