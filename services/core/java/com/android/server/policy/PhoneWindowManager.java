@@ -3633,7 +3633,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             Log.w(TAG, "isMusicActive: couldn't get AudioManager reference");
             return false;
         }
-        return am.isMusicActive();
+        return am.isMusicActive() || am.isMusicActiveRemotely();
     }
 
     // TODO(b/117479243): handle it in InputPolicy
