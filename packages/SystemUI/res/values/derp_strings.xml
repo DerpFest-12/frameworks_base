@@ -96,7 +96,6 @@
     <string name="custom_hint">Swipe from icon to launch</string>
 
     <string name="status_bar_vpn">VPN</string>
-    <string name="status_bar_call_strength">Call strength</string>
     <string name="status_bar_camera">Camera</string>
     <string name="status_bar_location">Location</string>
     <string name="status_bar_microphone">Microphone</string>
