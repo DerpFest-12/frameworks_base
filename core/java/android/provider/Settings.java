@@ -6350,6 +6350,13 @@ public final class Settings {
         public static final String ENABLE_FLOATING_ROTATION_BUTTON = "enable_floating_rotation_button";
 
         /**
+         * Whether to play haptic feedback on udfps finger down event.
+         * Default 1
+         * @hide
+         */
+        public static final String ENABLE_UDFPS_START_HAPTIC_FEEDBACK = "enable_udfps_start_haptic_feedback";
+
+        /**
          * IMPORTANT: If you add a new public settings you also have to add it to
          * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
          * it to PRIVATE_SETTINGS below. Also add a validator that can validate
