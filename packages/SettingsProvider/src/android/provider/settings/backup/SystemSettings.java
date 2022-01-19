@@ -142,5 +142,6 @@ public class SystemSettings {
         Settings.System.HEADS_UP_TIMEOUT,
         Settings.System.HEADS_UP_BLACKLIST_VALUES,
         Settings.System.ENABLE_FLOATING_ROTATION_BUTTON,
+        Settings.System.ENABLE_UDFPS_START_HAPTIC_FEEDBACK,
     };
 }
