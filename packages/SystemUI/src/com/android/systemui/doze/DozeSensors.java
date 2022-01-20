@@ -119,6 +119,7 @@ public class DozeSensors {
     private boolean mListening;
     private boolean mListeningTouchScreenSensors;
     private boolean mListeningProxSensors;
+    private boolean mSupportProximitySensor;
     private boolean mUdfpsEnrolled;
 
     @DevicePostureController.DevicePostureInt
@@ -168,7 +169,8 @@ public class DozeSensors {
         mDozeLog = dozeLog;
         mProximitySensor = proximitySensor;
         mProximitySensor.setTag(TAG);
-        mSelectivelyRegisterProxSensors = dozeParameters.getSelectivelyRegisterSensorsUsingProx();
+        mSupportProximitySensor = mContext.getResources().getBoolean(R.bool.doze_proximity_sensor_supported);
+        mSelectivelyRegisterProxSensors = dozeParameters.getSelectivelyRegisterSensorsUsingProx() && mSupportProximitySensor;
         mListeningProxSensors = !mSelectivelyRegisterProxSensors;
         mScreenOffUdfpsEnabled =
                 config.screenOffUdfpsEnabled(KeyguardUpdateMonitor.getCurrentUser());
@@ -261,8 +263,7 @@ public class DozeSensors {
                         false /* requiresProx */),
         };
 
-        boolean supportProximitySensor = mContext.getResources().getBoolean(R.bool.doze_proximity_sensor_supported);
-        if (!supportProximitySensor) {
+        if (!mSupportProximitySensor) {
             return;
         }
 
@@ -486,6 +487,9 @@ public class DozeSensors {
      * @return true if prox is currently near, false if far or null if unknown.
      */
     public Boolean isProximityCurrentlyNear() {
+        if (!mSupportProximitySensor) {
+            return false;
+        }
         return mProximitySensor.isNear();
     }
 
