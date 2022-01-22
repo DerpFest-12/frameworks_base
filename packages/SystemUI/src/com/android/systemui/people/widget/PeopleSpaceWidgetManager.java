@@ -392,7 +392,7 @@ public class PeopleSpaceWidgetManager {
         }
 
         if (mIPeopleManager == null || mLauncherApps == null) {
-            Log.d(TAG, "System services are null");
+            if (DEBUG) Log.d(TAG, "System services are null");
             return null;
         }
         try {
@@ -959,7 +959,7 @@ public class PeopleSpaceWidgetManager {
                     UserHandle.of(key.getUserId()),
                     LauncherApps.FLAG_CACHE_PEOPLE_TILE_SHORTCUTS);
         } catch (Exception e) {
-            Log.d(TAG, "Exception uncaching shortcut:" + e);
+            Log.e(TAG, "Exception uncaching shortcut:" + e);
         }
     }
 
