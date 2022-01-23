@@ -326,6 +326,10 @@
     <string name="permgroupdesc_phone" msgid="270048070781478204">"Telefonanrufe tätigen und verwalten"</string>
     <string name="permgrouplab_sensors" msgid="9134046949784064495">"Körpersensoren"</string>
     <string name="permgroupdesc_sensors" msgid="2610631290633747752">"auf Sensordaten zu deinen Vitaldaten zugreifen"</string>
+    <string name="permgrouplab_otherSensors">"Sensoren"</string>
+    <string name="permgroupdesc_otherSensors">"auf Sensordaten über Orientierung, Bewegung etc zugreifen."</string>
+    <string name="permgrouplab_network">"Netzwerk"</string>
+    <string name="permgroupdesc_network">"Auf Netzwerkdaten zugreifen"</string>
     <string name="capability_title_canRetrieveWindowContent" msgid="7554282892101587296">"Fensterinhalte abrufen"</string>
     <string name="capability_desc_canRetrieveWindowContent" msgid="6195610527625237661">"Die Inhalte eines Fensters, mit dem du interagierst, werden abgerufen."</string>
     <string name="capability_title_canRequestTouchExploration" msgid="327598364696316213">"\"Tippen &amp; Entdecken\" aktivieren"</string>
@@ -426,6 +430,9 @@
     <string name="permdesc_writeCallLog" product="default" msgid="5903033505665134802">"Ermöglicht der App, die Anrufliste deines Telefons zu ändern, einschließlich der Daten über ein- und ausgehende Anrufe. Schädliche Apps können so die Einträge in der Anrufliste löschen oder sie ändern."</string>
     <string name="permlab_bodySensors" msgid="3411035315357380862">"Auf Körpersensoren wie z. B. Pulsmesser zugreifen"</string>
     <string name="permdesc_bodySensors" product="default" msgid="2365357960407973997">"Ermöglicht der App, auf Daten von Sensoren zuzugreifen, die deine körperliche Verfassung überwachen, beispielsweise deinen Puls"</string>
+    <string name="permlab_otherSensors">"Auf Sensordaten zugreifen (wie den Kompass)"</string>
+    <string name="permdesc_otherSensors" product="default">"Ermöglicht der App, auf Daten von Sensoren zuzugreifen
+    Überwachung von Ausrichtung, Bewegung, Vibration (einschließlich niederfrequenter Geräusche) und Umgebungsdaten"</string>
     <string name="permlab_readCalendar" msgid="6408654259475396200">"Kalendertermine und Details lesen"</string>
     <string name="permdesc_readCalendar" product="tablet" msgid="515452384059803326">"Diese App kann alle auf deinem Tablet gespeicherten Kalendertermine lesen und deine Kalenderdaten teilen oder speichern."</string>
     <string name="permdesc_readCalendar" product="tv" msgid="5811726712981647628">"Diese App kann alle auf deinem Android TV-Gerät gespeicherten Kalendertermine lesen und die Kalenderdaten teilen oder speichern."</string>
