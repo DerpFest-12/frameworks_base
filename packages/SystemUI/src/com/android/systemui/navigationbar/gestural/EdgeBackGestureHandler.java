@@ -1053,6 +1053,12 @@ public class EdgeBackGestureHandler extends CurrentUserTracker
             case 12: // Kill app
                 derpUtils.killForegroundApp();
                 break;
+            case 13: // Skip song
+                derpUtils.sendSystemKeyToStatusBar(KeyEvent.KEYCODE_MEDIA_NEXT);
+                break;
+            case 14: // Previous song
+                derpUtils.sendSystemKeyToStatusBar(KeyEvent.KEYCODE_MEDIA_PREVIOUS);
+                break;
         }
     }
 

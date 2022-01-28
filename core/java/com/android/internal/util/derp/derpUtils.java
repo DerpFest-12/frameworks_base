@@ -221,6 +221,10 @@ public class derpUtils {
                 && sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null;
     }
 
+    public static void sendSystemKeyToStatusBar(int keyCode) {
+        FireActions.sendSystemKeyToStatusBar(keyCode);
+    }
+
     private static final class FireActions {
         private static IStatusBarService mStatusBarService = null;
         private static IStatusBarService getStatusBarService() {
@@ -249,6 +253,17 @@ public class derpUtils {
             if (service != null) {
                 try {
                     service.toggleCameraFlash();
+                } catch (RemoteException e) {
+                    // do nothing.
+                }
+            }
+        }
+
+        public static void sendSystemKeyToStatusBar(int keyCode) {
+            IStatusBarService service = getStatusBarService();
+            if (service != null) {
+                try {
+                    service.handleSystemKey(keyCode);
                 } catch (RemoteException e) {
                     // do nothing.
                 }
