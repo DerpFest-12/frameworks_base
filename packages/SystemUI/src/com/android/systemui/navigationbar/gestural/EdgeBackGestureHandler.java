@@ -1059,6 +1059,9 @@ public class EdgeBackGestureHandler extends CurrentUserTracker
             case 14: // Previous song
                 derpUtils.sendSystemKeyToStatusBar(KeyEvent.KEYCODE_MEDIA_PREVIOUS);
                 break;
+            case 15: // Powermenu
+                derpUtils.showPowerMenu();
+                break;
         }
     }
 
