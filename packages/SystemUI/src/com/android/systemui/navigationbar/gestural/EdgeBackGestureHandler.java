@@ -1065,6 +1065,9 @@ public class EdgeBackGestureHandler extends CurrentUserTracker
             case 16: // Partial Screenshot
                 derpUtils.takeScreenshot(false);
                 break;
+            case 17: // Hush Mute
+                ActionUtils.triggerHushMute(mContext);
+                break;
         }
     }
 
