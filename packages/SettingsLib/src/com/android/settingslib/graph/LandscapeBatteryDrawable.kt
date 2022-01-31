@@ -150,6 +150,15 @@ open class LandscapeBatteryDrawable(private val context: Context, frameColor: In
         p.blendMode = BlendMode.SRC
     }
 
+    private val chargePaint = Paint(Paint.ANTI_ALIAS_FLAG).also { p ->
+        p.color = Utils.getColorStateListDefaultColor(context, R.color.batterymeter_bolt_color)
+        p.alpha = 255
+        p.isDither = true
+        p.strokeWidth = 0f
+        p.style = Paint.Style.FILL_AND_STROKE
+        p.blendMode = BlendMode.SRC
+    }
+
     // Only used if dualTone is set to true
     private val dualToneBackgroundFill = Paint(Paint.ANTI_ALIAS_FLAG).also { p ->
         p.color = frameColor
@@ -227,7 +236,7 @@ open class LandscapeBatteryDrawable(private val context: Context, frameColor: In
             // Clip out the bolt shape
             unifiedPath.op(scaledBolt, Path.Op.DIFFERENCE)
             if (!invertFillIcon) {
-                c.drawPath(scaledBolt, fillPaint)
+              c.drawPath(scaledBolt, chargePaint)
             }
         }
 
@@ -261,9 +270,9 @@ open class LandscapeBatteryDrawable(private val context: Context, frameColor: In
         if (charging) {
             c.clipOutPath(scaledBolt)
             if (invertFillIcon) {
-                c.drawPath(scaledBolt, fillColorStrokePaint)
+            c.drawPath(scaledBolt, chargePaint)
             } else {
-                c.drawPath(scaledBolt, fillColorStrokeProtection)
+            c.drawPath(scaledBolt, fillColorStrokeProtection)
             }
         } else if (powerSaveEnabled) {
             // If power save is enabled draw the perimeter path with colorError
