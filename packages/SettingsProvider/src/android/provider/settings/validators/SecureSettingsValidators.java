@@ -365,5 +365,6 @@ public class SecureSettingsValidators {
         VALIDATORS.put(Secure.MONET_ENGINE_LINEAR_LIGHTNESS, new InclusiveIntegerRangeValidator(0, 1));
         VALIDATORS.put(Secure.MONET_ENGINE_WHITE_LUMINANCE, new InclusiveIntegerRangeValidator(0, 1000));
         VALIDATORS.put(Secure.SHOW_BACK_ARROW_GESTURE, BOOLEAN_VALIDATOR);
+        VALIDATORS.put(Secure.DISABLE_SECURE_TILES_ON_LOCKSCREEN, BOOLEAN_VALIDATOR);
     }
 }
