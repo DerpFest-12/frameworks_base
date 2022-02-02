@@ -144,5 +144,6 @@ public class SystemSettings {
         Settings.System.ENABLE_FLOATING_ROTATION_BUTTON,
         Settings.System.ENABLE_UDFPS_START_HAPTIC_FEEDBACK,
         Settings.System.AUTO_BRIGHTNESS_ONE_SHOT,
+        Settings.System.SHOW_APP_VOLUME,
     };
 }
