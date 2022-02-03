@@ -10010,7 +10010,7 @@ public final class Settings {
          */
         @Readable
         public static final String DOZE_PULSE_ON_LONG_PRESS = "doze_pulse_on_long_press";
-
+        
         /**
          * Whether the device should pulse on double tap gesture.
          * @hide

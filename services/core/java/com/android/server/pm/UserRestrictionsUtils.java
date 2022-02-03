@@ -656,7 +656,7 @@ public class UserRestrictionsUtils {
                                 Settings.Secure.DOZE_PULSE_ON_LONG_PRESS, 0, userId);
                         android.provider.Settings.Secure.putIntForUser(
                                 context.getContentResolver(),
-                                Settings.Secure.DOZE_DOUBLE_TAP_GESTURE, 0, userId);
+                                Settings.Secure.DOUBLE_TAP_TO_WAKE, 0, userId);
                         android.provider.Settings.System.putIntForUser(
                                 context.getContentResolver(),
                                 Settings.System.DOZE_ON_CHARGE, 0, userId);
@@ -750,13 +750,7 @@ public class UserRestrictionsUtils {
             case android.provider.Settings.Secure.DOZE_ALWAYS_ON:
             case android.provider.Settings.Secure.DOZE_PICK_UP_GESTURE:
             case android.provider.Settings.Secure.DOZE_PULSE_ON_LONG_PRESS:
-            case android.provider.Settings.Secure.DOZE_DOUBLE_TAP_GESTURE:
-                if ("0".equals(value)) {
-                    return false;
-                }
-                restriction = UserManager.DISALLOW_AMBIENT_DISPLAY;
-                break;
-
+            case android.provider.Settings.Secure.DOUBLE_TAP_TO_WAKE:
             case android.provider.Settings.System.SCREEN_BRIGHTNESS:
             case android.provider.Settings.System.SCREEN_BRIGHTNESS_FLOAT:
             case android.provider.Settings.System.SCREEN_BRIGHTNESS_MODE:

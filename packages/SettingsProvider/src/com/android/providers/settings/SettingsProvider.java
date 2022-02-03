@@ -3932,7 +3932,7 @@ public class SettingsProvider extends ContentProvider {
                                 Settings.Secure.DOZE_PICK_UP_GESTURE, "0", null, true,
                                 SettingsState.SYSTEM_PACKAGE_NAME);
                         secureSettings.insertSettingOverrideableByRestoreLocked(
-                                Settings.Secure.DOZE_DOUBLE_TAP_GESTURE, "0", null, true,
+                                Settings.Secure.DOUBLE_TAP_TO_WAKE, "0", null, true,
                                 SettingsState.SYSTEM_PACKAGE_NAME);
                     }
                     currentVersion = 131;

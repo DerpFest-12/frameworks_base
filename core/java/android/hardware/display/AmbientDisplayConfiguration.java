@@ -110,7 +110,7 @@ public class AmbientDisplayConfiguration {
 
     /** {@hide} */
     public boolean doubleTapGestureEnabled(int user) {
-        return boolSettingDefaultOn(Settings.Secure.DOZE_DOUBLE_TAP_GESTURE, user)
+        return boolSettingDefaultOn(Settings.Secure.DOUBLE_TAP_TO_WAKE, user)
                 && doubleTapSensorAvailable();
     }
 
