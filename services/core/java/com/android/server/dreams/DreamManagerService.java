@@ -155,7 +155,7 @@ public final class DreamManagerService extends SystemService {
                 }
             }, new IntentFilter(Intent.ACTION_USER_SWITCHED), null, mHandler);
             mContext.getContentResolver().registerContentObserver(
-                    Settings.Secure.getUriFor(Settings.Secure.DOZE_DOUBLE_TAP_GESTURE), false,
+                    Settings.Secure.getUriFor(Settings.Secure.DOUBLE_TAP_TO_WAKE), false,
                     mDozeEnabledObserver, UserHandle.USER_ALL);
             writePulseGestureEnabled();
         }

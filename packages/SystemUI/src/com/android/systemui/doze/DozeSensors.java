@@ -199,7 +199,7 @@ public class DozeSensors {
                         false /* requires prox */),
                 new TriggerSensor(
                         findSensor(config.doubleTapSensorType()),
-                        Settings.Secure.DOZE_DOUBLE_TAP_GESTURE,
+                        Settings.Secure.DOUBLE_TAP_TO_WAKE,
                         true /* configured */,
                         DozeLog.REASON_SENSOR_DOUBLE_TAP,
                         dozeParameters.doubleTapReportsTouchCoordinates(),
