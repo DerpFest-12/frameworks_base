@@ -50,6 +50,7 @@ import android.util.Slog;
 import android.util.proto.ProtoOutputStream;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.internal.R;
 import com.android.internal.util.FrameworkStatsLog;
 import com.android.server.biometrics.SensorServiceStateProto;
 import com.android.server.biometrics.SensorStateProto;
@@ -123,6 +124,7 @@ public class Fingerprint21 implements IHwBinder.DeathRecipient, ServiceProvider 
     private final boolean mIsUdfps;
     private final int mSensorId;
     private final boolean mIsPowerbuttonFps;
+    private final boolean mCleanupUnusedFingerprints;
 
     private final class BiometricTaskStackListener extends TaskStackListener {
         @Override
@@ -345,6 +347,8 @@ public class Fingerprint21 implements IHwBinder.DeathRecipient, ServiceProvider 
             mDaemon = null;
             mCurrentUserId = UserHandle.USER_NULL;
         });
+        mCleanupUnusedFingerprints = mContext.getResources().getBoolean(
+            R.bool.config_cleanupUnusedFingerprints);
 
         try {
             ActivityManager.getService().registerUserSwitchObserver(mUserSwitchObserver, TAG);
@@ -694,17 +698,19 @@ public class Fingerprint21 implements IHwBinder.DeathRecipient, ServiceProvider 
 
     private void scheduleInternalCleanup(int userId,
             @Nullable BaseClientMonitor.Callback callback) {
-        mHandler.post(() -> {
-            scheduleUpdateActiveUserWithoutHandler(userId);
+        if (mCleanupUnusedFingerprints) {
+            mHandler.post(() -> {
+                scheduleUpdateActiveUserWithoutHandler(userId);
 
-            final List<Fingerprint> enrolledList = getEnrolledFingerprints(
-                    mSensorProperties.sensorId, userId);
-            final FingerprintInternalCleanupClient client = new FingerprintInternalCleanupClient(
-                    mContext, mLazyDaemon, userId, mContext.getOpPackageName(),
-                    mSensorProperties.sensorId, enrolledList,
-                    FingerprintUtils.getLegacyInstance(mSensorId), mAuthenticatorIds);
-            mScheduler.scheduleClientMonitor(client, callback);
-        });
+                final List<Fingerprint> enrolledList = getEnrolledFingerprints(
+                        mSensorProperties.sensorId, userId);
+                final FingerprintInternalCleanupClient client = new FingerprintInternalCleanupClient(
+                        mContext, mLazyDaemon, userId, mContext.getOpPackageName(),
+                        mSensorProperties.sensorId, enrolledList,
+                        FingerprintUtils.getLegacyInstance(mSensorId), mAuthenticatorIds);
+                mScheduler.scheduleClientMonitor(client, callback);
+            });
+        }
     }
 
     @Override
