@@ -52,6 +52,7 @@ import android.util.SparseArray;
 import android.util.proto.ProtoOutputStream;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.internal.R;
 import com.android.server.biometrics.Utils;
 import com.android.server.biometrics.sensors.AuthenticationClient;
 import com.android.server.biometrics.sensors.BaseClientMonitor;
@@ -98,6 +99,7 @@ public class FingerprintProvider implements IBinder.DeathRecipient, ServiceProvi
     @Nullable private IFingerprint mDaemon;
     @Nullable private IUdfpsOverlayController mUdfpsOverlayController;
     @Nullable private ISidefpsController mSidefpsController;
+    private final boolean mCleanupUnusedFingerprints;
 
     private final class BiometricTaskStackListener extends TaskStackListener {
         @Override
@@ -146,6 +148,8 @@ public class FingerprintProvider implements IBinder.DeathRecipient, ServiceProvi
         mLockoutResetDispatcher = lockoutResetDispatcher;
         mActivityTaskManager = ActivityTaskManager.getInstance();
         mTaskStackListener = new BiometricTaskStackListener();
+        mCleanupUnusedFingerprints = mContext.getResources().getBoolean(
+            R.bool.config_cleanupUnusedFingerprints);
 
         final List<SensorLocationInternal> workaroundLocations = getWorkaroundSensorProps(context);
 
@@ -478,17 +482,19 @@ public class FingerprintProvider implements IBinder.DeathRecipient, ServiceProvi
     @Override
     public void scheduleInternalCleanup(int sensorId, int userId,
             @Nullable BaseClientMonitor.Callback callback) {
-        mHandler.post(() -> {
-            final List<Fingerprint> enrolledList = getEnrolledFingerprints(sensorId, userId);
-            final FingerprintInternalCleanupClient client =
-                    new FingerprintInternalCleanupClient(mContext,
-                            mSensors.get(sensorId).getLazySession(), userId,
-                            mContext.getOpPackageName(), sensorId, enrolledList,
-                            FingerprintUtils.getInstance(sensorId),
-                            mSensors.get(sensorId).getAuthenticatorIds());
-            scheduleForSensor(sensorId, client, new BaseClientMonitor.CompositeCallback(callback,
-                    mFingerprintStateCallback));
-        });
+        if (mCleanupUnusedFingerprints) {
+            mHandler.post(() -> {
+                final List<Fingerprint> enrolledList = getEnrolledFingerprints(sensorId, userId);
+                final FingerprintInternalCleanupClient client =
+                        new FingerprintInternalCleanupClient(mContext,
+                                mSensors.get(sensorId).getLazySession(), userId,
+                                mContext.getOpPackageName(), sensorId, enrolledList,
+                                FingerprintUtils.getInstance(sensorId),
+                                mSensors.get(sensorId).getAuthenticatorIds());
+                scheduleForSensor(sensorId, client, new BaseClientMonitor.CompositeCallback(callback,
+                        mFingerprintStateCallback));
+            });
+        }
     }
 
     @Override
