@@ -44,9 +44,9 @@ public class PixelPropsUtils {
             "com.android.chrome", "com.breel.wallpapers20", "com.netflix.mediaclient"};
 
     private static final String[] packagesToKeep = {"com.google.android.GoogleCamera",
-            "com.google.android.MTCL83", "com.google.android.UltraCVM",
-            "com.google.android.apps.cameralite", "com.google.android.dialer", "com.google.ar.core",
-            "com.google.android.youtube", "com.google.android.apps.youtube"};
+            "com.google.android.MTCL83", "com.google.android.UltraCVM", "com.google.android.apps.cameralite",
+            "com.google.android.apps.wearables.maestro.companion", "com.google.android.dialer",
+            "com.google.ar.core", "com.google.android.youtube", "com.google.android.apps.youtube"};
 
     // Codenames for currently supported Pixels by Google
     private static final String[] pixelCodenames = {"oriole", "raven", "redfin", "barbet",
