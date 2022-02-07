@@ -209,5 +209,11 @@ public class SecureSettings {
         Settings.Secure.QS_SHOW_BRIGHTNESS,
         Settings.Secure.QS_BRIGHTNESS_POSITION_BOTTOM,
         Settings.Secure.QS_SHOW_AUTO_BRIGHTNESS_BUTTON,
+        Settings.Secure.MONET_ENGINE_ACCURATE_SHADES,
+        Settings.Secure.MONET_ENGINE_COLOR_OVERRIDE,
+        Settings.Secure.MONET_ENGINE_CUSTOM_COLOR,
+        Settings.Secure.MONET_ENGINE_CHROMA_FACTOR,
+        Settings.Secure.MONET_ENGINE_LINEAR_LIGHTNESS,
+        Settings.Secure.MONET_ENGINE_WHITE_LUMINANCE,
     };
 }
