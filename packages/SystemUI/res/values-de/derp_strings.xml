@@ -133,12 +133,15 @@
     <string name="qs_data_switch_changed_1">Datenkarte auf SIM 1 umschalten.</string>
     <string name="qs_data_switch_changed_2">Datenkarte auf SIM 2 umschalten.</string>
 
+    <!-- Screenrecord -->
     <string name="screenrecord_stopdot_label">Stopppunkt anzeigen</string>
-    <string name="screenrecord_stopdot_summary">Lang drücken, um es zu bewegen</string>
-    <string name="screenrecord_lowquality_label">Geringere Qualität</string>
-    <string name="screenrecord_lowquality_summary">Für kleinere Dateien</string>
+    <string name="screenrecord_stopdot_summary">Lange drücken, um ihn zu bewegen</string>
+    <string name="screenrecord_lowquality_label">Niedrigere Qualität</string>
+    <string name="screenrecord_lowquality_summary">Für geringere Dateigrößen</string>
     <string name="screenrecord_longer_timeout_switch_label">Größere Dateigrößenbeschränkung</string>
-    <string name="screenrecord_longer_timeout_switch_summary">Begrenzen Sie die Aufzeichnungsgröße auf 15 GB</string>
+    <string name="screenrecord_longer_timeout_switch_summary">Die Dateigrößenbeschränkung auf 15 GB erhöhen</string>
+    <string name="screenrecord_skip_time_label">Countdown überspringen</string>
+    <string name="screenrecord_skip_time_summary">Die Wartezeit von 3 Sekunden auf 100 Millisekunden reduzieren</string>
 
     <!-- Volume panel QS tile -->
     <string name="quick_settings_volume_panel_label">Lautstärkeregler</string>
