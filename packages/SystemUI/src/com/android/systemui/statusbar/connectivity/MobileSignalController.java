@@ -136,6 +136,8 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
     private boolean mOverride = true;
     private boolean mIsVowifiAvailable;
 
+    private SettingsObserver settingsObserver;
+
     private final MobileStatusTracker.Callback mMobileCallback =
             new MobileStatusTracker.Callback() {
                 private String mLastStatus;
@@ -301,7 +303,7 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
         mProviderModelSetting = featureFlags.isProviderModelSettingEnabled();
 
         Handler mHandler = new Handler();
-        SettingsObserver settingsObserver = new SettingsObserver(mHandler);
+        settingsObserver = new SettingsObserver(mHandler);
         settingsObserver.observe();
     }
 
@@ -444,6 +446,7 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
     public void unregisterListener() {
         mMobileStatusTracker.setListening(false);
         mContext.getContentResolver().unregisterContentObserver(mObserver);
+        mContext.getContentResolver().unregisterContentObserver(settingsObserver);
         mImsMmTelManager.unregisterImsRegistrationCallback(mRegistrationCallback);
         mContext.unregisterReceiver(mVolteSwitchObserver);
         mFeatureConnector.disconnect();
