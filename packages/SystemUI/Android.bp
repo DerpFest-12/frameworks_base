@@ -90,6 +90,7 @@ android_library {
         "res-keyguard",
         "res-smartspace",
         "res",
+        "res-blur",
     ],
     static_libs: [
         "WindowManager-Shell",
@@ -133,6 +134,7 @@ android_library {
         "vendor.lineage.powershare-V1.0-java",
         "faceunlock_framework",
         "VendorSupport-preference",
+        "AndroidSystemBlur",
     ],
     manifest: "AndroidManifest.xml",
 
