@@ -168,6 +168,7 @@
     <string name="quick_settings_poweroff_label">Power off</string>
     <string name="quick_settings_reboot_label">Reboot</string>
     <string name="quick_settings_reboot_recovery_label">Recovery</string>
+    <string name="quick_settings_reboot_bootloader_label">Bootloader</string>
 
     <!-- Sound Search tile -->
     <string name="quick_settings_sound_search">Sound search</string>
