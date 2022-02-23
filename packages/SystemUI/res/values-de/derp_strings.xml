@@ -220,4 +220,9 @@
     <!-- Screenshot Delete Toast -->
     <string name="delete_screenshot_toast">Screenshot gelöscht</string>
 
+    <!-- QR QS Tile -->
+    <string name="quick_settings_qr_description">Zum Scannen tippen</string>
+    <string name="qr_code_activity_title">QR-Code-Scanner</string>
+    <string name="delete_text_history">Verlauf löschen</string>
+
 </resources>

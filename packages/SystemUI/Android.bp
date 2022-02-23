@@ -127,6 +127,7 @@ android_library {
         "tensorflowlite_java",
         "vendor.lineage.powershare-V1.0-java",
         "faceunlock_framework",
+        "VendorSupport-preference",
     ],
     manifest: "AndroidManifest.xml",
 
