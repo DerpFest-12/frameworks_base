@@ -48,7 +48,7 @@
 
     <!-- The default tiles to display in QuickSettings -->
     <string name="quick_settings_tiles_extra" translatable="false">
-        ambient_display,anti_flicker,aod,caffeine,compass,dataswitch,derpspace,glovemode,heads_up,livedisplay,locale,music,powershare,reading_mode,reboot,refresh_rate,screenshot,sound,soundsearch,sync,usb_tether,volume_panel,vpn
+        ambient_display,anti_flicker,aod,caffeine,compass,dataswitch,derpspace,glovemode,heads_up,livedisplay,locale,music,powershare,qr_code,reading_mode,reboot,refresh_rate,screenshot,sound,soundsearch,sync,usb_tether,volume_panel,vpn
     </string>
 
     <!-- Whether usage of the proximity sensor during doze is supported -->
