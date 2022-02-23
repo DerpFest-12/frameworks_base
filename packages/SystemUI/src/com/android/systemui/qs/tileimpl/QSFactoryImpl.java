@@ -53,6 +53,7 @@ import com.android.systemui.qs.tiles.MusicTile;
 import com.android.systemui.qs.tiles.NfcTile;
 import com.android.systemui.qs.tiles.NightDisplayTile;
 import com.android.systemui.qs.tiles.PowerShareTile;
+import com.android.systemui.qs.tiles.QRCodeTile;
 import com.android.systemui.qs.tiles.QuickAccessWalletTile;
 import com.android.systemui.qs.tiles.RebootTile;
 import com.android.systemui.qs.tiles.ReduceBrightColorsTile;
@@ -136,6 +137,7 @@ public class QSFactoryImpl implements QSFactory {
     private final Provider<GloveModeTile> mGloveModeTileProvider;
     private final Provider<PowerShareTile> mPowerShareTileProvider;
     private final Provider<RefreshRateTile> mRefreshRateTileProvider;
+    private final Provider<QRCodeTile> mQRCodeTileProvider;
 
     private final Lazy<QSHost> mQsHostLazy;
     private final Provider<CustomTile.Builder> mCustomTileBuilderProvider;
@@ -193,7 +195,8 @@ public class QSFactoryImpl implements QSFactory {
             Provider<LocaleTile> localeTileProvider,
             Provider<GloveModeTile> gloveModeTileProvider,
             Provider<PowerShareTile> powerShareTileProvider,
-            Provider<RefreshRateTile> refreshRateTileProvider) {
+            Provider<RefreshRateTile> refreshRateTileProvider,
+            Provider<QRCodeTile> qrCodeTileProvider) {
         mQsHostLazy = qsHostLazy;
         mCustomTileBuilderProvider = customTileBuilderProvider;
 
@@ -247,6 +250,7 @@ public class QSFactoryImpl implements QSFactory {
         mGloveModeTileProvider = gloveModeTileProvider;
         mPowerShareTileProvider = powerShareTileProvider;
         mRefreshRateTileProvider = refreshRateTileProvider;
+        mQRCodeTileProvider = qrCodeTileProvider;
     }
 
     public QSTile createTile(String tileSpec) {
@@ -359,6 +363,8 @@ public class QSFactoryImpl implements QSFactory {
                 return mPowerShareTileProvider.get();
             case "refresh_rate":
                 return mRefreshRateTileProvider.get();
+            case "qr_code":
+                return mQRCodeTileProvider.get();
         }
         // Custom tiles
         if (tileSpec.startsWith(CustomTile.PREFIX)) {
