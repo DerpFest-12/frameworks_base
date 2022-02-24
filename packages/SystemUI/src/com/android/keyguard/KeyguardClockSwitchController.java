@@ -216,27 +216,7 @@ public class KeyguardClockSwitchController extends ViewController<KeyguardClockS
         updateAodIcons();
 
         mStatusArea = mView.findViewById(R.id.keyguard_status_area);
-
-        if (mSmartspaceController.isEnabled()) {
-            mSmartspaceView = mSmartspaceController.buildAndConnectView(mView);
-            View ksv = mView.findViewById(R.id.keyguard_slice_view);
-            int ksvIndex = mStatusArea.indexOfChild(ksv);
-            ksv.setVisibility(View.GONE);
-
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                    MATCH_PARENT, WRAP_CONTENT);
-
-            mStatusArea.addView(mSmartspaceView, ksvIndex, lp);
-            int startPadding = getContext().getResources()
-                    .getDimensionPixelSize(R.dimen.below_clock_padding_start);
-            int endPadding = getContext().getResources()
-                    .getDimensionPixelSize(R.dimen.below_clock_padding_end);
-            mSmartspaceView.setPaddingRelative(startPadding, 0, endPadding, 0);
-
-            updateClockLayout();
-            mSmartspaceTransitionController.setLockscreenSmartspace(mSmartspaceView);
-        }
-
+        mSmartspaceController.isEnabled();
         mSecureSettings.registerContentObserver(
                 Settings.Secure.getUriFor(Settings.Secure.LOCKSCREEN_USE_DOUBLE_LINE_CLOCK),
                 false, /* notifyForDescendants */
@@ -394,17 +374,11 @@ public class KeyguardClockSwitchController extends ViewController<KeyguardClockS
      * We can't directly getBottom() because clock changes positions in AOD for burn-in
      */
     int getClockBottom(int statusBarHeaderHeight) {
-        if (mLargeClockFrame.getVisibility() == View.VISIBLE) {
-            View clock = mLargeClockFrame.findViewById(
-                    com.android.systemui.R.id.animatable_clock_view_large);
-            int frameHeight = mLargeClockFrame.getHeight();
-            int clockHeight = clock.getHeight();
-            return frameHeight / 2 + clockHeight / 2;
-        } else {
-            return mClockFrame.findViewById(
-                    com.android.systemui.R.id.animatable_clock_view).getHeight()
-                    + statusBarHeaderHeight + mKeyguardClockTopMargin;
+         if (mLargeClockFrame.getVisibility() != 0) {
+            return mClockFrame.findViewById(R.id.animatable_clock_view).getHeight() + statusBarHeaderHeight + mKeyguardClockTopMargin;
         }
+        View findViewById = mLargeClockFrame.findViewById(R.id.animatable_clock_view_large);
+        return (mLargeClockFrame.getHeight() / 2) + (findViewById.getHeight() / 2);
     }
 
     boolean isClockTopAligned() {
