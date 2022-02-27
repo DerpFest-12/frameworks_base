@@ -73,6 +73,7 @@ import android.view.WindowManagerPolicyConstants.PointerEventListener;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.protolog.common.ProtoLog;
+import com.android.internal.util.derp.derpUtils.LauncherUtils;
 import com.android.internal.util.function.pooled.PooledLambda;
 import com.android.server.am.ActivityManagerService;
 
@@ -372,8 +373,7 @@ class RecentTasks {
      * any dependent services (like SystemUI) is started.
      */
     void loadRecentsComponent(Resources res) {
-        final String rawRecentsComponent = res.getString(
-                com.android.internal.R.string.config_recentsComponentName);
+        final String rawRecentsComponent = LauncherUtils.getLauncherComponentName(res);
         if (TextUtils.isEmpty(rawRecentsComponent)) {
             return;
         }

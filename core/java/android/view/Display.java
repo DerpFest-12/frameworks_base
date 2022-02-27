@@ -51,6 +51,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.android.internal.R;
+import com.android.internal.util.derp.derpUtils.LauncherUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -1481,7 +1482,7 @@ public final class Display {
             return false;
         }
         try {
-            String recentsComponent = mResources.getString(R.string.config_recentsComponentName);
+            String recentsComponent = LauncherUtils.getLauncherComponentName(mResources);
             if (recentsComponent == null) {
                 return false;
             }

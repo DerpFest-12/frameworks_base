@@ -355,6 +355,7 @@ import com.android.internal.util.FrameworkStatsLog;
 import com.android.internal.util.FunctionalUtils;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.internal.util.Preconditions;
+import com.android.internal.util.derp.derpUtils.LauncherUtils;
 import com.android.permission.persistence.RuntimePermissionsPersistence;
 import com.android.server.DeviceIdleInternal;
 import com.android.server.EventLogTags;
@@ -23911,8 +23912,12 @@ public class PackageManagerService extends IPackageManager.Stub
 
     @Nullable
     private String getRecentsPackageName() {
-        return ensureSystemPackageName(
-                getPackageFromComponentString(R.string.config_recentsComponentName));
+        final String componentString = LauncherUtils.getLauncherComponentName(mContext);
+        final ComponentName component = ComponentName.unflattenFromString(componentString);
+        if (component == null) {
+            return ensureSystemPackageName(null);
+        }
+        return ensureSystemPackageName(component.getPackageName());
 
     }
 

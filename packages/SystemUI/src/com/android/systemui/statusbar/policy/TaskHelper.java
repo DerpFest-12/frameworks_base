@@ -41,6 +41,7 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.android.internal.os.BackgroundThread;
+import com.android.internal.util.derp.derpUtils.LauncherUtils;
 import com.android.systemui.Dependency;
 import com.android.systemui.R;
 import com.android.systemui.shared.system.ActivityManagerWrapper;
@@ -169,8 +170,7 @@ public class TaskHelper implements CommandQueue.Callbacks, KeyguardStateControll
             homeFilter.addAction(action);
         }
         mDefaultHome = getCurrentDefaultHome();
-        mRecentsComponentName = ComponentName.unflattenFromString(context.getString(
-                com.android.internal.R.string.config_recentsComponentName));
+        mRecentsComponentName = ComponentName.unflattenFromString(LauncherUtils.getLauncherComponentName(context));
         context.registerReceiver(mDefaultHomeBroadcastReceiver, homeFilter);
         ActivityManagerWrapper.getInstance().registerTaskStackListener(mTaskStackChangeListener);
         Dependency.get(CommandQueue.class).addCallback(this);

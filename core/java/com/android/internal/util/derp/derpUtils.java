@@ -456,4 +456,72 @@ public class derpUtils {
             return null;
         }
     }
+
+    public static final class LauncherUtils {
+
+        private static final String COMPONENT_OVERLAY_PKG_NAME = "com.android.launcher.recentsComponent.overlay";
+        private static final String LAWNCHAIR_PKG_NAME = "app.lawnchair";
+        private static final String LAWNCHAIR_COMPONENT_NAME = "app.lawnchair/com.android.quickstep.RecentsActivity";
+        private static final String PIXEL_LAUNCHER_PKG_NAME = "com.google.android.apps.nexuslauncher";
+        private static final String QUICK_SWITCH_PKG_NAME = "xyz.paphonb.quickstepswitcher";
+
+        private static final String KEY_PROP = "persist.sys.custom.lawnchair";
+        private static final String KEY_LAST = "persist.sys.custom.lawnchair_last";
+
+        public static boolean isAvailable(Context context) {
+            return isPackageInstalled(context, LAWNCHAIR_PKG_NAME) &&
+                    isPackageInstalled(context, PIXEL_LAUNCHER_PKG_NAME) &&
+                    isOverlayAvailable(context) &&
+                    !isPackageInstalled(context, QUICK_SWITCH_PKG_NAME, true);  // Hide when quick switch installed to avoid conflict
+        }
+
+        public static boolean isOverlayAvailable(Context context) {
+            return isPackageInstalled(context, COMPONENT_OVERLAY_PKG_NAME);
+        }
+
+        public static boolean isInitialized() {
+            return SystemProperties.getInt(KEY_PROP, -1) != -1 && SystemProperties.getInt(KEY_LAST, -1) != -1;
+        }
+
+        public static void initialize() {
+            SystemProperties.set(KEY_PROP, "0");
+            SystemProperties.set(KEY_LAST, "0");
+        }
+
+        public static boolean isEnabled() {
+            return SystemProperties.getInt(KEY_PROP, -1) == 1;
+        }
+
+        public static void setEnabled(boolean enabled) {
+            SystemProperties.set(KEY_PROP, enabled ? "1" : "0");
+        }
+
+        public static void setUnavailable() {
+            SystemProperties.set(KEY_PROP, "2");
+        }
+
+        public static boolean getLastStatus() {
+            return SystemProperties.getInt(KEY_LAST, 0) == 1;
+        }
+
+        public static void setLastStatus(boolean enabled) {
+            SystemProperties.set(KEY_LAST, enabled ? "1" : "0");
+        }
+
+        public static String getLauncherComponentName(Context context) {
+            if (isInitialized() && isEnabled()) {
+                return LAWNCHAIR_COMPONENT_NAME;
+            }
+            return context.getString(
+                    com.android.internal.R.string.config_recentsComponentName);
+        }
+
+        public static String getLauncherComponentName(Resources res) {
+            if (isInitialized() && isEnabled()) {
+                return LAWNCHAIR_COMPONENT_NAME;
+            }
+            return res.getString(
+                    com.android.internal.R.string.config_recentsComponentName);
+        }
+    }
 }
