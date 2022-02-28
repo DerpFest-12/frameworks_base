@@ -84,7 +84,7 @@ class RefreshRateTile @Inject constructor(
             .getDisplay(Display.DEFAULT_DISPLAY)
         if (display != null) {
             val mode = display.mode
-            display.supportedModes.forEach {
+            display.supportedModes.sortedBy { it.refreshRate }.forEach {
                 if (it.physicalWidth == mode.physicalWidth &&
                         it.physicalHeight == mode.physicalHeight) {
                     val refreshRate = refreshRateRegex.find(
@@ -257,7 +257,7 @@ class RefreshRateTile @Inject constructor(
                 "com.android.settings.Settings\$DisplaySettingsActivity",
             )
         )
-        
+
         private fun logD(msg: String) {
             if (DEBUG) Log.d(TAG, msg)
         }
