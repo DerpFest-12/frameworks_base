@@ -216,5 +216,6 @@ public class SecureSettings {
         Settings.Secure.SHOW_BACK_ARROW_GESTURE,
         Settings.Secure.DISABLE_SECURE_TILES_ON_LOCKSCREEN,
         Settings.Secure.VOLUME_PANEL_ON_LEFT,
+        Settings.Secure.IGNORE_AUTH_CONFIRMATION,
     };
 }
