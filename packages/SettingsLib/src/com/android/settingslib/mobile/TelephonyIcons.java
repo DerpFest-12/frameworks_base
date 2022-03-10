@@ -327,8 +327,8 @@ public class TelephonyIcons {
             0,
             AccessibilityContentDescriptions.PHONE_SIGNAL_STRENGTH[0],
             0,
-            TelephonyIcons.ICON_VOWIFI,
-            false);
+            TelephonyIcons.ICON_VOWIFI
+    );
 
     public static final MobileIconGroup VOWIFI_CALLING = new MobileIconGroup(
             "VoWIFICall",
@@ -340,8 +340,8 @@ public class TelephonyIcons {
             0,
             AccessibilityContentDescriptions.PHONE_SIGNAL_STRENGTH[0],
             0,
-            TelephonyIcons.ICON_VOWIFI_CALLING,
-            false);
+            TelephonyIcons.ICON_VOWIFI_CALLING
+    );
 
     public static final MobileIconGroup VOWIFI_MOTO = new MobileIconGroup(
             "VoWIFI_Moto",
