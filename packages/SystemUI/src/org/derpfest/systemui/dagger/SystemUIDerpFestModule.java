@@ -30,6 +30,7 @@ import com.android.systemui.dock.DockManager;
 import com.android.systemui.dock.DockManagerImpl;
 import com.android.systemui.doze.DozeHost;
 import com.android.systemui.dump.DumpManager;
+import com.android.systemui.flags.FeatureFlags;
 import com.android.systemui.media.dagger.MediaModule;
 import com.android.systemui.plugins.BcSmartspaceDataPlugin;
 import com.android.systemui.plugins.qs.QSFactory;
@@ -43,7 +44,6 @@ import com.android.systemui.qs.tileimpl.QSFactoryImpl;
 import com.android.systemui.recents.Recents;
 import com.android.systemui.recents.RecentsImplementation;
 import com.android.systemui.statusbar.CommandQueue;
-import com.android.systemui.statusbar.FeatureFlags;
 import com.android.systemui.statusbar.NotificationLockscreenUserManager;
 import com.android.systemui.statusbar.NotificationLockscreenUserManagerImpl;
 import com.android.systemui.statusbar.NotificationMediaManager;
@@ -72,6 +72,7 @@ import com.android.systemui.statusbar.policy.SensorPrivacyControllerImpl;
 import com.android.systemui.statusbar.policy.ZenModeController;
 import com.android.systemui.theme.ThemeOverlayController;
 import com.android.systemui.util.concurrency.DelayableExecutor;
+import com.android.systemui.volume.dagger.VolumeModule;
 
 import javax.inject.Named;
 
@@ -81,7 +82,8 @@ import dagger.Provides;
 
 @Module(includes = {
         MediaModule.class,
-        QSModule.class
+        QSModule.class,
+        VolumeModule.class  
 })
 public abstract class SystemUIDerpFestModule {
 
@@ -189,9 +191,13 @@ public abstract class SystemUIDerpFestModule {
         return new Recents(context, recentsImplementation, commandQueue);
     }
 
-    @Binds
-    abstract DeviceProvisionedController bindDeviceProvisionedController(
-            DeviceProvisionedControllerImpl deviceProvisionedController);
+    @SysUISingleton
+    @Provides
+    static DeviceProvisionedController bindDeviceProvisionedController(
+            DeviceProvisionedControllerImpl deviceProvisionedController) {
+        deviceProvisionedController.init();
+        return deviceProvisionedController;
+    }
 
     @Binds
     abstract KeyguardViewController bindKeyguardViewController(
@@ -210,22 +216,27 @@ public abstract class SystemUIDerpFestModule {
     // Google
     @Provides
     @SysUISingleton
-    static SmartSpaceController provideSmartSpaceController(Context context, KeyguardUpdateMonitor updateMonitor, Handler handler, AlarmManager am, DumpManager dm) {
+    static SmartSpaceController provideSmartSpaceController(Context context, KeyguardUpdateMonitor updateMonitor,
+            Handler handler, AlarmManager am, DumpManager dm) {
         return new SmartSpaceController(context, updateMonitor, handler, am, dm);
     }
 
     @Provides
     @SysUISingleton
     static KeyguardSmartspaceController provideKeyguardSmartspaceController(Context context, FeatureFlags featureFlags,
-            KeyguardZenAlarmViewController keyguardZenAlarmViewController, KeyguardMediaViewController keyguardMediaViewController) {
-        return new KeyguardSmartspaceController(context, featureFlags, keyguardZenAlarmViewController, keyguardMediaViewController);
+            KeyguardZenAlarmViewController keyguardZenAlarmViewController,
+            KeyguardMediaViewController keyguardMediaViewController) {
+        return new KeyguardSmartspaceController(context, featureFlags, keyguardZenAlarmViewController,
+                keyguardMediaViewController);
     }
 
     @Provides
     @SysUISingleton
-    static KeyguardZenAlarmViewController provideKeyguardZenAlarmViewController(Context context, BcSmartspaceDataPlugin bcSmartspaceDataPlugin, ZenModeController zenModeController,
+    static KeyguardZenAlarmViewController provideKeyguardZenAlarmViewController(Context context,
+            BcSmartspaceDataPlugin bcSmartspaceDataPlugin, ZenModeController zenModeController,
             AlarmManager alarmManager, NextAlarmController nextAlarmController, Handler handler) {
-        return new KeyguardZenAlarmViewController(context, bcSmartspaceDataPlugin, zenModeController, alarmManager, nextAlarmController, handler);
+        return new KeyguardZenAlarmViewController(context, bcSmartspaceDataPlugin, zenModeController, alarmManager,
+                nextAlarmController, handler);
     }
 
     @Provides
