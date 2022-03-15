@@ -489,7 +489,7 @@ public class derpUtils {
         }
 
         public static boolean isEnabled() {
-            return SystemProperties.getInt(KEY_PROP, -1) == 1;
+            return false;
         }
 
         public static void setEnabled(boolean enabled) {
@@ -501,7 +501,7 @@ public class derpUtils {
         }
 
         public static boolean getLastStatus() {
-            return SystemProperties.getInt(KEY_LAST, 0) == 1;
+            return false;
         }
 
         public static void setLastStatus(boolean enabled) {

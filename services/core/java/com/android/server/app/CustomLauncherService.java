@@ -99,6 +99,13 @@ public final class CustomLauncherService extends SystemService {
     private void init() {
         if (!LauncherUtils.isInitialized()) {
             LauncherUtils.initialize();
+            try {
+                for (UserInfo user : mUM.getUsers(false, false, false)) {
+                    initForUser(user.id, false);
+                }
+            } catch (RemoteException e) {
+                e.rethrowAsRuntimeException();
+            }
         } else {
             if (LauncherUtils.isOverlayAvailable(mContext)) {
                 try {
