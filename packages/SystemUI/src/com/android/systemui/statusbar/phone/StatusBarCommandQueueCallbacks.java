@@ -664,4 +664,13 @@ public class StatusBarCommandQueueCallbacks implements CommandQueue.Callbacks {
             mFlashlightController.setFlashlight(!mFlashlightController.isEnabled());
         }
     }
+
+    @Override
+    public void toggleCameraFlashState(boolean enable) {
+        if (mFlashlightController != null) {
+            if (mFlashlightController.hasFlashlight() && mFlashlightController.isAvailable()) {
+                mFlashlightController.setFlashlight(enable);
+            }
+        }
+    }
 }
