@@ -339,7 +339,7 @@ public class MediaControlPanel {
             mController = null;
         }
 
-        ConstraintSet expandedSet = mMediaViewController.getExpandedLayout();
+    	ConstraintSet expandedSet = mMediaViewController.getExpandedLayout();
         ConstraintSet collapsedSet = mMediaViewController.getCollapsedLayout();
 
         // Click action
@@ -669,8 +669,10 @@ public class MediaControlPanel {
         List<Integer> mediaCoverItemsResIds = mRecommendationViewHolder.getMediaCoverItemsResIds();
         List<Integer> mediaCoverContainersResIds =
                 mRecommendationViewHolder.getMediaCoverContainersResIds();
-        ConstraintSet expandedSet = mMediaViewController.getExpandedLayout();
+
+    	ConstraintSet expandedSet = mMediaViewController.getExpandedLayout();
         ConstraintSet collapsedSet = mMediaViewController.getCollapsedLayout();
+
         int mediaRecommendationNum = Math.min(mediaRecommendationList.size(),
                 MEDIA_RECOMMENDATION_MAX_NUM);
         int uiComponentIndex = 0;
