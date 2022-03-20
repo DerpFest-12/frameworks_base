@@ -6219,6 +6219,12 @@ public final class Settings {
         public static final String ARTWORK_MEDIA_BACKGROUND_ALPHA = "artwork_media_background_alpha";
 
         /**
+         * force expand qs media player
+         * @hide
+         */
+        public static final String ARTWORK_MEDIA_FORCE_EXPAND = "artwork_media_force_expand";
+
+        /**
          * Whether to pulse ambient on new music tracks
          * @hide
          */
