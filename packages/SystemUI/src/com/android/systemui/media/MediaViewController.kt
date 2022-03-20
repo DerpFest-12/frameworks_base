@@ -17,6 +17,8 @@
 package com.android.systemui.media
 
 import android.content.Context
+import android.content.ContentResolver
+import android.provider.Settings
 import android.content.res.Configuration
 import androidx.constraintlayout.widget.ConstraintSet
 import com.android.systemui.R
@@ -59,6 +61,8 @@ class MediaViewController @Inject constructor(
     private var animateNextStateChange: Boolean = false
     private val measurement = MeasurementOutput(0, 0)
     private var type: TYPE = TYPE.PLAYER
+    private var forceExpand: Boolean = Settings.System.getInt(context.getContentResolver(),
+                Settings.System.ARTWORK_MEDIA_FORCE_EXPAND, 0) != 0
 
     /**
      * A map containing all viewStates for all locations of this mediaState
@@ -471,8 +475,13 @@ class MediaViewController @Inject constructor(
     private fun updateMediaViewControllerType(type: TYPE) {
         this.type = type
         if (type == TYPE.PLAYER) {
-            collapsedLayout.load(context, R.xml.media_collapsed)
-            expandedLayout.load(context, R.xml.media_expanded)
+        	if (forceExpand) {
+                collapsedLayout.load(context, R.xml.media_expanded)
+                expandedLayout.load(context, R.xml.media_expanded)
+            } else {
+                collapsedLayout.load(context, R.xml.media_collapsed)
+                expandedLayout.load(context, R.xml.media_expanded)
+            }
         } else {
             collapsedLayout.load(context, R.xml.media_recommendation_collapsed)
             expandedLayout.load(context, R.xml.media_recommendation_expanded)
