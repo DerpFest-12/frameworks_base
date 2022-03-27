@@ -129,7 +129,7 @@ android_library {
         "vendor.lineage.powershare-V1.0-java",
         "faceunlock_framework",
         "VendorSupport-preference",
-        "AndroidSystemBlur",
+        "AndroidSystemBlur-platform",
     ],
     manifest: "AndroidManifest.xml",
 
