@@ -42,7 +42,7 @@ public class NavigationHandle extends View implements ButtonInterface {
     private @ColorInt final int mLightColor;
     private @ColorInt final int mDarkColor;
     private int mRadius;
-    private final int mBottom;
+    private int mBottom;
     private boolean mIsDreaming = false;
     private boolean mIsKeyguard = false;
     private boolean mRequiresInvalidate;
@@ -122,13 +122,14 @@ public class NavigationHandle extends View implements ButtonInterface {
                 break;
             case 2:
                 mRadius = res.getDimensionPixelSize(R.dimen.navigation_handle_radius3);
+                break;
             case 3:
                 mRadius = res.getDimensionPixelSize(R.dimen.navigation_handle_radius4);
+                break;
         }
         
         int marginSize = Settings.System.getInt(mContext.getContentResolver(),
             Settings.System.GESTURE_NAVBAR_MARGIN_BOTTOM, 0);
-        final Resources res = mContext.getResources();
         switch (marginSize) {
             case 0:
                 mBottom = res.getDimensionPixelSize(R.dimen.navigation_handle_bottom);
@@ -138,8 +139,10 @@ public class NavigationHandle extends View implements ButtonInterface {
                 break;
             case 2:
                 mBottom = res.getDimensionPixelSize(R.dimen.navigation_handle_bottom_2);
+                break;
             case 3:
                 mBottom = res.getDimensionPixelSize(R.dimen.navigation_handle_bottom_0);
+                break;
         }
         int height = mRadius * 2;
         int y = (navHeight - mBottom - height);
