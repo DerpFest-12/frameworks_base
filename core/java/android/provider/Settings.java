@@ -6152,7 +6152,7 @@ public final class Settings {
         public static final String FULLSCREEN_GESTURES = "fullscreen_gestures";
         
         /**
-         * Size of gesture bar radius.
+         * Size of gesture bar margin bottom.
          * @hide
          */
         public static final String GESTURE_NAVBAR_MARGIN_BOTTOM = "gesture_navbar_margin_bottom";
