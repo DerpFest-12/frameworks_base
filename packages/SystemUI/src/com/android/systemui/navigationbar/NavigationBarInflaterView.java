@@ -92,6 +92,10 @@ public class NavigationBarInflaterView extends FrameLayout
     private static final String WEIGHT_CENTERED_SUFFIX = "WC";
     private static final String ABSOLUTE_SUFFIX = "A";
     private static final String ABSOLUTE_VERTICAL_CENTERED_SUFFIX = "C";
+            
+    private static final String GESTURE_NAVBAR_MARGIN_BOTTOM =
+            "system:" + Settings.System.GESTURE_NAVBAR_MARGIN_BOTTOM;
+
 
     protected LayoutInflater mLayoutInflater;
     protected LayoutInflater mLandscapeInflater;
@@ -189,6 +193,7 @@ public class NavigationBarInflaterView extends FrameLayout
         super.onAttachedToWindow();
         Dependency.get(TunerService.class).addTunable(this, NAV_BAR_VIEWS);
         Dependency.get(TunerService.class).addTunable(this, NAV_BAR_INVERSE);
+        Dependency.get(TunerService.class).addTunable(this, GESTURE_NAVBAR_MARGIN_BOTTOM);
     }
 
     @Override
@@ -205,6 +210,11 @@ public class NavigationBarInflaterView extends FrameLayout
             mNavBarLayout = (String) newValue;
             if (!QuickStepContract.isGesturalMode(mNavBarMode)) {
                 setNavigationBarLayout(mNavBarLayout);
+            }
+        } else if (GESTURE_NAVBAR_MARGIN_BOTTOM.equals(key)) {
+            if (QuickStepContract.isGesturalMode(mNavBarMode)) {
+                clearViews();
+                inflateLayout(getDefaultLayout());
             }
         }
         if (NAV_BAR_INVERSE.equals(key)) {
