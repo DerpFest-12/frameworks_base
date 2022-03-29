@@ -80,7 +80,7 @@ public class NavigationHandle extends View implements ButtonInterface {
         super(context, attr);
         mContext = context;
         final Resources res = context.getResources();
-        mBottom = res.getDimensionPixelSize(R.dimen.navigation_handle_bottom);
+        //mBottom = res.getDimensionPixelSize(R.dimen.navigation_handle_bottom);
 
         final int dualToneDarkTheme = Utils.getThemeAttr(context, R.attr.darkIconTheme);
         final int dualToneLightTheme = Utils.getThemeAttr(context, R.attr.lightIconTheme);
@@ -124,6 +124,22 @@ public class NavigationHandle extends View implements ButtonInterface {
                 mRadius = res.getDimensionPixelSize(R.dimen.navigation_handle_radius3);
             case 3:
                 mRadius = res.getDimensionPixelSize(R.dimen.navigation_handle_radius4);
+        }
+        
+        int marginSize = Settings.System.getInt(mContext.getContentResolver(),
+            Settings.System.GESTURE_NAVBAR_MARGIN_BOTTOM, 0);
+        final Resources res = mContext.getResources();
+        switch (marginSize) {
+            case 0:
+                mBottom = res.getDimensionPixelSize(R.dimen.navigation_handle_bottom);
+                break;
+            case 1:
+                mBottom = res.getDimensionPixelSize(R.dimen.navigation_handle_bottom_4);
+                break;
+            case 2:
+                mBottom = res.getDimensionPixelSize(R.dimen.navigation_handle_bottom_2);
+            case 3:
+                mBottom = res.getDimensionPixelSize(R.dimen.navigation_handle_bottom_0);
         }
         int height = mRadius * 2;
         int y = (navHeight - mBottom - height);
