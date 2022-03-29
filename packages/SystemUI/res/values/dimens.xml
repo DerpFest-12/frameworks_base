@@ -35,6 +35,9 @@
     <dimen name="navigation_handle_radius3">3dp</dimen>
     <dimen name="navigation_handle_radius4">4dp</dimen>
     <dimen name="navigation_handle_bottom">6dp</dimen>
+    <dimen name="navigation_handle_bottom_4">4dp</dimen>
+    <dimen name="navigation_handle_bottom_2">2dp</dimen>
+    <dimen name="navigation_handle_bottom_0">0dp</dimen>
     <dimen name="navigation_handle_sample_horizontal_margin">10dp</dimen>
     <dimen name="navigation_home_handle_width">72dp</dimen>
 
