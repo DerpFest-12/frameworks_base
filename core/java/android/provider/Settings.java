@@ -11901,26 +11901,6 @@ public final class Settings {
         public static final String SHOW_COMBINED_STATUS_BAR_SIGNAL_ICONS = "show_combined_status_bar_signal_icons";
 
         /**
-         * Whether to show QS brightness slider
-         * @hide
-         */
-        @Readable
-        public static final String QS_SHOW_BRIGHTNESS = "qs_show_brightness";
-
-        /**
-         * Whether to show QS brightness slider below the tiles
-         * @hide
-         */
-        @Readable
-        public static final String QS_BRIGHTNESS_POSITION_BOTTOM = "qs_brightness_position_bottom";
-
-        /**
-         * Whether to show QS auto brightness toggle button
-         * @hide
-         */
-        public static final String QS_SHOW_AUTO_BRIGHTNESS_BUTTON = "qs_show_auto_brightness_button";
-
-        /**
          * Whether tethering is allowed to use VPN upstreams
          */
         @SuppressLint("NoSettingsProvider")
