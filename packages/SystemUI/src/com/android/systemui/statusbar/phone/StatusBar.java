@@ -1339,14 +1339,14 @@ public class StatusBar extends SystemUI implements
         mMediaManager.setup(backdrop, backdrop.findViewById(R.id.backdrop_front),
                 backdrop.findViewById(R.id.backdrop_back), mScrimController, mLockscreenWallpaper);
         boolean mUseWpZoom = Settings.System.getIntForUser(mContext.getContentResolver(),
-                Settings.System.USE_WP_ZOOM, 0, UserHandle.USER_CURRENT) == 1;
+                Settings.System.DISABLE_WP_ZOOM, 0, UserHandle.USER_CURRENT) == 1;
         final float maxWallpaperZoom = mContext.getResources().getFloat(
                 com.android.internal.R.dimen.config_wallpaperMaxScale);
-        final float maxWallpaperZoomEnabled = mContext.getResources().getFloat(
-                com.android.internal.R.dimen.config_wallpaperMaxScaleEnabled);
+        final float maxWallpaperZoomDisabled = mContext.getResources().getFloat(
+                com.android.internal.R.dimen.config_wallpaperMaxScaleDisabled);
         if (mUseWpZoom) {
         mNotificationShadeDepthControllerLazy.get().addListener(depth -> {
-            float scale = MathUtils.lerp(maxWallpaperZoomEnabled, 1f, depth);
+            float scale = MathUtils.lerp(maxWallpaperZoomDisabled, 1f, depth);
             backdrop.setPivotX(backdrop.getWidth() / 2f);
             backdrop.setPivotY(backdrop.getHeight() / 2f);
             backdrop.setScaleX(scale);

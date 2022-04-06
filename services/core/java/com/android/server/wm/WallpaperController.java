@@ -227,10 +227,10 @@ class WallpaperController {
         mService = service;
         mDisplayContent = displayContent;
         mUseWpZoom = Settings.System.getIntForUser(service.mContext.getContentResolver(),
-                Settings.System.USE_WP_ZOOM, 0, UserHandle.USER_CURRENT) == 1;
+                Settings.System.DISABLE_WP_ZOOM, 0, UserHandle.USER_CURRENT) == 1;
         if (mUseWpZoom) {
         mMaxWallpaperScale = service.mContext.getResources()
-                .getFloat(com.android.internal.R.dimen.config_wallpaperMaxScaleEnabled);
+                .getFloat(com.android.internal.R.dimen.config_wallpaperMaxScaleDisabled);
         } else {
         mMaxWallpaperScale = service.mContext.getResources()
                 .getFloat(com.android.internal.R.dimen.config_wallpaperMaxScale);
