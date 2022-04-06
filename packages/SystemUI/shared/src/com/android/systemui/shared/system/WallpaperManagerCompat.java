@@ -46,17 +46,17 @@ public class WallpaperManagerCompat {
      */
     public float getWallpaperZoomOutMaxScale(Context context) {
     boolean UseWpZoom = Settings.System.getIntForUser(context.getContentResolver(),
-            Settings.System.USE_WP_ZOOM, 0, UserHandle.USER_CURRENT) == 1;
+            Settings.System.DISABLE_WP_ZOOM, 0, UserHandle.USER_CURRENT) == 1;
         if (UseWpZoom) {
         return context.getResources()
                 .getFloat(Resources.getSystem().getIdentifier(
-                        /* name= */ "config_wallpaperMaxScaleEnabled",
+                        /* name= */ "config_wallpaperMaxScaleDisabled",
                         /* defType= */ "dimen",
                         /* defPackage= */ "android"));
          } else {
          return context.getResources()
                 .getFloat(Resources.getSystem().getIdentifier( 
-                        /* name= */ "config_wallpaperMaxScaleEnabled",
+                        /* name= */ "config_wallpaperMaxScaleDisabled",
                         /* defType= */ "dimen",
                         /* defPackage= */ "android"));
          }
