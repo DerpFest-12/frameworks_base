@@ -158,9 +158,6 @@ class PrivacyItemController @Inject constructor(
             active: Boolean
         ) {
             // Check if we care about this code right now
-            if (code in OPS_MIC_CAMERA && !micCameraAvailable) {
-                return
-            }
             if (code in OPS_LOCATION && (!locationAvailable
                     || packageName in LOCATION_WHITELIST_PKG)) {
                 return
@@ -341,12 +338,6 @@ class PrivacyItemController @Inject constructor(
             AppOpsManager.OP_PHONE_CALL_MICROPHONE,
             AppOpsManager.OP_RECORD_AUDIO -> PrivacyType.TYPE_MICROPHONE
             else -> return null
-        }
-        if (type == PrivacyType.TYPE_MICROPHONE && !micCameraAvailable) {
-            return null
-        }
-        if (type == PrivacyType.TYPE_CAMERA && !micCameraAvailable) {
-            return null
         }
         if (type == PrivacyType.TYPE_LOCATION && (!locationAvailable
                 || appOpItem.packageName in LOCATION_WHITELIST_PKG)) {
