@@ -6443,7 +6443,7 @@ public final class Settings {
          * Whether to Enable wp zoom
          * @hide
          */
-        public static final String USE_WP_ZOOM = "use_wp_zoom";
+        public static final String DISABLE_WP_ZOOM = "disable_wp_zoom";
 
         /**
          * IMPORTANT: If you add a new public settings you also have to add it to
