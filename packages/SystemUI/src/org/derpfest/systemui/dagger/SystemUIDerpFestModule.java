@@ -24,7 +24,7 @@ import androidx.annotation.Nullable;
 
 import org.derpfest.systemui.theme.ThemeOverlayControllerDerpFest;
 import org.derpfest.systemui.DerpFestServices;
-import com.octavi.android.systemui.assist.AssistManagerGoogle;
+import com.syberia.android.systemui.assist.AssistManagerGoogle;
 import org.derpfest.systemui.smartspace.KeyguardSmartspaceController;
 
 import com.android.internal.logging.UiEventLogger;
