@@ -2,7 +2,7 @@ package org.derpfest.systemui.elmyra;
 
 import android.content.Context;
 
-import com.octavi.android.systemui.assist.AssistManagerGoogle;
+import com.syberia.android.systemui.assist.AssistManagerGoogle;
 
 import com.android.systemui.dagger.SysUISingleton;
 import com.android.systemui.keyguard.KeyguardViewMediator;
