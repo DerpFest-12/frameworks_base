@@ -149,5 +149,6 @@ public class SystemSettings {
         Settings.System.LOCK_HIDE_STATUS_BAR,
         Settings.System.HEADS_UP_NOTIFICATIONS_THRESHOLD,
         Settings.System.HEADSET_CONNECT_PLAYER,
+        Settings.System.SCREEN_OFF_FOD,
     };
 }
