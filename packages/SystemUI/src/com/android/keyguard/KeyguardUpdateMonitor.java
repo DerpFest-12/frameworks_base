@@ -344,7 +344,8 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener, Dumpab
     private SensorPrivacyManager mSensorPrivacyManager;
     private int mFaceAuthUserId;
 
-    private final boolean mFingerprintWakeAndUnlock;
+    private boolean mFingerprintWakeAndUnlock;
+    private final boolean mFingerprintWakeAndUnlockDef;
 
     /**
      * Short delay before restarting fingerprint authentication after a successful try. This should
@@ -1836,8 +1837,8 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener, Dumpab
         mStrongAuthTracker = new StrongAuthTracker(context, this::notifyStrongAuthStateChanged);
         mFaceAuthOnlyOnSecurityView = mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_faceAuthOnlyOnSecurityView);
-        mFingerprintWakeAndUnlock = mContext.getResources().getBoolean(
-                com.android.systemui.R.bool.config_fingerprintWakeAndUnlock);
+        mFingerprintWakeAndUnlockDef = mContext.getResources().getBoolean(
+                com.android.internal.R.bool.config_fingerprintWakeAndUnlock);
         mBackgroundExecutor = backgroundExecutor;
         mBroadcastDispatcher = broadcastDispatcher;
         mInteractionJankMonitor = interactionJankMonitor;
@@ -3521,6 +3522,9 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener, Dumpab
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.FACE_UNLOCK_METHOD), false, this,
                     UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.FP_WAKE_UNLOCK), false, this,
+                    UserHandle.USER_ALL);
             updateSettings();
         }
 
@@ -3539,6 +3543,9 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener, Dumpab
                 Settings.Secure.FACE_UNLOCK_METHOD, FACE_UNLOCK_BEHAVIOR_DEFAULT,
                 UserHandle.USER_CURRENT);
         }
+        mFingerprintWakeAndUnlock = Settings.System.getIntForUser(resolver,
+                Settings.System.FP_WAKE_UNLOCK, mFingerprintWakeAndUnlockDef ? 1 : 0,
+                UserHandle.USER_CURRENT) != 0;
     }
 
     /**
