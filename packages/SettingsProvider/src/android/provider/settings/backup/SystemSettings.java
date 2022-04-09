@@ -147,5 +147,6 @@ public class SystemSettings {
         Settings.System.SENSOR_BLOCK,
         Settings.System.LOCK_HIDE_STATUS_BAR,
         Settings.System.HEADS_UP_NOTIFICATIONS_THRESHOLD,
+        Settings.System.SCREEN_OFF_FOD,
     };
 }
