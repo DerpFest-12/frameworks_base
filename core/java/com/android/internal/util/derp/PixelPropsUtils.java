@@ -38,7 +38,7 @@ public class PixelPropsUtils {
     private static final Map<String, Object> propsToChangePixelXL;
 
     private static final String[] packagesToChangePixel6 = {
-            "com.google.android", "com.samsung.accessory", "com.samsung.android"};
+            "com.google.android", "com.samsung.accessory", "com.samsung.android", "com.android.vending"};
 
     private static final String[] extraPackagesToChange = {
             "com.android.chrome", "com.breel.wallpapers20", "com.netflix.mediaclient"};
