@@ -14,6 +14,7 @@ import android.provider.Settings.System.ARTWORK_MEDIA_BACKGROUND
 import android.provider.Settings.System.ARTWORK_MEDIA_BACKGROUND_ALPHA
 import android.provider.Settings.System.ARTWORK_MEDIA_BACKGROUND_BLUR_RADIUS
 import android.provider.Settings.System.ARTWORK_MEDIA_BACKGROUND_ENABLE_BLUR
+import android.provider.Settings.System.ARTWORK_MEDIA_FORCE_EXPAND
 import android.util.Log
 import android.util.MathUtils
 import android.view.LayoutInflater
@@ -182,6 +183,7 @@ class MediaCarouselController @Inject constructor(
     lateinit var updateUserVisibility: () -> Unit
 
     private val settingsObserver = SettingsObserver()
+    private var forceExpand = false
     private var backgroundArtwork = false
     private var backgroundBlur = false
     private var blurRadius = 1f
@@ -448,7 +450,7 @@ class MediaCarouselController @Inject constructor(
                     ViewGroup.LayoutParams.WRAP_CONTENT)
             newPlayer.playerViewHolder?.player?.setLayoutParams(lp)
             newPlayer.updateBgArtworkParams(backgroundArtwork, backgroundBlur,
-                blurRadius, backgroundAlpha)
+                blurRadius, backgroundAlpha, forceExpand)
             newPlayer.bindPlayer(dataCopy, key)
             newPlayer.setListening(currentlyExpanded)
             MediaPlayerData.addMediaPlayer(key, dataCopy, newPlayer, systemClock, isSsReactivated)
@@ -456,7 +458,7 @@ class MediaCarouselController @Inject constructor(
             reorderAllPlayers(curVisibleMediaKey)
         } else {
             existingPlayer.updateBgArtworkParams(backgroundArtwork, backgroundBlur,
-                blurRadius, backgroundAlpha)
+                blurRadius, backgroundAlpha, forceExpand)
             existingPlayer.bindPlayer(dataCopy, key)
             MediaPlayerData.addMediaPlayer(key, dataCopy, existingPlayer, systemClock,
                     isSsReactivated)
@@ -904,6 +906,8 @@ class MediaCarouselController @Inject constructor(
         fun observe() {
             backgroundArtwork = systemSettings.getIntForUser(ARTWORK_MEDIA_BACKGROUND,
                 0, UserHandle.USER_CURRENT) == 1
+            forceExpand = systemSettings.getIntForUser(ARTWORK_MEDIA_FORCE_EXPAND,
+                0, UserHandle.USER_CURRENT) == 1
             backgroundBlur = systemSettings.getIntForUser(ARTWORK_MEDIA_BACKGROUND_ENABLE_BLUR,
                 0, UserHandle.USER_CURRENT) == 1
             blurRadius = systemSettings.getFloatForUser(ARTWORK_MEDIA_BACKGROUND_BLUR_RADIUS,
@@ -913,6 +917,8 @@ class MediaCarouselController @Inject constructor(
 
             systemSettings.registerContentObserverForUser(
                 ARTWORK_MEDIA_BACKGROUND, this, UserHandle.USER_ALL)
+            systemSettings.registerContentObserverForUser(
+                ARTWORK_MEDIA_FORCE_EXPAND, this, UserHandle.USER_ALL)
             systemSettings.registerContentObserverForUser(
                 ARTWORK_MEDIA_BACKGROUND_ENABLE_BLUR, this, UserHandle.USER_ALL)
             systemSettings.registerContentObserverForUser(
@@ -929,6 +935,9 @@ class MediaCarouselController @Inject constructor(
             when (uri.lastPathSegment) {
                 ARTWORK_MEDIA_BACKGROUND ->
                     backgroundArtwork = systemSettings.getIntForUser(ARTWORK_MEDIA_BACKGROUND,
+                        0, UserHandle.USER_CURRENT) == 1
+                ARTWORK_MEDIA_FORCE_EXPAND ->
+                    forceExpand = systemSettings.getIntForUser(ARTWORK_MEDIA_FORCE_EXPAND,
                         0, UserHandle.USER_CURRENT) == 1
                 ARTWORK_MEDIA_BACKGROUND_ENABLE_BLUR ->
                     backgroundBlur = systemSettings.getIntForUser(ARTWORK_MEDIA_BACKGROUND_ENABLE_BLUR,
