@@ -137,6 +137,7 @@ public class MediaControlPanel {
     private final MediaArtworkProcessor mMediaArtworkProcessor;
     private int mAlbumArtRadius;
     private boolean mBackgroundArtwork;
+    private boolean mForceExpanded;
     private boolean mBackgroundBlur;
     private float mBlurRadius;
     private int mBackgroundAlpha;
@@ -235,11 +236,12 @@ public class MediaControlPanel {
     }
 
     public void updateBgArtworkParams(boolean backgroundArtwork, boolean backgroundBlur,
-            float blurRadius, int backgroundAlpha) {
+            float blurRadius, int backgroundAlpha, boolean forceExpand) {
         mBackgroundArtwork = backgroundArtwork;
         mBackgroundBlur = backgroundBlur;
         mBlurRadius = blurRadius;
         mBackgroundAlpha = backgroundAlpha;
+        mForceExpanded = forceExpand;
     }
 
     /**
