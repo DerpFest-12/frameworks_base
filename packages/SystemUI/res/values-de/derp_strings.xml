@@ -234,4 +234,7 @@
     <string name="quick_settings_monotoggle_tile_mono">Mono-Audio</string>
     <string name="quick_settings_monotoggle_tile_stereo">Stereo-Audio</string>
 
+    <!-- Face Unlock -->
+    <string name="face_unlock_recognizing">Gesicht wird erkannt...</string>
+
 </resources>
