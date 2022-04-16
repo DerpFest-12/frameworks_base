@@ -6316,12 +6316,6 @@ public final class Settings {
          */
         public static final String DISABLE_RIPPLE_EFFECT = "disable_ripple_effect";
 
-        /**
-         * FOD night light
-         * @hide
-         */
-        public static final String FOD_NIGHT_LIGHT = "fod_night_light";
-
        /**
         * Defines the global heads up notification snooze
         * @hide
