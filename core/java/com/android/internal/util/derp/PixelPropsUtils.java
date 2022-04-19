@@ -92,30 +92,22 @@ public class PixelPropsUtils {
     }
 
     public static void setProps(String packageName) {
-        if (packageName == null || contains(packageName, packagesToKeep)) {
+        if (packageName == null || contains(packageName, packagesToKeep) || isPixelDevice) {
             return;
-        }
-        if (packageName.equals("com.google.android.apps.photos")) {
-            if (SystemProperties.getBoolean("persist.sys.pixelprops.gphotos", true)) {
-                propsToChange.putAll(propsToChangePixelXL);
-            } else {
-                if (isPixelDevice)
-                    return;
-                propsToChange.putAll(propsToChangePixel5);
-            }
-        }
-        if (isPixelDevice)
-            return;
-        if (contains(packageName, packagesToChangePixel6)) {
-            propsToChange.putAll(propsToChangePixel6);
-        } else if (contains(packageName, extraPackagesToChange)) {
-            propsToChange.putAll(propsToChangePixel5);
         }
         if (packageName.equals("com.netflix.mediaclient")
                 && !SystemProperties.getBoolean("persist.pixelpropsutils.spoof_netflix", true)) {
             if (DEBUG)
                 Log.d(TAG, "Netflix spoofing disabled by system prop");
             return;
+        }
+        if (packageName.equals("com.google.android.apps.photos") 
+            && SystemProperties.getBoolean("persist.sys.pixelprops.gphotos", true)){
+            propsToChange.putAll(propsToChangePixelXL);
+        } else if (contains(packageName, packagesToChangePixel6)) {
+            propsToChange.putAll(propsToChangePixel6);
+        } else if (contains(packageName, extraPackagesToChange)) {
+            propsToChange.putAll(propsToChangePixel5);
         }
         if (packageName.equals("com.google.android.gms")) {
             sIsGms = true;
