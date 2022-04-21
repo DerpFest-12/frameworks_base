@@ -237,4 +237,9 @@
     <!-- Face Unlock -->
     <string name="face_unlock_recognizing">Gesicht wird erkannt...</string>
 
+    <!-- Data usage info in QS footer -->
+    <string name="usage_data">heute verbraucht</string>
+    <string name="usage_data_default_suffix">Daten</string>
+    <string name="usage_wifi_default_suffix">WLAN</string>
+
 </resources>
