@@ -67,6 +67,7 @@ LOCAL_REQUIRED_MODULES := \
     IconPackOOSSystemUIOverlay \
     IconPackOOSThemePickerOverlay \
     IconPackAcherusAndroidOverlay \
+    IconPackAcherusSettingsOverlay \
     IconPackAcherusSystemUIOverlay \
     IconPackDoraAndroidOverlay \
     IconPackDoraSettingsOverlay \
