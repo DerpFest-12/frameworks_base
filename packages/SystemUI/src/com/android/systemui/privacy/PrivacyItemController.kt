@@ -70,6 +70,8 @@ class PrivacyItemController @Inject constructor(
             "com.android.bluetooth",
             "com.android.networkstack.tethering",
             "com.android.systemui",
+            "com.google.android.gms.location.history",
+            "com.google.android.googlequicksearchbox",
             "com.google.android.settings.intelligence",
             "com.mediatek.ims",
         )
