@@ -40,9 +40,14 @@ import com.android.server.SystemService;
 
 public final class CustomLauncherService extends SystemService {
 
+    private static final String LAWNCHAIR_OVERLAY_PKG_NAME = "com.android.launcher.recentsComponent.overlay";
     private static final String LAWNCHAIR_PKG_NAME = "app.lawnchair";
+    private static final String DERP_LAUNCHER_PKG_NAME = "com.android.launcher3";
     private static final String PIXEL_LAUNCHER_PKG_NAME = "com.google.android.apps.nexuslauncher";
-    private static final String COMPONENT_OVERLAY_PKG_NAME = "com.android.launcher.recentsComponent.overlay";
+
+    private static final int LAUNCHER_PIXEL = 0;
+    private static final int LAUNCHER_DERP = 1;
+    private static final int LAUNCHER_LAWNCHAIR = 2;
 
     private static final String TAG = "CustomLauncherService";
 
@@ -55,6 +60,10 @@ public final class CustomLauncherService extends SystemService {
     private ServiceThread mWorker;
     private Handler mHandler;
 
+    private boolean isPixelAvailable;
+    private boolean isDerpAvailable;
+    private boolean isLawnchairAvailable;
+
     public CustomLauncherService(Context context) {
         super(context);
         mContext = context;
@@ -64,24 +73,42 @@ public final class CustomLauncherService extends SystemService {
         mOpPackageName = context.getOpPackageName();
     }
 
-    private void updateStateForUser(int userId, boolean enabled) {
+    private void updateStateForUser(int userId, int launcher) {
         try {
             try {
-                if (enabled) {
-                    mOM.setEnabled(COMPONENT_OVERLAY_PKG_NAME, true, userId);
-                    mPM.setApplicationEnabledSetting(LAWNCHAIR_PKG_NAME,
+                if (launcher == LAUNCHER_PIXEL) {
+                    if (isPixelAvailable) mPM.setApplicationEnabledSetting(PIXEL_LAUNCHER_PKG_NAME,
                             PackageManager.COMPONENT_ENABLED_STATE_DEFAULT,
                             0, userId, mOpPackageName);
-                    mPM.setApplicationEnabledSetting(PIXEL_LAUNCHER_PKG_NAME,
+                    if (isDerpAvailable) mPM.setApplicationEnabledSetting(DERP_LAUNCHER_PKG_NAME,
+                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                            0, userId, mOpPackageName);
+                    if (isLawnchairAvailable) mPM.setApplicationEnabledSetting(LAWNCHAIR_PKG_NAME,
+                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                            0, userId, mOpPackageName);
+                } else if (launcher == LAUNCHER_DERP) {
+                    if (isPixelAvailable) mPM.setApplicationEnabledSetting(PIXEL_LAUNCHER_PKG_NAME,
+                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                            0, userId, mOpPackageName);
+                    if (isDerpAvailable) mPM.setApplicationEnabledSetting(DERP_LAUNCHER_PKG_NAME,
+                            PackageManager.COMPONENT_ENABLED_STATE_DEFAULT,
+                            0, userId, mOpPackageName);
+                    if (isLawnchairAvailable) mPM.setApplicationEnabledSetting(LAWNCHAIR_PKG_NAME,
                             PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                             0, userId, mOpPackageName);
                 } else {
-                    mPM.setApplicationEnabledSetting(LAWNCHAIR_PKG_NAME,
+                    if (isPixelAvailable) mPM.setApplicationEnabledSetting(PIXEL_LAUNCHER_PKG_NAME,
                             PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                             0, userId, mOpPackageName);
-                    mPM.setApplicationEnabledSetting(PIXEL_LAUNCHER_PKG_NAME,
+                    if (isDerpAvailable) mPM.setApplicationEnabledSetting(DERP_LAUNCHER_PKG_NAME,
+                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                            0, userId, mOpPackageName);
+                    if (isLawnchairAvailable) {
+                        mPM.setApplicationEnabledSetting(LAWNCHAIR_PKG_NAME,
                             PackageManager.COMPONENT_ENABLED_STATE_DEFAULT,
                             0, userId, mOpPackageName);
+                        mOM.setEnabled(LAWNCHAIR_OVERLAY_PKG_NAME, true, userId);
+                    }
                 }
             } catch (IllegalArgumentException ignored) {}
         } catch (RemoteException e) {
@@ -89,39 +116,37 @@ public final class CustomLauncherService extends SystemService {
         }
     }
 
-    private void initForUser(int userId, boolean enabled) {
+    private void initForUser(int userId, int launcher) {
         if (userId < 0)
             return;
 
-        updateStateForUser(userId, enabled);
+        updateStateForUser(userId, launcher);
     }
 
     private void init() {
+        final int availableStatus = LauncherUtils.getAvailableStatus(mContext);
+        isPixelAvailable = LauncherUtils.isPixelAvailable(availableStatus);
+        isDerpAvailable = LauncherUtils.isDerpAvailable(availableStatus);
+        isLawnchairAvailable = LauncherUtils.isLawnchairAvailable(availableStatus);
+
         if (!LauncherUtils.isInitialized()) {
             LauncherUtils.initialize();
-            try {
-                for (UserInfo user : mUM.getUsers(false, false, false)) {
-                    initForUser(user.id, false);
-                }
-            } catch (RemoteException e) {
-                e.rethrowAsRuntimeException();
-            }
         } else {
-            if (LauncherUtils.isOverlayAvailable(mContext)) {
+            if (isLawnchairAvailable) {
                 try {
-                    mOM.setEnabled(COMPONENT_OVERLAY_PKG_NAME, false, USER_SYSTEM);
+                    mOM.setEnabled(LAWNCHAIR_OVERLAY_PKG_NAME, false, USER_SYSTEM);
                 } catch (RemoteException e) {
                     e.rethrowAsRuntimeException();
                 }
             }
-            if (!LauncherUtils.isAvailable(mContext)) {
+            if (availableStatus == 0) {
                 LauncherUtils.setUnavailable();
             } else {
-                boolean enabled = LauncherUtils.getLastStatus();
-                LauncherUtils.setEnabled(enabled);
+                final int launcher = LauncherUtils.getLastLauncher();
+                LauncherUtils.setLauncher(launcher);
                 try {
                     for (UserInfo user : mUM.getUsers(false, false, false)) {
-                        initForUser(user.id, enabled);
+                        initForUser(user.id, launcher);
                     }
                 } catch (RemoteException e) {
                     e.rethrowAsRuntimeException();
@@ -152,8 +177,8 @@ public final class CustomLauncherService extends SystemService {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (Intent.ACTION_SHUTDOWN.equals(intent.getAction())) {
-                if (LauncherUtils.isAvailable(context)) {
-                    LauncherUtils.setEnabled(LauncherUtils.getLastStatus());
+                if (LauncherUtils.getAvailableStatus(context) != 0) {
+                    LauncherUtils.setLauncher(LauncherUtils.getLastLauncher());
                 } else {
                     LauncherUtils.setUnavailable();
                 }
@@ -167,8 +192,8 @@ public final class CustomLauncherService extends SystemService {
             int userId = intent.getIntExtra(Intent.EXTRA_USER_HANDLE, -1);
 
             if (Intent.ACTION_USER_ADDED.equals(intent.getAction())) {
-                if (LauncherUtils.isAvailable(context)) {
-                    initForUser(userId, LauncherUtils.isEnabled());
+                if (LauncherUtils.getAvailableStatus(context) != 0) {
+                    initForUser(userId, LauncherUtils.getLauncher());
                 }
             }
         }

@@ -459,28 +459,71 @@ public class derpUtils {
 
     public static final class LauncherUtils {
 
-        private static final String COMPONENT_OVERLAY_PKG_NAME = "com.android.launcher.recentsComponent.overlay";
-        private static final String LAWNCHAIR_PKG_NAME = "app.lawnchair";
         private static final String LAWNCHAIR_COMPONENT_NAME = "app.lawnchair/com.android.quickstep.RecentsActivity";
+        private static final String LAWNCHAIR_OVERLAY_PKG_NAME = "com.android.launcher.recentsComponent.overlay";
+        private static final String LAWNCHAIR_PKG_NAME = "app.lawnchair";
+
+        private static final String DERP_LAUNCHER_COMPONENT_NAME = "com.android.launcher3/com.android.quickstep.RecentsActivity";
+        private static final String DERP_LAUNCHER_PKG_NAME = "com.android.launcher3";
+
         private static final String PIXEL_LAUNCHER_PKG_NAME = "com.google.android.apps.nexuslauncher";
+
         private static final String QUICK_SWITCH_PKG_NAME = "xyz.paphonb.quickstepswitcher";
 
-        private static final String KEY_PROP = "persist.sys.custom.lawnchair";
-        private static final String KEY_LAST = "persist.sys.custom.lawnchair_last";
+        private static final String KEY_PROP = "persist.sys.custom.launcher";
+        private static final String KEY_LAST = "persist.sys.custom.launcher_last";
 
-        public static boolean isAvailable(Context context) {
-            return isPackageInstalled(context, LAWNCHAIR_PKG_NAME) &&
-                    isPackageInstalled(context, PIXEL_LAUNCHER_PKG_NAME) &&
-                    isOverlayAvailable(context) &&
-                    !isPackageInstalled(context, QUICK_SWITCH_PKG_NAME, true);  // Hide when quick switch installed to avoid conflict
+        private static final int UNAVAILABLE = 0;
+        private static final int PIXEL = 1;
+        private static final int DERP = 2;
+        private static final int PIXEL_DERP = 3;
+        private static final int LAWNCHAIR = 4;
+        private static final int PIXEL_LAWNCHAIR = 5;
+        private static final int DERP_LAWNCHAIR = 6;
+        private static final int PIXEL_DERP_LAWNCHAIR = 7;
+
+        private static final int LAUNCHER_UNINITIALIZED = -1;
+        private static final int LAUNCHER_PIXEL = 0;
+        private static final int LAUNCHER_DERP = 1;
+        private static final int LAUNCHER_LAWNCHAIR = 2;
+        private static final int LAUNCHER_UNAVAILABLE = 3;
+
+        public static int getAvailableStatus(Context context) {
+            if (isPackageInstalled(context, QUICK_SWITCH_PKG_NAME, true)) {
+                return UNAVAILABLE;    // Always return unavailable when quick switch installed
+            }
+            int ret = UNAVAILABLE;
+            if (isPackageInstalled(context, PIXEL_LAUNCHER_PKG_NAME)) {
+                ret += PIXEL;
+            }
+            if (isPackageInstalled(context, DERP_LAUNCHER_PKG_NAME)) {
+                ret += DERP;
+            }
+            if (isPackageInstalled(context, LAWNCHAIR_OVERLAY_PKG_NAME) &&
+                    isPackageInstalled(context, LAWNCHAIR_PKG_NAME)) {
+                ret += LAWNCHAIR;
+            }
+            return ret;
         }
 
-        public static boolean isOverlayAvailable(Context context) {
-            return isPackageInstalled(context, COMPONENT_OVERLAY_PKG_NAME);
+        public static boolean isPixelAvailable(int status) {
+            return (status & 1) != 0;
+        }
+
+        public static boolean isDerpAvailable(int status) {
+            return status == DERP ||
+                    status == PIXEL_DERP ||
+                    status == DERP_LAWNCHAIR ||
+                    status == PIXEL_DERP_LAWNCHAIR;
+        }
+
+        public static boolean isLawnchairAvailable(int status) {
+            return status >= LAWNCHAIR;
         }
 
         public static boolean isInitialized() {
-            return SystemProperties.getInt(KEY_PROP, -1) != -1 && SystemProperties.getInt(KEY_LAST, -1) != -1;
+            return SystemProperties.getInt(KEY_PROP, LAUNCHER_UNINITIALIZED) != LAUNCHER_UNINITIALIZED &&
+                    SystemProperties.getInt(KEY_LAST, LAUNCHER_UNINITIALIZED) != LAUNCHER_UNINITIALIZED;
         }
 
         public static void initialize() {
@@ -488,37 +531,51 @@ public class derpUtils {
             SystemProperties.set(KEY_LAST, "0");
         }
 
-        public static boolean isEnabled() {
-            return false;
+        public static int getLauncher() {
+            return SystemProperties.getInt(KEY_PROP, LAUNCHER_UNINITIALIZED);
         }
 
-        public static void setEnabled(boolean enabled) {
-            SystemProperties.set(KEY_PROP, enabled ? "1" : "0");
+        public static void setLauncher(int launcher) {
+            SystemProperties.set(KEY_PROP, Integer.toString(launcher));
         }
 
         public static void setUnavailable() {
-            SystemProperties.set(KEY_PROP, "2");
+            SystemProperties.set(KEY_PROP, "3");
         }
 
-        public static boolean getLastStatus() {
-            return false;
+        public static int getLastLauncher() {
+            return SystemProperties.getInt(KEY_LAST, LAUNCHER_PIXEL);
         }
 
-        public static void setLastStatus(boolean enabled) {
-            SystemProperties.set(KEY_LAST, enabled ? "1" : "0");
+        public static void setLastLauncher(int launcher) {
+            SystemProperties.set(KEY_LAST, Integer.toString(launcher));
         }
 
         public static String getLauncherComponentName(Context context) {
-            if (isInitialized() && isEnabled()) {
-                return LAWNCHAIR_COMPONENT_NAME;
+            if (isInitialized()) {
+                switch (getLauncher()) {
+                    case LAUNCHER_DERP:
+                        return DERP_LAUNCHER_COMPONENT_NAME;
+                    case LAUNCHER_LAWNCHAIR:
+                        return LAWNCHAIR_COMPONENT_NAME;
+                    default:
+                        break;
+                }
             }
             return context.getString(
                     com.android.internal.R.string.config_recentsComponentName);
         }
 
         public static String getLauncherComponentName(Resources res) {
-            if (isInitialized() && isEnabled()) {
-                return LAWNCHAIR_COMPONENT_NAME;
+            if (isInitialized()) {
+                switch (getLauncher()) {
+                    case LAUNCHER_DERP:
+                        return DERP_LAUNCHER_COMPONENT_NAME;
+                    case LAUNCHER_LAWNCHAIR:
+                        return LAWNCHAIR_COMPONENT_NAME;
+                    default:
+                        break;
+                }
             }
             return res.getString(
                     com.android.internal.R.string.config_recentsComponentName);
