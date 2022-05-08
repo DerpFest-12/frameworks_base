@@ -69,11 +69,13 @@ class PrivacyItemController @Inject constructor(
         val LOCATION_WHITELIST_PKG = arrayOf(
             "com.android.bluetooth",
             "com.android.networkstack.tethering",
+            "com.android.phone",
             "com.android.systemui",
             "com.google.android.gms.location.history",
             "com.google.android.googlequicksearchbox",
             "com.google.android.settings.intelligence",
             "com.mediatek.ims",
+            "com.qualcomm.qti.cne",
         )
         val CAMERA_WHITELIST_PKG = arrayOf(
             "org.pixelexperience.faceunlock",
