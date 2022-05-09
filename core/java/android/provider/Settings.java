@@ -18166,6 +18166,18 @@ public final class Settings {
          * @hide
          */
         public static final String ALARM_BLOCKING_ENABLED = "alarm_blocking_enabled";
+
+        /**
+         * Set whether speaker media can be muted by ringer mode.
+         * @hide
+         */
+        public static final String RINGER_MUTE_SPEAKER_MEDIA = "ringer_mute_speaker_media";
+
+        /**
+         * The saved last speaker media volume before setting to silent or vibrate.
+         * @hide
+         */
+        public static final String SAVED_SPEAKER_MEDIA_VOLUME = "saved_speaker_media_volume";
     }
 
     /**
