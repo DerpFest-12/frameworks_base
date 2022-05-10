@@ -41,7 +41,7 @@ import com.android.server.SystemService;
 public final class CustomLauncherService extends SystemService {
 
     private static final String LAWNCHAIR_OVERLAY_PKG_NAME = "com.android.launcher.recentsComponent.overlay";
-    private static final String LAWNCHAIR_PKG_NAME = "app.lawnchair";
+    private static final String LAWNCHAIR_PKG_NAME = "app.lawnchair.twelvel";
     private static final String DERP_LAUNCHER_PKG_NAME = "com.android.launcher3";
     private static final String PIXEL_LAUNCHER_PKG_NAME = "com.google.android.apps.nexuslauncher";
 

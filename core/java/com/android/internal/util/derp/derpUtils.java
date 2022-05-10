@@ -459,9 +459,9 @@ public class derpUtils {
 
     public static final class LauncherUtils {
 
-        private static final String LAWNCHAIR_COMPONENT_NAME = "app.lawnchair/com.android.quickstep.RecentsActivity";
+        private static final String LAWNCHAIR_COMPONENT_NAME = "app.lawnchair.twelvel/com.android.quickstep.RecentsActivity";
         private static final String LAWNCHAIR_OVERLAY_PKG_NAME = "com.android.launcher.recentsComponent.overlay";
-        private static final String LAWNCHAIR_PKG_NAME = "app.lawnchair";
+        private static final String LAWNCHAIR_PKG_NAME = "app.lawnchair.twelvel";
 
         private static final String DERP_LAUNCHER_COMPONENT_NAME = "com.android.launcher3/com.android.quickstep.RecentsActivity";
         private static final String DERP_LAUNCHER_PKG_NAME = "com.android.launcher3";
