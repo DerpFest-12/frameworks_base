@@ -23,6 +23,7 @@ import android.Manifest;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.IActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
@@ -459,19 +460,20 @@ public class derpUtils {
 
     public static final class LauncherUtils {
 
-        private static final String LAWNCHAIR_COMPONENT_NAME = "app.lawnchair.twelvel/com.android.quickstep.RecentsActivity";
+        private static final String TAG = "LauncherUtils";
+
+        private static final String RECENT_COMPONENT_NAME = "/com.android.quickstep.RecentsActivity";
+
         private static final String LAWNCHAIR_OVERLAY_PKG_NAME = "com.android.launcher.recentsComponent.overlay";
         private static final String LAWNCHAIR_PKG_NAME = "app.lawnchair.twelvel";
 
-        private static final String DERP_LAUNCHER_COMPONENT_NAME = "com.android.launcher3/com.android.quickstep.RecentsActivity";
         private static final String DERP_LAUNCHER_PKG_NAME = "com.android.launcher3";
+        private static final String DERP_CLASS_NAME = "com.android.launcher3.DerpLauncher";
 
         private static final String PIXEL_LAUNCHER_PKG_NAME = "com.google.android.apps.nexuslauncher";
 
-        private static final String QUICK_SWITCH_PKG_NAME = "xyz.paphonb.quickstepswitcher";
-
-        private static final String KEY_PROP = "persist.sys.custom.launcher";
-        private static final String KEY_LAST = "persist.sys.custom.launcher_last";
+        private static final String KEY_SETTINGS = "persist.sys.custom.launcher";
+        private static final String KEY_CACHED = "sys.custom.launcher_cached";
 
         private static final int UNAVAILABLE = 0;
         private static final int PIXEL = 1;
@@ -482,28 +484,38 @@ public class derpUtils {
         private static final int DERP_LAWNCHAIR = 6;
         private static final int PIXEL_DERP_LAWNCHAIR = 7;
 
-        private static final int LAUNCHER_UNINITIALIZED = -1;
         private static final int LAUNCHER_PIXEL = 0;
         private static final int LAUNCHER_DERP = 1;
         private static final int LAUNCHER_LAWNCHAIR = 2;
         private static final int LAUNCHER_UNAVAILABLE = 3;
 
-        public static int getAvailableStatus(Context context) {
-            if (isPackageInstalled(context, QUICK_SWITCH_PKG_NAME, true)) {
-                return UNAVAILABLE;    // Always return unavailable when quick switch installed
-            }
+        public static int getAvailableStatus(Context context, boolean checkClass) {
             int ret = UNAVAILABLE;
             if (isPackageInstalled(context, PIXEL_LAUNCHER_PKG_NAME)) {
                 ret += PIXEL;
             }
             if (isPackageInstalled(context, DERP_LAUNCHER_PKG_NAME)) {
-                ret += DERP;
+                if (checkClass) {
+                    Intent intent = new Intent();
+                    ComponentName cn = new ComponentName(DERP_LAUNCHER_PKG_NAME, DERP_CLASS_NAME);
+                    intent.setComponent(cn);
+                    if (intent.resolveActivityInfo(context.getPackageManager(),
+                            PackageManager.MATCH_DEFAULT_ONLY) != null) {
+                        ret += DERP;
+                    }
+                } else {
+                    ret += DERP;
+                }
             }
             if (isPackageInstalled(context, LAWNCHAIR_OVERLAY_PKG_NAME) &&
                     isPackageInstalled(context, LAWNCHAIR_PKG_NAME)) {
                 ret += LAWNCHAIR;
             }
             return ret;
+        }
+
+        public static boolean hasNoLauncher(int status) {
+            return status == UNAVAILABLE;
         }
 
         public static boolean isPixelAvailable(int status) {
@@ -521,64 +533,76 @@ public class derpUtils {
             return status >= LAWNCHAIR;
         }
 
-        public static boolean isInitialized() {
-            return SystemProperties.getInt(KEY_PROP, LAUNCHER_UNINITIALIZED) != LAUNCHER_UNINITIALIZED &&
-                    SystemProperties.getInt(KEY_LAST, LAUNCHER_UNINITIALIZED) != LAUNCHER_UNINITIALIZED;
-        }
-
-        public static void initialize() {
-            SystemProperties.set(KEY_PROP, "0");
-            SystemProperties.set(KEY_LAST, "0");
-        }
-
         public static int getLauncher() {
-            return SystemProperties.getInt(KEY_PROP, LAUNCHER_UNINITIALIZED);
+            return SystemProperties.getInt(KEY_SETTINGS, LAUNCHER_PIXEL);
         }
 
         public static void setLauncher(int launcher) {
-            SystemProperties.set(KEY_PROP, Integer.toString(launcher));
+            SystemProperties.set(KEY_SETTINGS, Integer.toString(launcher));
         }
 
-        public static void setUnavailable() {
-            SystemProperties.set(KEY_PROP, "3");
+        private static int ensureCorrectLauncher(int launcher, String componentName) {
+            final String launcherPackage = componentName.substring(0, componentName.indexOf("/"));
+            if (!launcherPackage.equals(PIXEL_LAUNCHER_PKG_NAME)) {
+                // Default component name is changed, possibly launcher modules installed.
+                if (launcherPackage.equals(DERP_LAUNCHER_PKG_NAME)) {
+                    return LAUNCHER_DERP;
+                }
+                if (launcherPackage.equals(LAWNCHAIR_PKG_NAME)) {
+                    return LAUNCHER_LAWNCHAIR;
+                }
+                // Unsupport launcher. Set unavailable and return config value for component name.
+                return LAUNCHER_UNAVAILABLE;
+            }
+            return launcher;
         }
 
-        public static int getLastLauncher() {
-            return SystemProperties.getInt(KEY_LAST, LAUNCHER_PIXEL);
+        public static int getRealLauncher(Context context) {
+            final String resComponentName = context.getString(
+                    com.android.internal.R.string.config_recentsComponentName);
+            int launcher = getLauncher();
+            if (launcher != LAUNCHER_UNAVAILABLE) {
+                launcher = ensureCorrectLauncher(launcher, resComponentName);
+            }
+            Log.i(TAG, "Real launcher: " + Integer.toString(launcher));
+            return launcher;
         }
 
-        public static void setLastLauncher(int launcher) {
-            SystemProperties.set(KEY_LAST, Integer.toString(launcher));
+        private static boolean isBootCompleted() {
+            return SystemProperties.getInt("sys.boot_completed", 0) == 1;
+        }
+
+        public static int getCachedLauncher() {
+            return SystemProperties.getInt(KEY_CACHED, -1);
+        }
+
+        private static void setCachedLauncher(int launcher) {
+            SystemProperties.set(KEY_CACHED, Integer.toString(launcher));
         }
 
         public static String getLauncherComponentName(Context context) {
-            if (isInitialized()) {
-                switch (getLauncher()) {
-                    case LAUNCHER_DERP:
-                        return DERP_LAUNCHER_COMPONENT_NAME;
-                    case LAUNCHER_LAWNCHAIR:
-                        return LAWNCHAIR_COMPONENT_NAME;
-                    default:
-                        break;
-                }
+            final int cachedlauncher = getCachedLauncher();
+            int launcher;
+            if (isBootCompleted() && cachedlauncher != -1) {
+                launcher = cachedlauncher;
+            } else if (cachedlauncher != -1) {
+                launcher = cachedlauncher;
+            } else {
+                launcher = getRealLauncher(context);
+                setCachedLauncher(launcher);
             }
-            return context.getString(
-                    com.android.internal.R.string.config_recentsComponentName);
-        }
-
-        public static String getLauncherComponentName(Resources res) {
-            if (isInitialized()) {
-                switch (getLauncher()) {
-                    case LAUNCHER_DERP:
-                        return DERP_LAUNCHER_COMPONENT_NAME;
-                    case LAUNCHER_LAWNCHAIR:
-                        return LAWNCHAIR_COMPONENT_NAME;
-                    default:
-                        break;
-                }
+            Log.i(TAG, "Set launcher: " + Integer.toString(launcher));
+            switch (launcher) {
+                case LAUNCHER_PIXEL:
+                    return PIXEL_LAUNCHER_PKG_NAME + RECENT_COMPONENT_NAME;
+                case LAUNCHER_DERP:
+                    return DERP_LAUNCHER_PKG_NAME + RECENT_COMPONENT_NAME;
+                case LAUNCHER_LAWNCHAIR:
+                    return LAWNCHAIR_PKG_NAME + RECENT_COMPONENT_NAME;
+                default:
+                    return context.getString(
+                            com.android.internal.R.string.config_recentsComponentName);
             }
-            return res.getString(
-                    com.android.internal.R.string.config_recentsComponentName);
         }
     }
 }
