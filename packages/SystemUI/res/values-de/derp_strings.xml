@@ -206,10 +206,10 @@
     <string name="quick_settings_glove_mode_label">Glove-Modus</string>
 
     <!-- PowerShare QS tile -->
-    <string name="quick_settings_powershare_label">Wireless PowerShare</string>
+    <string name="quick_settings_powershare_label">Battery Share</string>
     <string name="quick_settings_powershare_off_powersave_label">Energiesparmodus</string>
     <string name="quick_settings_powershare_off_low_battery_label">Akkustand niedrig</string>
-    <string name="quick_settings_powershare_enabled_label">Wireless PowerShare ist aktiviert</string>
+    <string name="quick_settings_powershare_enabled_label">Battery Share ist aktiviert</string>
 
     <!-- Label for UI element which allows deleting the screenshot [CHAR LIMIT=30] -->
     <string name="screenshot_delete_label">Löschen</string>
