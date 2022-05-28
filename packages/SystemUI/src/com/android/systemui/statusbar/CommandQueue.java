@@ -155,7 +155,6 @@ public class CommandQueue extends IStatusBar.Stub implements
     private static final int MSG_TOGGLE_SETTINGS_PANEL         = 64 << MSG_SHIFT;
     private static final int MSG_SCREEN_PINNING_STATE_CHANGED      = 65 << MSG_SHIFT;
     private static final int MSG_LEFT_IN_LANDSCAPE_STATE_CHANGED   = 66 << MSG_SHIFT;
-    private static final int MSG_SET_BLOCKED_GESTURAL_NAVIGATION   = 67 << MSG_SHIFT;
 
     public static final int FLAG_EXCLUDE_NONE = 0;
     public static final int FLAG_EXCLUDE_SEARCH_PANEL = 1 << 0;
@@ -425,7 +424,6 @@ public class CommandQueue extends IStatusBar.Stub implements
         default void killForegroundApp() { }
         default void screenPinningStateChanged(boolean enabled) {}
         default void leftInLandscapeChanged(boolean isLeft) {}
-        default void setBlockedGesturalNavigation(boolean blocked) {}
     }
 
     public CommandQueue(Context context) {
@@ -1178,16 +1176,6 @@ public class CommandQueue extends IStatusBar.Stub implements
     }
 
     @Override
-    public void setBlockedGesturalNavigation(boolean blocked) {
-        synchronized (mLock) {
-            if (mHandler.hasMessages(MSG_SET_BLOCKED_GESTURAL_NAVIGATION)) {
-                mHandler.removeMessages(MSG_SET_BLOCKED_GESTURAL_NAVIGATION);
-            }
-            mHandler.obtainMessage(MSG_SET_BLOCKED_GESTURAL_NAVIGATION, blocked).sendToTarget();
-        }
-    }
-
-    @Override
     public void toggleCameraFlashState(boolean enable) {
         synchronized (mLock) {
             mHandler.removeMessages(MSG_TOGGLE_CAMERA_FLASH_STATE);
@@ -1598,9 +1586,6 @@ public class CommandQueue extends IStatusBar.Stub implements
                     for (int i = 0; i < mCallbacks.size(); i++) {
                         mCallbacks.get(i).leftInLandscapeChanged(msg.arg1 != 0);
                     }
-                    break;
-                case MSG_SET_BLOCKED_GESTURAL_NAVIGATION:
-                    mCallbacks.forEach(cb -> cb.setBlockedGesturalNavigation((Boolean) msg.obj));
                     break;
             }
         }
