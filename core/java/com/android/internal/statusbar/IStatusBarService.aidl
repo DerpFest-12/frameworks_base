@@ -172,9 +172,4 @@ interface IStatusBarService
     void killForegroundApp();
 
     void screenPinningStateChanged(boolean enabled);
-
-    /**
-     * Used to block or unblock usage of gestural navigation
-     */
-    void setBlockedGesturalNavigation(boolean blocked);
 }
