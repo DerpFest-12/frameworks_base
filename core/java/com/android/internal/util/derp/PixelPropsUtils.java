@@ -51,7 +51,7 @@ public class PixelPropsUtils {
 
     // Codenames for currently supported Pixels by Google
     private static final String[] pixelCodenames = {"oriole", "raven", "redfin", "barbet",
-            "bramble", "sunfish", "coral", "flame", "bonito", "sargo"};
+            "bramble", "sunfish", "coral", "flame"};
 
     private static volatile boolean sIsGms = false;
 
