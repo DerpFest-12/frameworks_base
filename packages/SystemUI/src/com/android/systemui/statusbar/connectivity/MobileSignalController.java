@@ -26,11 +26,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.database.ContentObserver;
-import android.graphics.drawable.Drawable;
 import android.net.NetworkCapabilities;
-import android.net.Uri;
 import android.os.Handler;
-import android.os.UserHandle;
 import android.os.Looper;
 import android.provider.Settings;
 import android.provider.Settings.Global;
@@ -70,9 +67,11 @@ import com.android.settingslib.mobile.MobileStatusTracker.MobileStatus;
 import com.android.settingslib.mobile.MobileStatusTracker.SubscriptionDefaults;
 import com.android.settingslib.mobile.TelephonyIcons;
 import com.android.settingslib.net.SignalStrengthUtil;
+import com.android.systemui.Dependency;
 import com.android.systemui.R;
 import com.android.systemui.dagger.qualifiers.Background;
 import com.android.systemui.flags.FeatureFlags;
+import com.android.systemui.tuner.TunerService;
 import com.android.systemui.util.CarrierConfigTracker;
 
 import java.io.PrintWriter;
@@ -85,7 +84,8 @@ import java.util.Map;
 /**
  * Monitors the mobile signal changes and update the SysUI icons.
  */
-public class MobileSignalController extends SignalController<MobileState, MobileIconGroup> {
+public class MobileSignalController extends SignalController<MobileState, MobileIconGroup>
+	implements TunerService.Tunable {
     private static final SimpleDateFormat SSDF = new SimpleDateFormat("MM-dd HH:mm:ss.SSS");
     private static final int STATUS_HISTORY_SIZE = 64;
     private static final int IMS_TYPE_WWAN = 1;
@@ -98,7 +98,7 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
     private final String mNetworkNameDefault;
     private final String mNetworkNameSeparator;
     private final ContentObserver mObserver;
-    private final boolean mProviderModelBehavior;
+    private boolean mProviderModelBehavior;
     private final boolean mProviderModelSetting;
     private final Handler mReceiverHandler;
     private int mImsType = IMS_TYPE_WWAN;
@@ -134,6 +134,21 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
     private int mVoWIFIicon = 0;
     private boolean mOverride = true;
     private boolean mIsVowifiAvailable;
+
+    private static final String VOLTE_ICON_STYLE =
+            "system:" + Settings.System.VOLTE_ICON_STYLE;
+    public static final String VOWIFI_ICON_STYLE =
+            "system:" + Settings.System.VOWIFI_ICON_STYLE;
+    public static final String VOLTE_VOWIFI_OVERRIDE =
+            "system:" + Settings.System.VOLTE_VOWIFI_OVERRIDE;
+    private static final String ROAMING_INDICATOR_ICON =
+            "system:" + Settings.System.ROAMING_INDICATOR_ICON;
+    private static final String SHOW_FOURG_ICON =
+            "system:" + Settings.System.SHOW_FOURG_ICON;
+    private static final String DATA_DISABLED_ICON =
+            "system:" + Settings.System.DATA_DISABLED_ICON;
+    private static final String COMBINED_STATUS_BAR_SIGNAL_ICONS =
+            "system:" + Settings.System.COMBINED_STATUS_BAR_SIGNAL_ICONS;
 
     private final MobileStatusTracker.Callback mMobileCallback =
             new MobileStatusTracker.Callback() {
@@ -297,68 +312,63 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
         mProviderModelBehavior = featureFlags.isCombinedStatusBarSignalIconsEnabled();
         mProviderModelSetting = featureFlags.isProviderModelSettingEnabled();
 
-	Handler mHandler = new Handler();
-        SettingsObserver settingsObserver = new SettingsObserver(mHandler);
-        settingsObserver.observe();
+        Dependency.get(TunerService.class).addTunable(this, VOLTE_ICON_STYLE);
+        Dependency.get(TunerService.class).addTunable(this, VOWIFI_ICON_STYLE);
+        Dependency.get(TunerService.class).addTunable(this, VOLTE_VOWIFI_OVERRIDE);
+        Dependency.get(TunerService.class).addTunable(this, ROAMING_INDICATOR_ICON);
+        Dependency.get(TunerService.class).addTunable(this, SHOW_FOURG_ICON);
+        Dependency.get(TunerService.class).addTunable(this, DATA_DISABLED_ICON);
+        Dependency.get(TunerService.class).addTunable(this, COMBINED_STATUS_BAR_SIGNAL_ICONS);
     }
 
-    class SettingsObserver extends ContentObserver {
-        SettingsObserver(Handler handler) {
-            super(handler);
-        }
-        void observe() {
-            ContentResolver resolver = mContext.getContentResolver();
-            resolver.registerContentObserver(
-                    Settings.System.getUriFor(Settings.System.SHOW_FOURG_ICON), false,
-                    this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(
-                    Settings.System.getUriFor(Settings.System.DATA_DISABLED_ICON), false,
-                    this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(
-                    Settings.System.getUriFor(Settings.System.ROAMING_INDICATOR_ICON), false,
-                    this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(
-                    Settings.System.getUriFor(Settings.System.VOLTE_ICON_STYLE), false,
-                    this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(
-                    Settings.System.getUriFor(Settings.System.VOWIFI_ICON_STYLE),false,
-                    this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(
-                    Settings.System.getUriFor(Settings.System.VOLTE_VOWIFI_OVERRIDE), false,
-                    this, UserHandle.USER_ALL);
-            updateSettings();
-        }
-
-        /*
-         *  @hide
-         */
-        @Override
-        public void onChange(boolean selfChange) {
-            updateSettings();
-        }
+   @Override
+    public void onTuningChanged(String key, String newValue) {
+        switch (key) {
+            case VOLTE_ICON_STYLE:
+                mVoLTEicon =
+                    TunerService.parseInteger(newValue, 1);
+                notifyListeners();
+                break;
+            case VOWIFI_ICON_STYLE:
+                mVoWIFIicon =
+                    TunerService.parseInteger(newValue, 1);
+                notifyListeners();
+                break;
+            case VOLTE_VOWIFI_OVERRIDE:
+                mOverride =
+                    TunerService.parseIntegerSwitch(newValue, true);
+                notifyListeners();
+                break;
+            case ROAMING_INDICATOR_ICON:
+                mRoamingIconAllowed =
+                    TunerService.parseIntegerSwitch(newValue, true);
+                updateTelephony();
+                break;
+            case SHOW_FOURG_ICON:
+                mConfig = Config.readConfig(mContext);
+                setConfiguration(mConfig);
+                notifyListeners();
+                break;
+            case DATA_DISABLED_ICON:
+                mDataDisabledIcon =
+                    TunerService.parseIntegerSwitch(newValue, true);
+                updateTelephony();
+                break;
+            case COMBINED_STATUS_BAR_SIGNAL_ICONS:
+                boolean value =
+                    TunerService.parseIntegerSwitch(newValue, false);
+                if (mProviderModelBehavior != value) {
+                    mProviderModelBehavior = value;
+                    restartSystemUI();
+                }
+                break;
+            default:
+                break;
     }
+}
 
-    private void updateSettings() {
-        ContentResolver resolver = mContext.getContentResolver();
-        mDataDisabledIcon = Settings.System.getIntForUser(resolver,
-                Settings.System.DATA_DISABLED_ICON, 1,
-                UserHandle.USER_CURRENT) == 1;
-        mRoamingIconAllowed = Settings.System.getIntForUser(resolver,
-                Settings.System.ROAMING_INDICATOR_ICON, 1,
-                UserHandle.USER_CURRENT) == 1;
-		mVoLTEicon = Settings.System.getIntForUser(resolver,
-                Settings.System.VOLTE_ICON_STYLE, 0,
-                UserHandle.USER_CURRENT);
-        mOverride = Settings.System.getIntForUser(resolver,
-                Settings.System.VOLTE_VOWIFI_OVERRIDE, 1,
-                UserHandle.USER_CURRENT) == 1;
-        mVoWIFIicon = Settings.System.getIntForUser(resolver,
-                Settings.System.VOWIFI_ICON_STYLE, 0,
-                UserHandle.USER_CURRENT);
-
-        mConfig = Config.readConfig(mContext);
-        setConfiguration(mConfig);
-        notifyListeners();
+    private void restartSystemUI() {
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 
     void setConfiguration(Config config) {
@@ -486,6 +496,10 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
         return getCurrentIconId();
     }
 
+    private boolean isVolteSwitchOn() {
+        return mImsManager != null && mImsManager.isEnhanced4gLteModeSettingEnabledByUser();
+    }
+
     private int getVolteVowifiResId() {
         int resId = 0;
 
@@ -523,11 +537,9 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
                     case 7:
                         resId = com.android.settingslib.R.drawable.ic_vowifi_margaritov;
                         break;
-                    case 0:
-                        break;
                 }
             }
-        } else if (mImsManager != null && mVoLTEicon > 0 && isVolteAvailable()) {
+        } else if (mVoLTEicon > 0 && isVolteAvailable()) {
             switch (mVoLTEicon) {
                 // OnePlus
                 case 1:
@@ -611,8 +623,6 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
                     break;
                 case 24:
                     resId = R.drawable.ic_volte_zirco;
-                    break;
-                case 0:
                     break;
             }
         }
@@ -1078,7 +1088,7 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
         mCurrentState.roaming = isRoaming() && mRoamingIconAllowed;
         if (isCarrierNetworkChangeActive()) {
             mCurrentState.iconGroup = TelephonyIcons.CARRIER_NETWORK_CHANGE;
-        } else if (isDataDisabled() && mDataDisabledIcon/*!mConfig.alwaysShowDataRatIcon*/) {
+        } else if (isDataDisabled() && mDataDisabledIcon) {
             if (mSubscriptionInfo.getSubscriptionId() != mDefaults.getDefaultDataSubId()) {
                 mCurrentState.iconGroup = TelephonyIcons.NOT_DEFAULT_DATA;
             } else {
@@ -1154,13 +1164,13 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
     }
 
     private boolean isVolteAvailable() {
-        return (mCurrentState.voiceCapable || mCurrentState.videoCapable) && mCurrentState.imsRegistered;
+        return isVolteSwitchOn()
+                && (mCurrentState.voiceCapable || mCurrentState.videoCapable) &&  mCurrentState.imsRegistered;
     }
 
     public boolean isVowifiAvailable() {
-        return (isVolteAvailable()
-                && getDataNetworkType() == TelephonyManager.NETWORK_TYPE_IWLAN)
-                || mIsVowifiAvailable;
+        return isVolteAvailable()
+                && getDataNetworkType() == TelephonyManager.NETWORK_TYPE_IWLAN;
     }
 
     private MobileIconGroup getVowifiIconGroup() {
@@ -1264,8 +1274,9 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
 
     private final BroadcastReceiver mVolteSwitchObserver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
-            Log.d(mTag, "action=" + intent.getAction());
-            notifyListeners();
+            if (isVolteSwitchOn()) {
+                notifyListeners();
+            }
         }
     };
 }

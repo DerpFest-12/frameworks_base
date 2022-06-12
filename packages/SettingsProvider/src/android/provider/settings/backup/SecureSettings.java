@@ -206,7 +206,6 @@ public class SecureSettings {
         Settings.Secure.LOCK_SHOW_ERROR_PATH,
         Settings.Secure.ENABLE_LOCATION_PRIVACY_INDICATOR,
         Settings.Secure.GESTURE_NAVBAR_LENGTH_MODE,
-        Settings.Secure.SHOW_COMBINED_STATUS_BAR_SIGNAL_ICONS,
         Settings.Secure.MONET_ENGINE_ACCURATE_SHADES,
         Settings.Secure.MONET_ENGINE_COLOR_OVERRIDE,
         Settings.Secure.MONET_ENGINE_CUSTOM_COLOR,
