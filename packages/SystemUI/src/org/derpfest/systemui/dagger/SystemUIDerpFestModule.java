@@ -25,6 +25,7 @@ import androidx.annotation.Nullable;
 import org.derpfest.systemui.theme.ThemeOverlayControllerDerpFest;
 import org.derpfest.systemui.DerpFestServices;
 import com.syberia.android.systemui.assist.AssistManagerGoogle;
+import org.derpfest.systemui.power.EnhancedEstimatesDerpFestImpl;
 import org.derpfest.systemui.smartspace.KeyguardSmartspaceController;
 
 import com.android.internal.logging.UiEventLogger;
@@ -55,7 +56,6 @@ import com.android.systemui.plugins.BcSmartspaceDataPlugin;
 import com.android.systemui.plugins.qs.QSFactory;
 import com.android.systemui.plugins.statusbar.StatusBarStateController;
 import com.android.systemui.power.EnhancedEstimates;
-import com.android.systemui.power.EnhancedEstimatesImpl;
 import com.android.systemui.power.dagger.PowerModule;
 import com.android.systemui.qs.dagger.QSModule;
 import com.android.systemui.qs.tileimpl.QSFactoryImpl;
@@ -175,7 +175,7 @@ public abstract class SystemUIDerpFestModule {
     }
 
     @Binds
-    abstract EnhancedEstimates bindEnhancedEstimates(EnhancedEstimatesImpl enhancedEstimates);
+    abstract EnhancedEstimates bindEnhancedEstimates(EnhancedEstimatesDerpFestImpl enhancedEstimates);
 
     @Binds
     abstract NotificationLockscreenUserManager bindNotificationLockscreenUserManager(
