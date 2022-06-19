@@ -312,9 +312,6 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
                     Settings.System.getUriFor(Settings.System.SHOW_FOURG_ICON), false,
                     this, UserHandle.USER_ALL);
             resolver.registerContentObserver(
-                    Settings.System.getUriFor(Settings.System.SHOW_VOLTE_ICON), false,
-                    this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(
                     Settings.System.getUriFor(Settings.System.DATA_DISABLED_ICON), false,
                     this, UserHandle.USER_ALL);
             resolver.registerContentObserver(
@@ -322,9 +319,6 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
                     this, UserHandle.USER_ALL);
             resolver.registerContentObserver(
                     Settings.System.getUriFor(Settings.System.VOLTE_ICON_STYLE), false,
-                    this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(
-                    Settings.System.getUriFor(Settings.System.VOWIFI_ICON), false,
                     this, UserHandle.USER_ALL);
             resolver.registerContentObserver(
                     Settings.System.getUriFor(Settings.System.VOWIFI_ICON_STYLE),false,
