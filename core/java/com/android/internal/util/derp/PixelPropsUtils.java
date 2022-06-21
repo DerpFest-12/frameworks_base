@@ -122,11 +122,9 @@ public class PixelPropsUtils {
                 Log.d(TAG, "Defining " + key + " prop for: " + packageName);
             setPropValue(key, value);
         }
-        if (isPixelDevice) {
-            // Set MODEL to "Pixel 5a"
-            if (sIsGms) {
-                setPropValue("MODEL", "Pixel 5a");
-            }
+        // Set MODEL to "Pixel 5a"
+        if (sIsGms) {
+            setPropValue("MODEL", "Pixel 5a");
         }
         // Set proper indexing fingerprint
         if (packageName.equals("com.google.android.settings.intelligence")) {
