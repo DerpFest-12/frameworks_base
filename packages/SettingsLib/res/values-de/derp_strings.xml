@@ -26,7 +26,7 @@
     <string name="bluetooth_a2dp_codec_system">Systemauswahl verwenden (Standard)</string>
 
     <!-- Message for telling the user the kind of BT device being displayed. [CHAR LIMIT=30] -->
-    <string name="bluetooth_talkback_group">Gruppengeräte</string>
+    <string name="bluetooth_talkback_group">Gerätegruppe</string>
 
     <!-- Bluetooth settings.  The user-visible string that is used whenever
      referring to BC profile. -->
@@ -37,7 +37,7 @@
     <!-- Bluetooth settings.  Connection options screen.
     The summary for the BC checkbox preference that describes how checking it
     will set the BC profile as preferred. -->
-    <string name="bluetooth_bc_profile_summary_use_for">Verwendung für BA</string>
+    <string name="bluetooth_bc_profile_summary_use_for">BA als Standard festlegen</string>
 
     <!-- Label for estimated remaining duration of dash battery charging -->
     <string name="power_remaining_dash_charging_duration_only">Dash-Ladevorgang (<xliff:g id="time">%1$s</xliff:g> bis zur vollständigen Aufladung)</string>
