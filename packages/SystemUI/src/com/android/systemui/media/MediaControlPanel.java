@@ -33,6 +33,8 @@ import android.graphics.Outline;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
+import android.graphics.RenderEffect;
+import android.graphics.Shader;
 import android.media.session.MediaController;
 import android.media.session.MediaSession;
 import android.media.session.PlaybackState;
@@ -54,6 +56,7 @@ import androidx.annotation.UiThread;
 import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.android.internal.jank.InteractionJankMonitor;
+import com.android.internal.graphics.ColorUtils;
 import com.android.settingslib.Utils;
 import com.android.settingslib.widget.AdaptiveIcon;
 import com.android.systemui.R;
@@ -140,6 +143,7 @@ public class MediaControlPanel {
     private boolean mForceExpanded;
     private boolean mBackgroundBlur;
     private float mBlurRadius;
+    private int mFadeLevel;
     private int mBackgroundAlpha;
 
     /**
@@ -236,10 +240,11 @@ public class MediaControlPanel {
     }
 
     public void updateBgArtworkParams(boolean backgroundArtwork, boolean backgroundBlur,
-            float blurRadius, int backgroundAlpha, boolean forceExpand) {
+            float blurRadius, int fadeLevel, int backgroundAlpha, boolean forceExpand) {
         mBackgroundArtwork = backgroundArtwork;
         mBackgroundBlur = backgroundBlur;
         mBlurRadius = blurRadius;
+        mFadeLevel = fadeLevel;
         mBackgroundAlpha = backgroundAlpha;
         mForceExpanded = forceExpand;
     }
@@ -370,13 +375,14 @@ public class MediaControlPanel {
         if (hasArtwork) {
             if (mBackgroundArtwork) {
                 BitmapDrawable drawable = (BitmapDrawable) data.getArtwork().loadDrawable(mContext);
-                if (mBackgroundBlur) {
-                    drawable = new BitmapDrawable(mContext.getResources(),
-                        mMediaArtworkProcessor.processArtwork(mContext,
-                            drawable.getBitmap(), mBlurRadius, false));
-                }
                 final ImageView backgroundImage = mPlayerViewHolder.getPlayer()
                     .findViewById(R.id.bg_album_art);
+                if (mBackgroundBlur) {
+                    backgroundImage.setRenderEffect(RenderEffect.createBlurEffect(mBlurRadius, mBlurRadius, Shader.TileMode.MIRROR));
+                }
+                int fadeFilter = ColorUtils.setAlphaComponent(mBackgroundColor, mFadeLevel * 255 / 100);
+                fadeFilter = ColorUtils.blendARGB(fadeFilter, android.graphics.Color.BLACK, Math.min(mFadeLevel / 100f, 0.5f));
+                backgroundImage.setColorFilter(fadeFilter, android.graphics.PorterDuff.Mode.SRC_ATOP);
                 backgroundImage.setImageDrawable(drawable);
                 backgroundImage.setImageAlpha(mBackgroundAlpha);
                 backgroundImage.setClipToOutline(true);
@@ -410,14 +416,14 @@ public class MediaControlPanel {
         setVisibleAndAlpha(collapsedSet, R.id.album_art, !useBgAlbumArt);
         setVisibleAndAlpha(expandedSet, R.id.album_art, !useBgAlbumArt);
 
-        // App icon
+        // Always show the app icon when using album background
         ImageView appIconView = mPlayerViewHolder.getAppIcon();
-        if (!mBackgroundArtwork) {
             setVisibleAndAlpha(collapsedSet, R.id.icon, true);
+            setVisibleAndAlpha(expandedSet, R.id.icon, useBgAlbumArt);
             appIconView.clearColorFilter();
             if (data.getAppIcon() != null && !data.getResumption()) {
                 appIconView.setImageIcon(data.getAppIcon());
-                int color = mContext.getColor(android.R.color.system_accent2_900);
+                int color = mContext.getColor(android.R.color.system_neutral1_0);
                 appIconView.setColorFilter(color);
             } else {
                 appIconView.setColorFilter(getGrayscaleFilter());
@@ -427,10 +433,9 @@ public class MediaControlPanel {
                     appIconView.setImageDrawable(icon);
                 } catch (PackageManager.NameNotFoundException e) {
                     Log.w(TAG, "Cannot find icon for package " + data.getPackageName(), e);
-                    appIconView.setImageResource(R.drawable.ic_music_note);
+                    appIconView.setImageResource(R.drawable.ic_media_player);
                 }
             }
-        }
 
         // Song name
         TextView titleText = mPlayerViewHolder.getTitleText();

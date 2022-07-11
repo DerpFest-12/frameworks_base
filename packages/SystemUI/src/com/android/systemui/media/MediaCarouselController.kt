@@ -13,6 +13,7 @@ import android.provider.Settings
 import android.provider.Settings.System.ARTWORK_MEDIA_BACKGROUND
 import android.provider.Settings.System.ARTWORK_MEDIA_BACKGROUND_ALPHA
 import android.provider.Settings.System.ARTWORK_MEDIA_BACKGROUND_BLUR_RADIUS
+import android.provider.Settings.System.ARTWORK_MEDIA_BACKGROUND_FADE_PERCENT
 import android.provider.Settings.System.ARTWORK_MEDIA_BACKGROUND_ENABLE_BLUR
 import android.provider.Settings.System.ARTWORK_MEDIA_FORCE_EXPAND
 import android.util.Log
@@ -187,6 +188,7 @@ class MediaCarouselController @Inject constructor(
     private var backgroundArtwork = false
     private var backgroundBlur = false
     private var blurRadius = 1f
+    private var fadeLevel = 30
     private var backgroundAlpha = 255
 
     init {
@@ -450,7 +452,7 @@ class MediaCarouselController @Inject constructor(
                     ViewGroup.LayoutParams.WRAP_CONTENT)
             newPlayer.playerViewHolder?.player?.setLayoutParams(lp)
             newPlayer.updateBgArtworkParams(backgroundArtwork, backgroundBlur,
-                blurRadius, backgroundAlpha, forceExpand)
+                blurRadius, fadeLevel, backgroundAlpha, forceExpand)
             newPlayer.bindPlayer(dataCopy, key)
             newPlayer.setListening(currentlyExpanded)
             MediaPlayerData.addMediaPlayer(key, dataCopy, newPlayer, systemClock, isSsReactivated)
@@ -458,7 +460,7 @@ class MediaCarouselController @Inject constructor(
             reorderAllPlayers(curVisibleMediaKey)
         } else {
             existingPlayer.updateBgArtworkParams(backgroundArtwork, backgroundBlur,
-                blurRadius, backgroundAlpha, forceExpand)
+                blurRadius, fadeLevel, backgroundAlpha, forceExpand)
             existingPlayer.bindPlayer(dataCopy, key)
             MediaPlayerData.addMediaPlayer(key, dataCopy, existingPlayer, systemClock,
                     isSsReactivated)
@@ -564,11 +566,11 @@ class MediaCarouselController @Inject constructor(
     }
 
     private fun getBackgroundColor(): Int {
-        return context.getColor(android.R.color.system_accent2_50)
+        return context.getColor(android.R.color.system_accent1_400)
     }
 
     private fun getForegroundColor(): Int {
-        return context.getColor(android.R.color.system_accent2_900)
+        return context.getColor(android.R.color.system_neutral1_0)
     }
 
     private fun updatePageIndicator() {
@@ -912,6 +914,8 @@ class MediaCarouselController @Inject constructor(
                 0, UserHandle.USER_CURRENT) == 1
             blurRadius = systemSettings.getFloatForUser(ARTWORK_MEDIA_BACKGROUND_BLUR_RADIUS,
                 1f, UserHandle.USER_CURRENT)
+            fadeLevel = systemSettings.getIntForUser(ARTWORK_MEDIA_BACKGROUND_FADE_PERCENT,
+                30, UserHandle.USER_CURRENT)
             backgroundAlpha = systemSettings.getIntForUser(ARTWORK_MEDIA_BACKGROUND_ALPHA,
                 255, UserHandle.USER_CURRENT)
 
@@ -923,6 +927,8 @@ class MediaCarouselController @Inject constructor(
                 ARTWORK_MEDIA_BACKGROUND_ENABLE_BLUR, this, UserHandle.USER_ALL)
             systemSettings.registerContentObserverForUser(
                 ARTWORK_MEDIA_BACKGROUND_BLUR_RADIUS, this, UserHandle.USER_ALL)
+            systemSettings.registerContentObserverForUser(
+                ARTWORK_MEDIA_BACKGROUND_FADE_PERCENT, this, UserHandle.USER_ALL)
             systemSettings.registerContentObserverForUser(
                 ARTWORK_MEDIA_BACKGROUND_ALPHA, this, UserHandle.USER_ALL)
         }
@@ -945,6 +951,9 @@ class MediaCarouselController @Inject constructor(
                 ARTWORK_MEDIA_BACKGROUND_BLUR_RADIUS ->
                     blurRadius = systemSettings.getFloatForUser(ARTWORK_MEDIA_BACKGROUND_BLUR_RADIUS,
                         1f, UserHandle.USER_CURRENT)
+                ARTWORK_MEDIA_BACKGROUND_FADE_PERCENT ->
+                    fadeLevel = systemSettings.getIntForUser(ARTWORK_MEDIA_BACKGROUND_FADE_PERCENT,
+                        30, UserHandle.USER_CURRENT)
                 ARTWORK_MEDIA_BACKGROUND_ALPHA ->
                     backgroundAlpha = systemSettings.getIntForUser(ARTWORK_MEDIA_BACKGROUND_ALPHA,
                         255, UserHandle.USER_CURRENT)
