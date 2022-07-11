@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+**
+** Copyright 2022, DerpFest
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- LiveDisplay strings -->
+    <string name="live_display_title" translatable="false">LiveDisplay</string>
+    <string name="live_display_auto">Automatico</string>
+    <string name="live_display_auto_summary">Regola automaticamente la temperatura del colore dello schermo dopo il tramonto e l\'alba</string>
+    <string name="live_display_off">Off</string>
+    <string name="live_display_off_summary">Disattiva tutte le regolazioni</string>
+    <string name="live_display_day">Giorno</string>
+    <string name="live_display_day_summary">Usa solo le impostazioni del giorno</string>
+    <string name="live_display_night">Notte</string>
+    <string name="live_display_night_summary">Usa solo le impostazioni notturne</string>
+    <string name="live_display_outdoor">All\'aperto (sole splendente)</string>
+    <string name="live_display_outdoor_summary">Utilizzare solo impostazioni all\'aperto</string>
+    <string name="live_display_hint">LiveDisplay può aiutare a ridurre l\'affaticamento degli occhi e aiutarti a dormire la notte. Clicca qui per provarlo!</string>
+    <string name="accessibility_quick_settings_live_display_off">LiveDisplay off.</string>
+    <string name="accessibility_quick_settings_live_display_auto">LiveDisplay: modalità automatica.</string>
+    <string name="accessibility_quick_settings_live_display_day">LiveDisplay: modalità giorno.</string>
+    <string name="accessibility_quick_settings_live_display_night">LiveDisplay: modalità notte.</string>
+    <string name="accessibility_quick_settings_live_display_outdoor">LiveDisplay: modalità all\'aperto.</string>
+    <string name="accessibility_quick_settings_live_display_changed_off">LiveDisplay disattivato.</string>
+    <string name="accessibility_quick_settings_live_display_changed_auto">LiveDisplay cambiato in modalità automatica.</string>
+    <string name="accessibility_quick_settings_live_display_changed_day">LiveDisplay cambiato in modalità giorno.</string>
+    <string name="accessibility_quick_settings_live_display_changed_night">LiveDisplay cambiato in modalità notte.</string>
+    <string name="accessibility_quick_settings_live_display_changed_outdoor">LiveDisplay cambiato in modalità all\'aperto.</string>
+
+    <!-- Cycle through ringer modes -->
+    <string name="volume_dialog_ringer_guidance_normal">Le chiamate e le notifiche squilleranno</string>
+
+    <!-- Global actions -->
+    <string name="reboot_to_bootloader_title">Riavvia al bootloader</string>
+    <string name="reboot_to_bootloader_message">Riavvio al bootloader\u2026</string>
+    <string name="reboot_to_recovery_title">Riavvia alla recovery</string>
+    <string name="reboot_to_recovery_message">Riavvio alla recovery\u2026</string>
+    <string name="reboot_system_title">Riavvia il sistema</string>
+    <string name="reboot_system_message">Riavvio del sistema\u2026</string>
+
+    <!-- Button that copies the url to the log of a crashed application -->
+    <string name="aerr_copy">Copia l\'URL del registro di arresto anomalo</string>
+    <string name="url_copy_success">URL copiato con successo</string>
+    <string name="url_copy_failed">Si è verificato un errore durante il caricamento del registro su Memochō</string>
+
+    <!-- Alert slider proc nodes paths. -->
+    <string name="alert_slider_state_path"></string>
+    <string name="alert_slider_uevent_match_path"></string>
+
+    <!-- SystemUI Restart -->
+    <string name="systemui_restart_title">È richiesto il riavvio dell\'interfaccia utente</string>
+    <string name="systemui_restart_message">Affinché tutte le modifiche abbiano effetto, è necessario un riavvio dell\'interfaccia utente. Riavviare SystemUI ora?</string>
+
+    <!-- App lock -->
+    <string name="unlock_application">Sblocca <xliff:g id="label" example="Telegram">%1$s</xliff:g></string>
+
+    <!-- Aerr strings -->
+    <string name="aerr_disable">Disattiva app</string>
+
+    <!-- Vendor mismatch fingerprint warning [CHAR LIMIT=NONE] -->
+    <string name="system_error_vendorprint">L\'immagine del tuo fornitore non corrisponde al sistema. Per favore eseguil il flash del <xliff:g id="string">%s</xliff:g> logo del fornitore per il tuo dispositivo</string>
+</resources>
