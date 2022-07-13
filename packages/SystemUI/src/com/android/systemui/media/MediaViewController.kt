@@ -62,7 +62,7 @@ class MediaViewController @Inject constructor(
     private val measurement = MeasurementOutput(0, 0)
     private var type: TYPE = TYPE.PLAYER
     private var forceExpand: Boolean = Settings.System.getInt(context.getContentResolver(),
-                Settings.System.ARTWORK_MEDIA_FORCE_EXPAND, 0) != 0
+                Settings.System.MEDIA_ARTWORK_FORCE_EXPAND, 0) != 0
 
     /**
      * A map containing all viewStates for all locations of this mediaState
