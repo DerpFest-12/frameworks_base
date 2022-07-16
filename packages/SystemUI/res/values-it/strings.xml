@@ -310,7 +310,7 @@
     <string name="zen_silence_introduction" msgid="6117517737057344014">"Verranno bloccati TUTTI i suoni e le vibrazioni, anche di sveglie, musica, video e giochi."</string>
     <string name="notification_tap_again" msgid="4477318164947497249">"Tocca ancora per aprire"</string>
     <string name="tap_again" msgid="1315420114387908655">"Tocca di nuovo"</string>
-    <string name="keyguard_unlock" msgid="8031975796351361601">"Scorri verso l\'alto per aprire"</string>
+    <string name="keyguard_unlock" msgid="8031975796351361601">"Scorri verso l\'alto per sbloccare"</string>
     <string name="keyguard_unlock_press" msgid="8488350566398524740">"Premi per aprire"</string>
     <string name="keyguard_retry" msgid="886802522584053523">"Scorri verso l\'alto per riprovare"</string>
     <string name="require_unlock_for_nfc" msgid="1305686454823018831">"Sblocca per usare NFC"</string>
@@ -862,7 +862,7 @@
     <string name="accessibility_fingerprint_label" msgid="5255731221854153660">"Sensore di impronte digitali"</string>
     <string name="accessibility_authenticate_hint" msgid="798914151813205721">"effettuare l\'autenticazione"</string>
     <string name="accessibility_enter_hint" msgid="2617864063504824834">"accedere al dispositivo"</string>
-    <string name="keyguard_try_fingerprint" msgid="2825130772993061165">"Usa l\'impronta per aprire"</string>
+    <string name="keyguard_try_fingerprint" msgid="2825130772993061165">"Usa l\'impronta per sbloccare"</string>
     <string name="accessibility_fingerprint_bouncer" msgid="7189102492498735519">"Autenticazione obbligatoria. Eseguila toccando il sensore di impronte digitali."</string>
     <string name="ongoing_phone_call_content_description" msgid="5332334388483099947">"Telefonata in corso"</string>
     <string name="mobile_data_settings_title" msgid="3955246641380064901">"Dati mobili"</string>
