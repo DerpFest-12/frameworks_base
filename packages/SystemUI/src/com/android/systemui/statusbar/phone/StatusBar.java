@@ -1230,7 +1230,7 @@ public class StatusBar extends SystemUI implements
         mDismissAllButton = mNotificationShadeWindowView.findViewById(R.id.clear_notifications);
         updateDismissAllButton();
 
-        mMinBrightness = context.getResources().getInteger(
+        mMinBrightness = mContext.getResources().getInteger(
                 com.android.internal.R.integer.config_screenBrightnessDim);
 
         // TODO: Deal with the ugliness that comes from having some of the statusbar broken out
