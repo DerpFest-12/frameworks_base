@@ -381,21 +381,7 @@ public class ThemeOverlayController extends SystemUI implements Dumpable {
                     @Override
                     public void onChange(boolean selfChange, Collection<Uri> collection, int flags,
                             int userId) {
-                        if (DEBUG) Log.d(TAG, "Overlay changed for user: " + userId);
-                        if (mUserTracker.getUserId() != userId) {
-                            return;
-                        }
-                        if (!mDeviceProvisionedController.isUserSetup(userId)) {
-                            Log.i(TAG, "Theme application deferred when setting changed.");
-                            mDeferredThemeEvaluation = true;
-                            return;
-                        }
-                        if (mSkipSettingChange) {
-                            if (DEBUG) Log.d(TAG, "Skipping setting change");
-                            mSkipSettingChange = false;
-                            return;
-                        }
-                        reevaluateSystemTheme(true /* forceReload */);
+                        handleOnChange(userId);
                     }
                 },
                 UserHandle.USER_ALL);
@@ -406,21 +392,18 @@ public class ThemeOverlayController extends SystemUI implements Dumpable {
                     @Override
                     public void onChange(boolean selfChange, Collection<Uri> collection, int flags,
                             int userId) {
-                        if (DEBUG) Log.d(TAG, "Overlay changed for user: " + userId);
-                        if (mUserTracker.getUserId() != userId) {
-                            return;
-                        }
-                        if (!mDeviceProvisionedController.isUserSetup(userId)) {
-                            Log.i(TAG, "Theme application deferred when setting changed.");
-                            mDeferredThemeEvaluation = true;
-                            return;
-                        }
-                        if (mSkipSettingChange) {
-                            if (DEBUG) Log.d(TAG, "Skipping setting change");
-                            mSkipSettingChange = false;
-                            return;
-                        }
-                        reevaluateSystemTheme(true /* forceReload */);
+                        handleOnChange(userId);
+                    }
+                },
+                UserHandle.USER_ALL);
+        mSecureSettings.registerContentObserverForUser(
+                Settings.Secure.getUriFor(Settings.Secure.SYSTEM_TINT_THEME),
+                false,
+                new ContentObserver(mBgHandler) {
+                    @Override
+                    public void onChange(boolean selfChange, Collection<Uri> collection, int flags,
+                            int userId) {
+                        handleOnChange(userId);
                     }
                 },
                 UserHandle.USER_ALL);
@@ -474,6 +457,24 @@ public class ThemeOverlayController extends SystemUI implements Dumpable {
             }
         });
         mConfigurationController.addCallback(mConfigurationListener);
+    }
+    
+    private void handleOnChange(int userId) {
+        if (DEBUG) Log.d(TAG, "Overlay changed for user: " + userId);
+        if (mUserTracker.getUserId() != userId) {
+            return;
+        }
+        if (!mDeviceProvisionedController.isUserSetup(userId)) {
+        Log.i(TAG, "Theme application deferred when setting changed.");
+            mDeferredThemeEvaluation = true;
+            return;
+        }
+        if (mSkipSettingChange) {
+            if (DEBUG) Log.d(TAG, "Skipping setting change");
+            mSkipSettingChange = false;
+            return;
+        }
+        reevaluateSystemTheme(true /* forceReload */);
     }
 
     protected void reevaluateSystemTheme(boolean forceReload) {
@@ -658,8 +659,10 @@ public class ThemeOverlayController extends SystemUI implements Dumpable {
                 & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
         boolean isBlackTheme = mSecureSettings.getInt(Settings.Secure.SYSTEM_BLACK_THEME, 0) == 1
                                 && nightMode;
-
+        boolean isTintTheme = mSecureSettings.getInt(Settings.Secure.SYSTEM_TINT_THEME, 0) == 1
+                                && nightMode;       
         mThemeManager.setIsBlackTheme(isBlackTheme);
+        mThemeManager.setIsTintTheme(isTintTheme);
 
         if (mNeedsOverlayCreation) {
             mNeedsOverlayCreation = false;
@@ -670,8 +673,19 @@ public class ThemeOverlayController extends SystemUI implements Dumpable {
             mThemeManager.applyCurrentUserOverlays(categoryToPackage, null, currentUser,
                     managedProfiles);
         }
-
-        mThemeManager.applyBlackTheme(isBlackTheme);
+        
+        if (isBlackTheme) {
+            if (isTintTheme) { // Tint is used as an extension of black theme
+                mThemeManager.applyBlackTheme(false);
+                mThemeManager.applyTintTheme(true);
+            } else {
+                mThemeManager.applyTintTheme(false);
+                mThemeManager.applyBlackTheme(true);
+            }
+        } else {
+            mThemeManager.applyBlackTheme(false);
+            mThemeManager.applyTintTheme(false);
+        }
     }
 
     private final ConfigurationListener mConfigurationListener = new ConfigurationListener() {

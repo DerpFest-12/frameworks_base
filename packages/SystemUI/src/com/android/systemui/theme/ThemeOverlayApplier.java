@@ -150,6 +150,7 @@ public class ThemeOverlayApplier implements Dumpable {
     private final String mThemePickerPackage;
 
     private boolean mIsBlackTheme;
+    private boolean mIsTintTheme;
 
     public ThemeOverlayApplier(OverlayManager overlayManager,
             Executor bgExecutor,
@@ -265,6 +266,21 @@ public class ThemeOverlayApplier implements Dumpable {
                 Log.e(TAG, "setEnabled failed", e);
             }
         });
+    }
+
+    public void applyTintTheme(boolean enable) {
+        mBgExecutor.execute(() -> {
+            try {
+                mOverlayManager.setEnabled("com.android.system.theme.tint",
+                        enable, UserHandle.SYSTEM);
+            } catch (SecurityException | IllegalStateException e) {
+                Log.e(TAG, "setEnabled failed", e);
+            }
+        });
+    }
+
+    public void setIsTintTheme(boolean tint) {
+        mIsTintTheme = tint;
     }
 
     @VisibleForTesting

@@ -11849,6 +11849,12 @@ public final class Settings {
         public static final String SYSTEM_BLACK_THEME = "system_black_theme";
 
         /**
+         * Whether to apply tint colors
+         * @hide
+         */
+        public static final String SYSTEM_TINT_THEME = "system_tint_theme";
+
+        /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
          *
