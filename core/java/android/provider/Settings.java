@@ -6410,20 +6410,6 @@ public final class Settings {
         public static final String QS_EDIT_TOGGLE = "qs_edit_toggle";
 
         /**
-         * reTicker Status
-         * @hide
-         */
-        @Readable
-        public static final String RETICKER_STATUS = "reticker_status";
-
-        /**
-         * reTicker Colored
-         * @hide
-         */
-        @Readable
-        public static final String RETICKER_COLORED = "reticker_colored";
-
-        /**
         * Show ambient icons on lockscreen
         * @hide
         */
