@@ -26,5 +26,11 @@
         <permission name="android.permission.STOP_APP_SWITCHES"/>
         <permission name="android.permission.FORCE_STOP_PACKAGES"/>
         <permission name="android.permission.ACCESS_SURFACE_FLINGER"/>
+        <permission name="android.permission.DEVICE_POWER" />
+        <permission name="android.permission.CAMERA"/>
+        <permission name="android.permission.EXPAND_STATUS_BAR"/>
+        <permission name="android.permission.INTERACT_ACROSS_USERS"/>
+        <permission name="android.permission.MANAGE_USERS"/>
+        <permission name="android.permission.STATUS_BAR_SERVICE"/>
     </privapp-permissions>
 </permissions>
