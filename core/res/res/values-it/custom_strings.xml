@@ -1,0 +1,4 @@
+<resources>
+    <!-- Face unlock -->
+    <string name="face_unlock_disabled_idle">Face unlock disabilitato a causa dell\'inattività</string>
+</resources>
