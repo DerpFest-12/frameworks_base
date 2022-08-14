@@ -554,6 +554,7 @@ public class KeyguardBottomAreaView extends FrameLayout implements View.OnClickL
         if (mDozing
                 || mQuickAccessWalletController == null
                 || !mQuickAccessWalletController.isWalletEnabled()
+                || getRightIntent() != null
                 || !mHasCard) {
             mWalletButton.setVisibility(GONE);
 
