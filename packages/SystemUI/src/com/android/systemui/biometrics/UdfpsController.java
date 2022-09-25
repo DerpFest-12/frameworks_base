@@ -1093,11 +1093,11 @@ public class UdfpsController implements DozeReceiver {
         mIsAodInterruptActive = false;
     }
 
-    public boolean isFingerDown() {
+    public synchronized boolean isFingerDown() {
         return mOnFingerDown;
     }
 
-    private void onFingerDown(int x, int y, float minor, float major) {
+    private synchronized void onFingerDown(int x, int y, float minor, float major) {
         mExecution.assertIsMainThread();
         if (mView == null) {
             Log.w(TAG, "Null view in onFingerDown");
@@ -1116,7 +1116,6 @@ public class UdfpsController implements DozeReceiver {
                 mKeyguardUpdateMonitor.requestFaceAuth(/* userInitiatedRequest */ false);
             }
         }
-        mOnFingerDown = true;
         mFingerprintManager.onPointerDown(mSensorProps.sensorId, x, y, minor, major);
         Trace.endAsyncSection("UdfpsController.e2e.onPointerDown", 0);
         Trace.beginAsyncSection("UdfpsController.e2e.startIllumination", 0);
@@ -1128,12 +1127,13 @@ public class UdfpsController implements DozeReceiver {
         for (Callback cb : mCallbacks) {
             cb.onFingerDown();
         }
-        if (mUdfpsAnimation != null) {
+        if (!mOnFingerDown && mUdfpsAnimation != null) {
             mUdfpsAnimation.show();
         }
+        mOnFingerDown = true;
     }
 
-    private void onFingerUp() {
+    private synchronized void onFingerUp() {
         mExecution.assertIsMainThread();
         mActivePointerId = -1;
         mGoodCaptureReceived = false;
