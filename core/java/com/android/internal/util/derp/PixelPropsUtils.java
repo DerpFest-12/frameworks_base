@@ -41,7 +41,7 @@ public class PixelPropsUtils {
             "com.google.android", "com.samsung.accessory", "com.samsung.android", "com.android.vending"};
 
     private static final String[] extraPackagesToChange = {
-            "com.android.chrome", "com.breel.wallpapers20", "com.netflix.mediaclient"};
+            "com.android.chrome", "com.android.vending", "com.breel.wallpapers20", "com.netflix.mediaclient"};
 
     private static final String[] packagesToKeep = {"com.google.android.GoogleCamera",
             "com.google.android.MTCL83", "com.google.android.UltraCVM", "com.google.android.apps.cameralite",
@@ -54,6 +54,7 @@ public class PixelPropsUtils {
             "bramble", "sunfish", "coral", "flame"};
 
     private static volatile boolean sIsGms = false;
+    private static volatile boolean sIsFinsky = false;
 
     static {
         propsToChange = new HashMap<>();
@@ -105,6 +106,9 @@ public class PixelPropsUtils {
         if (packageName.equals("com.google.android.apps.photos") 
             && SystemProperties.getBoolean("persist.sys.pixelprops.gphotos", true)){
             propsToChange.putAll(propsToChangePixelXL);
+        } else if (packageName.equals("com.android.vending")) {
+            sIsFinsky = true;
+            return;
         } else if (contains(packageName, packagesToChangePixel6)) {
             propsToChange.putAll(propsToChangePixel6);
         } else if (contains(packageName, extraPackagesToChange)) {
@@ -153,6 +157,11 @@ public class PixelPropsUtils {
     public static void onEngineGetCertificateChain() {
         // Check stack for SafetyNet
         if (sIsGms && isCallerSafetyNet()) {
+            throw new UnsupportedOperationException();
+        }
+
+        // Check stack for PlayIntegrity
+        if (sIsFinsky) {
             throw new UnsupportedOperationException();
         }
     }
