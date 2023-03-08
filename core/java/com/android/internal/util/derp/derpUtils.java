@@ -468,7 +468,7 @@ public class derpUtils {
         private static final String LAWNCHAIR_PKG_NAME = "app.lawnchair.twelvel";
 
         private static final String DERP_LAUNCHER_PKG_NAME = "com.android.launcher3";
-        private static final String DERP_CLASS_NAME = "com.android.launcher3.DerpLauncher";
+        private static final String DERP_CLASS_NAME = "org.derpfest.launcher.DerpLauncher";
 
         private static final String PIXEL_LAUNCHER_PKG_NAME = "com.google.android.apps.nexuslauncher";
 
